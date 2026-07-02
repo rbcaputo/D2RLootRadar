@@ -1,6 +1,6 @@
 # D2RLootRadar
 
-[![CI]((https://github.com/rbcaputo/D2RLootRadar/actions/workflows/ci.yml/badge.svg)]
+[![CI](https://github.com/rbcaputo/D2RLootRadar/actions/workflows/ci.yml/badge.svg)]
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 
 A lightweight Windows overlay tool for **Diablo II: Resurrected** that watches the ground for item base types you care about, and alerts you the moment one drops — no more scanning a pile of white items hoping you didn't miss something underneath.
