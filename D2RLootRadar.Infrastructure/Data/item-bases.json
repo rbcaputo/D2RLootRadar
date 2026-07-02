@@ -1,0 +1,3846 @@
+[
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Amazon Javelin",
+    "Quality": "Normal",
+    "Base": "Maiden Javelin"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Amazon Javelin",
+    "Quality": "Exceptional",
+    "Base": "Ceremonial Javelin"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Amazon Javelin",
+    "Quality": "Elite",
+    "Base": "Matriarchal Javelin"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Axe",
+    "Quality": "Normal",
+    "Base": "Hand Axe"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Axe",
+    "Quality": "Exceptional",
+    "Base": "Hatchet"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Axe",
+    "Quality": "Elite",
+    "Base": "Tomahawk"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Axe",
+    "Quality": "Normal",
+    "Base": "Axe"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Axe",
+    "Quality": "Exceptional",
+    "Base": "Cleaver"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Axe",
+    "Quality": "Elite",
+    "Base": "Small Crescent"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Axe",
+    "Quality": "Normal",
+    "Base": "Double Axe"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Axe",
+    "Quality": "Exceptional",
+    "Base": "Twin Axe"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Axe",
+    "Quality": "Elite",
+    "Base": "Ettin Axe"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Axe",
+    "Quality": "Normal",
+    "Base": "Military Pick"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Axe",
+    "Quality": "Exceptional",
+    "Base": "Crowbill"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Axe",
+    "Quality": "Elite",
+    "Base": "War Spike"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Axe",
+    "Quality": "Normal",
+    "Base": "War Axe"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Axe",
+    "Quality": "Exceptional",
+    "Base": "Naga"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Axe",
+    "Quality": "Elite",
+    "Base": "Berserker Axe"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Claw",
+    "Quality": "Normal",
+    "Base": "Katar"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Claw",
+    "Quality": "Exceptional",
+    "Base": "Quhab"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Claw",
+    "Quality": "Elite",
+    "Base": "Suwayyah"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Claw",
+    "Quality": "Normal",
+    "Base": "Wrist Blade"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Claw",
+    "Quality": "Exceptional",
+    "Base": "Wrist Spike"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Claw",
+    "Quality": "Elite",
+    "Base": "Wrist Sword"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Claw",
+    "Quality": "Normal",
+    "Base": "Hatchet Hands"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Claw",
+    "Quality": "Exceptional",
+    "Base": "Fascia"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Claw",
+    "Quality": "Elite",
+    "Base": "War Fist"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Claw",
+    "Quality": "Normal",
+    "Base": "Cestus"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Claw",
+    "Quality": "Exceptional",
+    "Base": "Hand Scythe"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Claw",
+    "Quality": "Elite",
+    "Base": "Battle Cestus"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Claw",
+    "Quality": "Normal",
+    "Base": "Claws"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Claw",
+    "Quality": "Exceptional",
+    "Base": "Greater Claws"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Claw",
+    "Quality": "Elite",
+    "Base": "Feral Claws"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Claw",
+    "Quality": "Normal",
+    "Base": "Blade Talons"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Claw",
+    "Quality": "Exceptional",
+    "Base": "Greater Talons"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Claw",
+    "Quality": "Elite",
+    "Base": "Runic Talons"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Claw",
+    "Quality": "Normal",
+    "Base": "Scissors Katar"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Claw",
+    "Quality": "Exceptional",
+    "Base": "Scissors Quhab"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Claw",
+    "Quality": "Elite",
+    "Base": "Scissors Suwayyah"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Club",
+    "Quality": "Normal",
+    "Base": "Club"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Club",
+    "Quality": "Exceptional",
+    "Base": "Cudgel"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Club",
+    "Quality": "Elite",
+    "Base": "Truncheon"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Club",
+    "Quality": "Normal",
+    "Base": "Spiked Club"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Club",
+    "Quality": "Exceptional",
+    "Base": "Barbed Club"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Club",
+    "Quality": "Elite",
+    "Base": "Tyrant Club"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Dagger",
+    "Quality": "Normal",
+    "Base": "Dagger"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Dagger",
+    "Quality": "Exceptional",
+    "Base": "Poignard"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Dagger",
+    "Quality": "Elite",
+    "Base": "Bone Knife"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Dagger",
+    "Quality": "Normal",
+    "Base": "Dirk"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Dagger",
+    "Quality": "Exceptional",
+    "Base": "Rondel"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Dagger",
+    "Quality": "Elite",
+    "Base": "Mithril Point"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Dagger",
+    "Quality": "Normal",
+    "Base": "Kris"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Dagger",
+    "Quality": "Exceptional",
+    "Base": "Cinquedeas"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Dagger",
+    "Quality": "Elite",
+    "Base": "Fanged Knife"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Dagger",
+    "Quality": "Normal",
+    "Base": "Blade"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Dagger",
+    "Quality": "Exceptional",
+    "Base": "Stiletto"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Dagger",
+    "Quality": "Elite",
+    "Base": "Legend Spike"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Hammer",
+    "Quality": "Normal",
+    "Base": "War Hammer"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Hammer",
+    "Quality": "Exceptional",
+    "Base": "Battle Hammer"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Hammer",
+    "Quality": "Elite",
+    "Base": "Legendary Mallet"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Javelin",
+    "Quality": "Normal",
+    "Base": "Javelin"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Javelin",
+    "Quality": "Exceptional",
+    "Base": "War Javelin"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Javelin",
+    "Quality": "Elite",
+    "Base": "Hyperion Javelin"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Javelin",
+    "Quality": "Normal",
+    "Base": "Pilum"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Javelin",
+    "Quality": "Exceptional",
+    "Base": "Great Pilum"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Javelin",
+    "Quality": "Elite",
+    "Base": "Stygian Pilum"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Javelin",
+    "Quality": "Normal",
+    "Base": "Short Spear"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Javelin",
+    "Quality": "Exceptional",
+    "Base": "Simbilan"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Javelin",
+    "Quality": "Elite",
+    "Base": "Balrog Spear"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Javelin",
+    "Quality": "Normal",
+    "Base": "Glaive"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Javelin",
+    "Quality": "Exceptional",
+    "Base": "Spiculum"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Javelin",
+    "Quality": "Elite",
+    "Base": "Ghost Glaive"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Javelin",
+    "Quality": "Normal",
+    "Base": "Throwing Spear"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Javelin",
+    "Quality": "Exceptional",
+    "Base": "Harpoon"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Javelin",
+    "Quality": "Elite",
+    "Base": "Winged Harpoon"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Mace",
+    "Quality": "Normal",
+    "Base": "Mace"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Mace",
+    "Quality": "Exceptional",
+    "Base": "Flanged Mace"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Mace",
+    "Quality": "Elite",
+    "Base": "Reinforced Mace"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Mace",
+    "Quality": "Normal",
+    "Base": "Morning Star"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Mace",
+    "Quality": "Exceptional",
+    "Base": "Jagged Star"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Mace",
+    "Quality": "Elite",
+    "Base": "Devil Star"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Mace",
+    "Quality": "Normal",
+    "Base": "Flail"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Mace",
+    "Quality": "Exceptional",
+    "Base": "Knout"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Mace",
+    "Quality": "Elite",
+    "Base": "Scourge"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Orb",
+    "Quality": "Normal",
+    "Base": "Eagle Orb"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Orb",
+    "Quality": "Exceptional",
+    "Base": "Glowing Orb"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Orb",
+    "Quality": "Elite",
+    "Base": "Heavenly Stone"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Orb",
+    "Quality": "Normal",
+    "Base": "Sacred Globe"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Orb",
+    "Quality": "Exceptional",
+    "Base": "Crystalline Globe"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Orb",
+    "Quality": "Elite",
+    "Base": "Eldritch Orb"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Orb",
+    "Quality": "Normal",
+    "Base": "Smoked Sphere"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Orb",
+    "Quality": "Exceptional",
+    "Base": "Cloudy Sphere"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Orb",
+    "Quality": "Elite",
+    "Base": "Demon Heart"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Orb",
+    "Quality": "Normal",
+    "Base": "Clasped Orb"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Orb",
+    "Quality": "Exceptional",
+    "Base": "Sparkling Ball"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Orb",
+    "Quality": "Elite",
+    "Base": "Vortex Orb"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Orb",
+    "Quality": "Normal",
+    "Base": "Jared's Stone"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Orb",
+    "Quality": "Exceptional",
+    "Base": "Swirling Crystal"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Orb",
+    "Quality": "Elite",
+    "Base": "Dimensional Shard"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Scepter",
+    "Quality": "Normal",
+    "Base": "Scepter"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Scepter",
+    "Quality": "Exceptional",
+    "Base": "Rune Scepter"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Scepter",
+    "Quality": "Elite",
+    "Base": "Mighty Scepter"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Scepter",
+    "Quality": "Normal",
+    "Base": "Grand Scepter"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Scepter",
+    "Quality": "Exceptional",
+    "Base": "Holy Water Sprinkler"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Scepter",
+    "Quality": "Elite",
+    "Base": "Seraph Rod"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Scepter",
+    "Quality": "Normal",
+    "Base": "War Scepter"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Scepter",
+    "Quality": "Exceptional",
+    "Base": "Divine Scepter"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Scepter",
+    "Quality": "Elite",
+    "Base": "Caduceus"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Sword",
+    "Quality": "Normal",
+    "Base": "Short Sword"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Sword",
+    "Quality": "Exceptional",
+    "Base": "Gladius"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Sword",
+    "Quality": "Elite",
+    "Base": "Falcata"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Sword",
+    "Quality": "Normal",
+    "Base": "Scimitar"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Sword",
+    "Quality": "Exceptional",
+    "Base": "Cutlass"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Sword",
+    "Quality": "Elite",
+    "Base": "Ataghan"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Sword",
+    "Quality": "Normal",
+    "Base": "Sabre"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Sword",
+    "Quality": "Exceptional",
+    "Base": "Shamshir"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Sword",
+    "Quality": "Elite",
+    "Base": "Elegant Blade"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Sword",
+    "Quality": "Normal",
+    "Base": "Falchion"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Sword",
+    "Quality": "Exceptional",
+    "Base": "Tulwar"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Sword",
+    "Quality": "Elite",
+    "Base": "Hydra Edge"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Sword",
+    "Quality": "Normal",
+    "Base": "Crystal Sword"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Sword",
+    "Quality": "Exceptional",
+    "Base": "Dimensional Blade"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Sword",
+    "Quality": "Elite",
+    "Base": "Phase Blade"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Sword",
+    "Quality": "Normal",
+    "Base": "Broad Sword"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Sword",
+    "Quality": "Exceptional",
+    "Base": "Battle Sword"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Sword",
+    "Quality": "Elite",
+    "Base": "Conquest Sword"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Sword",
+    "Quality": "Normal",
+    "Base": "Long Sword"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Sword",
+    "Quality": "Exceptional",
+    "Base": "Rune Sword"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Sword",
+    "Quality": "Elite",
+    "Base": "Cryptic Sword"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Sword",
+    "Quality": "Normal",
+    "Base": "War Sword"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Sword",
+    "Quality": "Exceptional",
+    "Base": "Ancient Sword"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Sword",
+    "Quality": "Elite",
+    "Base": "Mythical Sword"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Throwing Axe",
+    "Quality": "Normal",
+    "Base": "Throwing Axe"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Throwing Axe",
+    "Quality": "Exceptional",
+    "Base": "Flying Axe"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Throwing Axe",
+    "Quality": "Normal",
+    "Base": "Balanced Axe"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Throwing Axe",
+    "Quality": "Exceptional",
+    "Base": "Hurlbat"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Throwing Axe",
+    "Quality": "Elite",
+    "Base": "Winged Axe"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Throwing Knife",
+    "Quality": "Normal",
+    "Base": "Throwing Knife"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Throwing Knife",
+    "Quality": "Exceptional",
+    "Base": "Battle Dart"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Throwing Knife",
+    "Quality": "Elite",
+    "Base": "Flying Knife"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Wand",
+    "Quality": "Normal",
+    "Base": "Wand"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Wand",
+    "Quality": "Exceptional",
+    "Base": "Burnt Dart"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Wand",
+    "Quality": "Elite",
+    "Base": "Polished Wand"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Wand",
+    "Quality": "Normal",
+    "Base": "Yew Wand"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Wand",
+    "Quality": "Exceptional",
+    "Base": "Petrified Wand"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Wand",
+    "Quality": "Elite",
+    "Base": "Ghost Wand"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Wand",
+    "Quality": "Normal",
+    "Base": "Bone Wand"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Wand",
+    "Quality": "Exceptional",
+    "Base": "Tomb Wand"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Wand",
+    "Quality": "Elite",
+    "Base": "Lich Wand"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Wand",
+    "Quality": "Normal",
+    "Base": "Grim Wand"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Wand",
+    "Quality": "Exceptional",
+    "Base": "Grave Wand"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Wand",
+    "Quality": "Elite",
+    "Base": "Unearthed Wand"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Amazon Bow",
+    "Quality": "Normal",
+    "Base": "Stag Bow"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Amazon Bow",
+    "Quality": "Exceptional",
+    "Base": "Ashwood Bow"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Amazon Bow",
+    "Quality": "Elite",
+    "Base": "Matriarchal Bow"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Amazon Bow",
+    "Quality": "Normal",
+    "Base": "Reflex Bow"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Amazon Bow",
+    "Quality": "Exceptional",
+    "Base": "Ceremonial Bow"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Amazon Bow",
+    "Quality": "Elite",
+    "Base": "Grand Matron Bow"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Amazon Spear",
+    "Quality": "Normal",
+    "Base": "Maiden Spear"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Amazon Spear",
+    "Quality": "Exceptional",
+    "Base": "Ceremonial Spear"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Amazon Spear",
+    "Quality": "Elite",
+    "Base": "Matriarchal Spear"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Amazon Spear",
+    "Quality": "Normal",
+    "Base": "Maiden Pike"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Amazon Spear",
+    "Quality": "Exceptional",
+    "Base": "Ceremonial Pike"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Amazon Spear",
+    "Quality": "Elite",
+    "Base": "Matriarchal Pike"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Axe",
+    "Quality": "Normal",
+    "Base": "Large Axe"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Axe",
+    "Quality": "Exceptional",
+    "Base": "Military Axe"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Axe",
+    "Quality": "Elite",
+    "Base": "Feral Axe"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Axe",
+    "Quality": "Normal",
+    "Base": "Broad Axe"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Axe",
+    "Quality": "Normal",
+    "Base": "Bearded Axe"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Axe",
+    "Quality": "Normal",
+    "Base": "Silver-Edged Axe"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Axe",
+    "Quality": "Normal",
+    "Base": "Battle Axe"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Axe",
+    "Quality": "Exceptional",
+    "Base": "Tabar"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Axe",
+    "Quality": "Elite",
+    "Base": "Decapitator"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Axe",
+    "Quality": "Normal",
+    "Base": "Great Axe"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Axe",
+    "Quality": "Exceptional",
+    "Base": "Gothic Axe"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Axe",
+    "Quality": "Elite",
+    "Base": "Champion Axe"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Axe",
+    "Quality": "Normal",
+    "Base": "Giant Axe"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Axe",
+    "Quality": "Exceptional",
+    "Base": "Ancient Axe"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Axe",
+    "Quality": "Elite",
+    "Base": "Glorious Axe"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Bow",
+    "Quality": "Normal",
+    "Base": "Short Bow"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Bow",
+    "Quality": "Exceptional",
+    "Base": "Edge Bow"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Bow",
+    "Quality": "Elite",
+    "Base": "Spider Bow"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Bow",
+    "Quality": "Normal",
+    "Base": "Hunter's Bow"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Bow",
+    "Quality": "Exceptional",
+    "Base": "Razor Bow"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Bow",
+    "Quality": "Elite",
+    "Base": "Blade Bow"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Bow",
+    "Quality": "Normal",
+    "Base": "Long Bow"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Bow",
+    "Quality": "Exceptional",
+    "Base": "Cedar Bow"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Bow",
+    "Quality": "Elite",
+    "Base": "Shadow Bow"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Bow",
+    "Quality": "Normal",
+    "Base": "Composite Bow"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Bow",
+    "Quality": "Exceptional",
+    "Base": "Double Bow"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Bow",
+    "Quality": "Elite",
+    "Base": "Great Bow"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Bow",
+    "Quality": "Normal",
+    "Base": "Short Battle Bow"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Bow",
+    "Quality": "Exceptional",
+    "Base": "Short Siege Bow"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Bow",
+    "Quality": "Elite",
+    "Base": "Diamond Bow"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Bow",
+    "Quality": "Normal",
+    "Base": "Long Battle Bow"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Bow",
+    "Quality": "Exceptional",
+    "Base": "Large Siege Bow"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Bow",
+    "Quality": "Elite",
+    "Base": "Crusader Bow"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Bow",
+    "Quality": "Normal",
+    "Base": "Short War Bow"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Bow",
+    "Quality": "Exceptional",
+    "Base": "Rune Bow"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Bow",
+    "Quality": "Elite",
+    "Base": "Ward Bow"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Bow",
+    "Quality": "Normal",
+    "Base": "Long War Bow"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Bow",
+    "Quality": "Exceptional",
+    "Base": "Gothic Bow"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Bow",
+    "Quality": "Elite",
+    "Base": "Hydra Bow"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Crossbow",
+    "Quality": "Normal",
+    "Base": "Light Crossbow"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Crossbow",
+    "Quality": "Exceptional",
+    "Base": "Arbalest"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Crossbow",
+    "Quality": "Elite",
+    "Base": "Pellet Bow"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Crossbow",
+    "Quality": "Normal",
+    "Base": "Crossbow"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Crossbow",
+    "Quality": "Exceptional",
+    "Base": "Siege Crossbow"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Crossbow",
+    "Quality": "Elite",
+    "Base": "Gorgon Crossbow"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Crossbow",
+    "Quality": "Normal",
+    "Base": "Heavy Crossbow"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Crossbow",
+    "Quality": "Exceptional",
+    "Base": "Ballista"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Crossbow",
+    "Quality": "Elite",
+    "Base": "Colossus Crossbow"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Crossbow",
+    "Quality": "Normal",
+    "Base": "Repeating Crossbow"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Crossbow",
+    "Quality": "Exceptional",
+    "Base": "Chu-Ko-Nu"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Crossbow",
+    "Quality": "Elite",
+    "Base": "Demon Crossbow"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Hammer",
+    "Quality": "Normal",
+    "Base": "Maul"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Hammer",
+    "Quality": "Exceptional",
+    "Base": "War Club"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Hammer",
+    "Quality": "Elite",
+    "Base": "Ogre Maul"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Hammer",
+    "Quality": "Normal",
+    "Base": "Great Maul"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Hammer",
+    "Quality": "Exceptional",
+    "Base": "Martel De Fer"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Hammer",
+    "Quality": "Elite",
+    "Base": "Thunder Maul"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Polearm",
+    "Quality": "Normal",
+    "Base": "Bardiche"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Polearm",
+    "Quality": "Exceptional",
+    "Base": "Lochaber Axe"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Polearm",
+    "Quality": "Elite",
+    "Base": "Ogre Axe"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Polearm",
+    "Quality": "Normal",
+    "Base": "Voulge"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Polearm",
+    "Quality": "Exceptional",
+    "Base": "Bill"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Polearm",
+    "Quality": "Elite",
+    "Base": "Colossus Voulge"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Polearm",
+    "Quality": "Normal",
+    "Base": "Scythe"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Polearm",
+    "Quality": "Exceptional",
+    "Base": "Battle Scythe"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Polearm",
+    "Quality": "Elite",
+    "Base": "Thresher"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Polearm",
+    "Quality": "Normal",
+    "Base": "Poleaxe"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Polearm",
+    "Quality": "Exceptional",
+    "Base": "Partizan"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Polearm",
+    "Quality": "Elite",
+    "Base": "Cryptic Axe"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Polearm",
+    "Quality": "Normal",
+    "Base": "Halberd"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Polearm",
+    "Quality": "Exceptional",
+    "Base": "Bec-De-Corbin"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Polearm",
+    "Quality": "Elite",
+    "Base": "Great Poleaxe"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Polearm",
+    "Quality": "Normal",
+    "Base": "War Scythe"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Polearm",
+    "Quality": "Exceptional",
+    "Base": "Grim Scythe"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Polearm",
+    "Quality": "Elite",
+    "Base": "Giant Thresher"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Spear",
+    "Quality": "Normal",
+    "Base": "Spear"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Spear",
+    "Quality": "Exceptional",
+    "Base": "War Spear"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Spear",
+    "Quality": "Elite",
+    "Base": "Hyperion Spear"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Spear",
+    "Quality": "Normal",
+    "Base": "Trident"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Spear",
+    "Quality": "Exceptional",
+    "Base": "Fuscina"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Spear",
+    "Quality": "Elite",
+    "Base": "Stygian Pike"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Spear",
+    "Quality": "Normal",
+    "Base": "Brandistock"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Spear",
+    "Quality": "Exceptional",
+    "Base": "War Fork"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Spear",
+    "Quality": "Elite",
+    "Base": "Mancatcher"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Spear",
+    "Quality": "Normal",
+    "Base": "Spetum"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Spear",
+    "Quality": "Exceptional",
+    "Base": "Yari"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Spear",
+    "Quality": "Elite",
+    "Base": "Ghost Spear"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Spear",
+    "Quality": "Normal",
+    "Base": "Pike"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Spear",
+    "Quality": "Exceptional",
+    "Base": "Lance"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Spear",
+    "Quality": "Elite",
+    "Base": "War Pike"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Staff",
+    "Quality": "Normal",
+    "Base": "Short Staff"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Staff",
+    "Quality": "Exceptional",
+    "Base": "Jo Staff"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Staff",
+    "Quality": "Elite",
+    "Base": "Walking Stick"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Staff",
+    "Quality": "Normal",
+    "Base": "Long Staff"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Staff",
+    "Quality": "Exceptional",
+    "Base": "Quarterstaff"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Staff",
+    "Quality": "Elite",
+    "Base": "Walking Stick"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Staff",
+    "Quality": "Normal",
+    "Base": "Gnarled Staff"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Staff",
+    "Quality": "Exceptional",
+    "Base": "Cedar Staff"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Staff",
+    "Quality": "Elite",
+    "Base": "Elder Staff"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Staff",
+    "Quality": "Normal",
+    "Base": "Battle Staff"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Staff",
+    "Quality": "Exceptional",
+    "Base": "Gothic Staff"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Staff",
+    "Quality": "Elite",
+    "Base": "Shillelagh"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Staff",
+    "Quality": "Normal",
+    "Base": "War Staff"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Staff",
+    "Quality": "Exceptional",
+    "Base": "Rune Staff"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Staff",
+    "Quality": "Elite",
+    "Base": "Archon Staff"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Sword",
+    "Quality": "Normal",
+    "Base": "Two-Handed Sword"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Sword",
+    "Quality": "Exceptional",
+    "Base": "Espandon"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Sword",
+    "Quality": "Elite",
+    "Base": "Legend Sword"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Sword",
+    "Quality": "Normal",
+    "Base": "Claymore"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Sword",
+    "Quality": "Exceptional",
+    "Base": "Dacian Falx"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Sword",
+    "Quality": "Elite",
+    "Base": "Highland Blade"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Sword",
+    "Quality": "Normal",
+    "Base": "Giant Sword"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Sword",
+    "Quality": "Exceptional",
+    "Base": "Tusk Sword"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Sword",
+    "Quality": "Elite",
+    "Base": "Balrog Blade"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Sword",
+    "Quality": "Normal",
+    "Base": "Bastard Sword"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Sword",
+    "Quality": "Exceptional",
+    "Base": "Gothic Sword"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Sword",
+    "Quality": "Elite",
+    "Base": "Champion Sword"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Sword",
+    "Quality": "Normal",
+    "Base": "Flamberge"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Sword",
+    "Quality": "Exceptional",
+    "Base": "Zweihander"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Sword",
+    "Quality": "Elite",
+    "Base": "Colossus Sword"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Sword",
+    "Quality": "Normal",
+    "Base": "Great Sword"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Sword",
+    "Quality": "Exceptional",
+    "Base": "Executioner Sword"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "Two-Handed",
+    "Subtype": "Sword",
+    "Quality": "Elite",
+    "Base": "Colossus Blade"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Belt",
+    "Quality": "Normal",
+    "Base": "Sash"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Belt",
+    "Quality": "Exceptional",
+    "Base": "Demonhide Sash"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Belt",
+    "Quality": "Elite",
+    "Base": "Spiderweb Sash"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Belt",
+    "Quality": "Normal",
+    "Base": "Light Belt"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Belt",
+    "Quality": "Exceptional",
+    "Base": "Sharkskin Belt"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Belt",
+    "Quality": "Elite",
+    "Base": "Vampirefang Belt"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Belt",
+    "Quality": "Normal",
+    "Base": "Belt"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Belt",
+    "Quality": "Exceptional",
+    "Base": "Mesh Sash"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Belt",
+    "Quality": "Elite",
+    "Base": "Mithril Coil"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Belt",
+    "Quality": "Normal",
+    "Base": "Heavy Belt"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Belt",
+    "Quality": "Exceptional",
+    "Base": "Battle Belt"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Belt",
+    "Quality": "Elite",
+    "Base": "Troll Belt"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Belt",
+    "Quality": "Normal",
+    "Base": "Plated Belt"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Belt",
+    "Quality": "Exceptional",
+    "Base": "War Belt"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Belt",
+    "Quality": "Elite",
+    "Base": "Colossus Girdle"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Torso",
+    "Quality": "Normal",
+    "Base": "Quilted Armor"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Torso",
+    "Quality": "Exceptional",
+    "Base": "Ghost Armor"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Torso",
+    "Quality": "Elite",
+    "Base": "Dusk Shroud"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Torso",
+    "Quality": "Normal",
+    "Base": "Leather Armor"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Torso",
+    "Quality": "Exceptional",
+    "Base": "Serpentskin Armor"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Torso",
+    "Quality": "Elite",
+    "Base": "Wyrmhide"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Torso",
+    "Quality": "Normal",
+    "Base": "Hard Leather Armor"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Torso",
+    "Quality": "Exceptional",
+    "Base": "Demonhide Armor"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Torso",
+    "Quality": "Elite",
+    "Base": "Scarab Husk"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Torso",
+    "Quality": "Normal",
+    "Base": "Studded Leather"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Torso",
+    "Quality": "Exceptional",
+    "Base": "Trellised Armor"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Torso",
+    "Quality": "Elite",
+    "Base": "Wire Fleece"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Torso",
+    "Quality": "Normal",
+    "Base": "Ring Mail"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Torso",
+    "Quality": "Exceptional",
+    "Base": "Linked Mail"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Torso",
+    "Quality": "Elite",
+    "Base": "Diamond Mail"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Torso",
+    "Quality": "Normal",
+    "Base": "Scale Mail"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Torso",
+    "Quality": "Exceptional",
+    "Base": "Tigulated Mail"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Torso",
+    "Quality": "Elite",
+    "Base": "Loricated Mail"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Torso",
+    "Quality": "Normal",
+    "Base": "Breast Plate"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Torso",
+    "Quality": "Exceptional",
+    "Base": "Cuirass"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Torso",
+    "Quality": "Elite",
+    "Base": "Great Hauberk"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Torso",
+    "Quality": "Normal",
+    "Base": "Chain Mail"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Torso",
+    "Quality": "Exceptional",
+    "Base": "Mesh Armor"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Torso",
+    "Quality": "Elite",
+    "Base": "Boneweave"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Torso",
+    "Quality": "Normal",
+    "Base": "Splint Mail"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Torso",
+    "Quality": "Exceptional",
+    "Base": "Russet Armor"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Torso",
+    "Quality": "Elite",
+    "Base": "Balrog Skin"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Torso",
+    "Quality": "Normal",
+    "Base": "Light Plate"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Torso",
+    "Quality": "Exceptional",
+    "Base": "Mage Plate"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Torso",
+    "Quality": "Elite",
+    "Base": "Archon Plate"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Torso",
+    "Quality": "Normal",
+    "Base": "Field Plate"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Torso",
+    "Quality": "Exceptional",
+    "Base": "Sharktooth Armor"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Torso",
+    "Quality": "Elite",
+    "Base": "Kraken Shell"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Torso",
+    "Quality": "Normal",
+    "Base": "Plate Mail"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Torso",
+    "Quality": "Exceptional",
+    "Base": "Templar Coat"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Torso",
+    "Quality": "Elite",
+    "Base": "Hellforged Plate"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Torso",
+    "Quality": "Normal",
+    "Base": "Gothic Plate"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Torso",
+    "Quality": "Exceptional",
+    "Base": "Embossed Plate"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Torso",
+    "Quality": "Elite",
+    "Base": "Lacquered Plate"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Torso",
+    "Quality": "Normal",
+    "Base": "Full Plate Mail"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Torso",
+    "Quality": "Exceptional",
+    "Base": "Chaos Armor"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Torso",
+    "Quality": "Elite",
+    "Base": "Shadow Plate"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Torso",
+    "Quality": "Normal",
+    "Base": "Ancient Armor"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Torso",
+    "Quality": "Exceptional",
+    "Base": "Ornate Plate"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Torso",
+    "Quality": "Elite",
+    "Base": "Sacred Armor"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Boots",
+    "Quality": "Normal",
+    "Base": "Boots"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Boots",
+    "Quality": "Exceptional",
+    "Base": "Demonhide Boots"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Boots",
+    "Quality": "Elite",
+    "Base": "Wyrmhide Boots"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Boots",
+    "Quality": "Normal",
+    "Base": "Heavy Boots"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Boots",
+    "Quality": "Exceptional",
+    "Base": "Sharkskin Boots"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Boots",
+    "Quality": "Elite",
+    "Base": "Scarabshell Boots"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Boots",
+    "Quality": "Normal",
+    "Base": "Chain Boots"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Boots",
+    "Quality": "Exceptional",
+    "Base": "Mesh Boots"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Boots",
+    "Quality": "Elite",
+    "Base": "Boneweave Boots"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Boots",
+    "Quality": "Normal",
+    "Base": "Light Plated Boots"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Boots",
+    "Quality": "Exceptional",
+    "Base": "Battle Boots"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Boots",
+    "Quality": "Elite",
+    "Base": "Mirrored Boots"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Boots",
+    "Quality": "Normal",
+    "Base": "Greaves"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Boots",
+    "Quality": "Exceptional",
+    "Base": "War Boots"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Boots",
+    "Quality": "Elite",
+    "Base": "Myrmidon Greaves"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Gloves",
+    "Quality": "Normal",
+    "Base": "Leather Gloves"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Gloves",
+    "Quality": "Exceptional",
+    "Base": "Demonhide Gloves"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Gloves",
+    "Quality": "Elite",
+    "Base": "Bramble Mitts"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Gloves",
+    "Quality": "Normal",
+    "Base": "Heavy Gloves"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Gloves",
+    "Quality": "Exceptional",
+    "Base": "Sharkskin Gloves"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Gloves",
+    "Quality": "Elite",
+    "Base": "Vampirebone Gloves"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Gloves",
+    "Quality": "Normal",
+    "Base": "Chain Gloves"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Gloves",
+    "Quality": "Exceptional",
+    "Base": "Heavy Bracers"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Gloves",
+    "Quality": "Elite",
+    "Base": "Vambraces"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Gloves",
+    "Quality": "Normal",
+    "Base": "Light Gauntlets"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Gloves",
+    "Quality": "Exceptional",
+    "Base": "Battle Gloves"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Gloves",
+    "Quality": "Elite",
+    "Base": "Crusader Gloves"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Gloves",
+    "Quality": "Normal",
+    "Base": "Gauntlets"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Gloves",
+    "Quality": "Exceptional",
+    "Base": "War Gauntlets"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Gloves",
+    "Quality": "Elite",
+    "Base": "Ogre Gauntlets"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Helmet",
+    "Quality": "Normal",
+    "Base": "Cap"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Helmet",
+    "Quality": "Exceptional",
+    "Base": "War Hat"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Helmet",
+    "Quality": "Elite",
+    "Base": "Shako"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Helmet",
+    "Quality": "Normal",
+    "Base": "Skull Cap"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Helmet",
+    "Quality": "Exceptional",
+    "Base": "Sallet"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Helmet",
+    "Quality": "Elite",
+    "Base": "Hydraskull"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Helmet",
+    "Quality": "Normal",
+    "Base": "Helm"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Helmet",
+    "Quality": "Exceptional",
+    "Base": "Casque"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Helmet",
+    "Quality": "Elite",
+    "Base": "Armet"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Helmet",
+    "Quality": "Normal",
+    "Base": "Full Helm"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Helmet",
+    "Quality": "Exceptional",
+    "Base": "Basinet"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Helmet",
+    "Quality": "Elite",
+    "Base": "Giant Conch"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Helmet",
+    "Quality": "Normal",
+    "Base": "Great Helm"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Helmet",
+    "Quality": "Exceptional",
+    "Base": "Winged Helm"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Helmet",
+    "Quality": "Elite",
+    "Base": "Spired Helm"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Helmet",
+    "Quality": "Normal",
+    "Base": "Mask"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Helmet",
+    "Quality": "Exceptional",
+    "Base": "Death Mask"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Helmet",
+    "Quality": "Elite",
+    "Base": "Demonhead"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Helmet",
+    "Quality": "Normal",
+    "Base": "Crown"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Helmet",
+    "Quality": "Exceptional",
+    "Base": "Grand Crown"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Helmet",
+    "Quality": "Elite",
+    "Base": "Corona"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Helmet",
+    "Quality": "Normal",
+    "Base": "Bone Helm"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Helmet",
+    "Quality": "Exceptional",
+    "Base": "Grim Helm"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Helmet",
+    "Quality": "Elite",
+    "Base": "Bone Visage"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Helmet",
+    "Subtype": "Circlet",
+    "Quality": "Normal",
+    "Base": "Circlet"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Helmet",
+    "Subtype": "Circlet",
+    "Quality": "Normal",
+    "Base": "Coronet"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Helmet",
+    "Subtype": "Circlet",
+    "Quality": "Exceptional",
+    "Base": "Tiara"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Helmet",
+    "Subtype": "Circlet",
+    "Quality": "Elite",
+    "Base": "Diadem"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Helmet",
+    "Subtype": "Primal",
+    "Quality": "Normal",
+    "Base": "Jawbone Cap"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Helmet",
+    "Subtype": "Primal",
+    "Quality": "Exceptional",
+    "Base": "Jawbone Visor"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Helmet",
+    "Subtype": "Primal",
+    "Quality": "Elite",
+    "Base": "Carnage Helm"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Helmet",
+    "Subtype": "Primal",
+    "Quality": "Normal",
+    "Base": "Fanged Helm"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Helmet",
+    "Subtype": "Primal",
+    "Quality": "Exceptional",
+    "Base": "Lion Helm"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Helmet",
+    "Subtype": "Primal",
+    "Quality": "Elite",
+    "Base": "Fury Visor"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Helmet",
+    "Subtype": "Primal",
+    "Quality": "Normal",
+    "Base": "Horned Helm"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Helmet",
+    "Subtype": "Primal",
+    "Quality": "Exceptional",
+    "Base": "Rage Mask"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Helmet",
+    "Subtype": "Primal",
+    "Quality": "ELite",
+    "Base": "Destroyer Helm"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Helmet",
+    "Subtype": "Primal",
+    "Quality": "Normal",
+    "Base": "Assault Helmet"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Helmet",
+    "Subtype": "Primal",
+    "Quality": "Exceptional",
+    "Base": "Savage Helmet"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Helmet",
+    "Subtype": "Primal",
+    "Quality": "Elite",
+    "Base": "Conqueror Crown"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Helmet",
+    "Subtype": "Primal",
+    "Quality": "Normal",
+    "Base": "Avenger Guard"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Helmet",
+    "Subtype": "Primal",
+    "Quality": "Exceptional",
+    "Base": "Slayer Guard"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Helmet",
+    "Subtype": "Primal",
+    "Quality": "Elite",
+    "Base": "Guardian Crown"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Helmet",
+    "Subtype": "Pelt",
+    "Quality": "Normal",
+    "Base": "Wolf Head"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Helmet",
+    "Subtype": "Pelt",
+    "Quality": "Exceptional",
+    "Base": "Alpha Helm"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Helmet",
+    "Subtype": "Pelt",
+    "Quality": "Elite",
+    "Base": "Blood Spirit"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Helmet",
+    "Subtype": "Pelt",
+    "Quality": "Normal",
+    "Base": "Hawk Helm"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Helmet",
+    "Subtype": "Pelt",
+    "Quality": "Exceptional",
+    "Base": "Griffon Headdress"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Helmet",
+    "Subtype": "Pelt",
+    "Quality": "Elite",
+    "Base": "Sun Spirit"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Helmet",
+    "Subtype": "Pelt",
+    "Quality": "Normal",
+    "Base": "Antlers"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Helmet",
+    "Subtype": "Pelt",
+    "Quality": "Exceptional",
+    "Base": "Hunter's Guise'"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Helmet",
+    "Subtype": "Pelt",
+    "Quality": "Elite",
+    "Base": "Earth Spirit"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Helmet",
+    "Subtype": "Pelt",
+    "Quality": "Normal",
+    "Base": "Falcon Mask"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Helmet",
+    "Subtype": "Pelt",
+    "Quality": "Exceptional",
+    "Base": "Sacred Feathers"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Helmet",
+    "Subtype": "Pelt",
+    "Quality": "Elite",
+    "Base": "Sky Spirit"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Helmet",
+    "Subtype": "Pelt",
+    "Quality": "Normal",
+    "Base": "Spirit Mask"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Helmet",
+    "Subtype": "Pelt",
+    "Quality": "Exceptional",
+    "Base": "Totemic Mask"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Helmet",
+    "Subtype": "Pelt",
+    "Quality": "Elite",
+    "Base": "Dream Spirit"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Shield",
+    "Quality": "Normal",
+    "Base": "Buckler"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Shield",
+    "Quality": "Exceptional",
+    "Base": "Defender"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Shield",
+    "Quality": "Elite",
+    "Base": "Heater"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Shield",
+    "Quality": "Normal",
+    "Base": "Small Shield"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Shield",
+    "Quality": "Exceptional",
+    "Base": "Round Shield"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Shield",
+    "Quality": "Elite",
+    "Base": "Luna"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Shield",
+    "Quality": "Normal",
+    "Base": "Large Shield"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Shield",
+    "Quality": "Exceptional",
+    "Base": "Scutum"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Shield",
+    "Quality": "Elite",
+    "Base": "Hyperion"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Shield",
+    "Quality": "Normal",
+    "Base": "Kite Shield"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Shield",
+    "Quality": "Exceptional",
+    "Base": "Dragon Shield"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Shield",
+    "Quality": "Elite",
+    "Base": "Monarch"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Shield",
+    "Quality": "Normal",
+    "Base": "Spiked Shield"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Shield",
+    "Quality": "Exceptional",
+    "Base": "Barbed Shield"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Shield",
+    "Quality": "Elite",
+    "Base": "Blade Barrier"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Shield",
+    "Quality": "Normal",
+    "Base": "Tower Shield"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Shield",
+    "Quality": "Exceptional",
+    "Base": "Pavise"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Shield",
+    "Quality": "Elite",
+    "Base": "Aegis"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Shield",
+    "Quality": "Normal",
+    "Base": "Bone Shield"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Shield",
+    "Quality": "Exceptional",
+    "Base": "Grim Shield"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Shield",
+    "Quality": "Elite",
+    "Base": "Troll Nest"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Shield",
+    "Quality": "Normal",
+    "Base": "Gothic Shield"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Shield",
+    "Quality": "Exceptional",
+    "Base": "Ancient Shield"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Shield",
+    "Quality": "Elite",
+    "Base": "Ward"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Shield",
+    "Subtype": "Head",
+    "Quality": "Normal",
+    "Base": "Preserved Head"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Shield",
+    "Subtype": "Head",
+    "Quality": "Exceptional",
+    "Base": "Mummified Trophy"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Shield",
+    "Subtype": "Head",
+    "Quality": "Elite",
+    "Base": "Minion Skull"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Shield",
+    "Subtype": "Head",
+    "Quality": "Normal",
+    "Base": "Zombie Head"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Shield",
+    "Subtype": "Head",
+    "Quality": "Exceptional",
+    "Base": "Fetish Trophy"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Shield",
+    "Subtype": "Head",
+    "Quality": "Elite",
+    "Base": "Hellspawn Skull"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Shield",
+    "Subtype": "Head",
+    "Quality": "Normal",
+    "Base": "Unraveller Head"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Shield",
+    "Subtype": "Head",
+    "Quality": "Exceptional",
+    "Base": "Sexton Trophy"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Shield",
+    "Subtype": "Head",
+    "Quality": "Elite",
+    "Base": "Overseer Skull"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Shield",
+    "Subtype": "Head",
+    "Quality": "Normal",
+    "Base": "Gargoyle Head"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Shield",
+    "Subtype": "Head",
+    "Quality": "Exceptional",
+    "Base": "Cantor Trophy"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Shield",
+    "Subtype": "Head",
+    "Quality": "Elite",
+    "Base": "Succubus Skull"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Shield",
+    "Subtype": "Head",
+    "Quality": "Normal",
+    "Base": "Demon Head"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Shield",
+    "Subtype": "Head",
+    "Quality": "Exceptional",
+    "Base": "Hierophant Trophy"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Shield",
+    "Subtype": "Head",
+    "Quality": "Elite",
+    "Base": "Bloodlord Skull"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Shield",
+    "Subtype": "Auric",
+    "Quality": "Normal",
+    "Base": "Targe"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Shield",
+    "Subtype": "Auric",
+    "Quality": "Exceptional",
+    "Base": "Akaran Targe"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Shield",
+    "Subtype": "Auric",
+    "Quality": "Elite",
+    "Base": "Sacred Targe"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Shield",
+    "Subtype": "Auric",
+    "Quality": "Normal",
+    "Base": "Rondache"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Shield",
+    "Subtype": "Auric",
+    "Quality": "Exceptional",
+    "Base": "Akaran Rondache"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Shield",
+    "Subtype": "Auric",
+    "Quality": "Elite",
+    "Base": "Sacred Rondache"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Shield",
+    "Subtype": "Auric",
+    "Quality": "Normal",
+    "Base": "Heraldic Shield"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Shield",
+    "Subtype": "Auric",
+    "Quality": "Exceptional",
+    "Base": "Protector Shield"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Shield",
+    "Subtype": "Auric",
+    "Quality": "Elite",
+    "Base": "Kurast Shield"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Shield",
+    "Subtype": "Auric",
+    "Quality": "Normal",
+    "Base": "Aerin Shield"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Shield",
+    "Subtype": "Auric",
+    "Quality": "Exceptional",
+    "Base": "Gilded Shield"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Shield",
+    "Subtype": "Auric",
+    "Quality": "Elite",
+    "Base": "Zakarum Shield"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Shield",
+    "Subtype": "Auric",
+    "Quality": "Normal",
+    "Base": "Crown Shield"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Shield",
+    "Subtype": "Auric",
+    "Quality": "Exceptional",
+    "Base": "Royal Shield"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Shield",
+    "Subtype": "Auric",
+    "Quality": "Elite",
+    "Base": "Vortex Shield"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Rune",
+    "Quality": "Low",
+    "Base": "El Rune"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Rune",
+    "Quality": "Low",
+    "Base": "Eld Rune"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Rune",
+    "Quality": "Low",
+    "Base": "Tir Rune"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Rune",
+    "Quality": "Low",
+    "Base": "Nef Rune"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Rune",
+    "Quality": "Low",
+    "Base": "Eth Rune"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Rune",
+    "Quality": "Low",
+    "Base": "Ith Rune"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Rune",
+    "Quality": "Low",
+    "Base": "Tal Rune"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Rune",
+    "Quality": "Low",
+    "Base": "Ral Rune"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Rune",
+    "Quality": "Low",
+    "Base": "Ort Rune"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Rune",
+    "Quality": "Low",
+    "Base": "Thul Rune"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Rune",
+    "Quality": "Mid",
+    "Base": "Amn Rune"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Rune",
+    "Quality": "Mid",
+    "Base": "Sol Rune"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Rune",
+    "Quality": "Mid",
+    "Base": "Shael Rune"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Rune",
+    "Quality": "Mid",
+    "Base": "Dol Rune"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Rune",
+    "Quality": "Mid",
+    "Base": "Hel Rune"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Rune",
+    "Quality": "Mid",
+    "Base": "Io Rune"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Rune",
+    "Quality": "Mid",
+    "Base": "Lum Rune"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Rune",
+    "Quality": "Mid",
+    "Base": "Ko Rune"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Rune",
+    "Quality": "Mid",
+    "Base": "Fal Rune"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Rune",
+    "Quality": "Mid",
+    "Base": "Lem Rune"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Rune",
+    "Quality": "High",
+    "Base": "Pul Rune"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Rune",
+    "Quality": "High",
+    "Base": "Um Rune"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Rune",
+    "Quality": "High",
+    "Base": "Mal Rune"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Rune",
+    "Quality": "High",
+    "Base": "Ist Rune"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Rune",
+    "Quality": "High",
+    "Base": "Gul Rune"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Rune",
+    "Quality": "High",
+    "Base": "Vex Rune"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Rune",
+    "Quality": "High",
+    "Base": "Ohm Rune"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Rune",
+    "Quality": "High",
+    "Base": "Lo Rune"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Rune",
+    "Quality": "High",
+    "Base": "Sur Rune"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Rune",
+    "Quality": "High",
+    "Base": "Ber Rune"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Rune",
+    "Quality": "High",
+    "Base": "Jah Rune"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Rune",
+    "Quality": "High",
+    "Base": "Cham Rune"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Rune",
+    "Quality": "High",
+    "Base": "Zod Rune"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Ring",
+    "Base": "Ring"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Amulet",
+    "Base": "Amulet"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Charm",
+    "Base": "Small Charm"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Charm",
+    "Base": "Large Charm"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Charm",
+    "Base": "Grand Charm"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Jewel",
+    "Base": "Jewel"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Gem",
+    "Quality": "Chipped",
+    "Base": "Chipped Amethyst"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Gem",
+    "Quality": "Flawed",
+    "Base": "Flawed Amethyst"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Gem",
+    "Quality": "Normal",
+    "Base": "Amethyst"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Gem",
+    "Quality": "Flawless",
+    "Base": "Flawless Amethyst"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Gem",
+    "Quality": "Perfect",
+    "Base": "Perfect Amethyst"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Gem",
+    "Quality": "Chipped",
+    "Base": "Chipped Topaz"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Gem",
+    "Quality": "Flawed",
+    "Base": "Flawed Topaz"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Gem",
+    "Quality": "Normal",
+    "Base": "Topaz"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Gem",
+    "Quality": "Flawless",
+    "Base": "Flawless Topaz"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Gem",
+    "Quality": "Perfect",
+    "Base": "Perfect Topaz"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Gem",
+    "Quality": "Chipped",
+    "Base": "Chipped Sapphire"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Gem",
+    "Quality": "Flawed",
+    "Base": "Flawed Sapphire"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Gem",
+    "Quality": "Normal",
+    "Base": "Sapphire"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Gem",
+    "Quality": "Flawless",
+    "Base": "Flawless Sapphire"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Gem",
+    "Quality": "Perfect",
+    "Base": "Perfect Sapphire"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Gem",
+    "Quality": "Chipped",
+    "Base": "Chipped Emerald"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Gem",
+    "Quality": "Flawed",
+    "Base": "Flawed Emerald"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Gem",
+    "Quality": "Normal",
+    "Base": "Emerald"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Gem",
+    "Quality": "Flawless",
+    "Base": "Flawless Emerald"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Gem",
+    "Quality": "Perfect",
+    "Base": "Perfect Emerald"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Gem",
+    "Quality": "Chipped",
+    "Base": "Chipped Ruby"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Gem",
+    "Quality": "Flawed",
+    "Base": "Flawed Ruby"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Gem",
+    "Quality": "Normal",
+    "Base": "Ruby"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Gem",
+    "Quality": "Flawless",
+    "Base": "Flawless Ruby"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Gem",
+    "Quality": "Perfect",
+    "Base": "Perfect Ruby"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Gem",
+    "Quality": "Chipped",
+    "Base": "Chipped Diamond"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Gem",
+    "Quality": "Flawed",
+    "Base": "Flawed Diamond"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Gem",
+    "Quality": "Normal",
+    "Base": "Diamond"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Gem",
+    "Quality": "Flawless",
+    "Base": "Flawless Diamond"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Gem",
+    "Quality": "Perfect",
+    "Base": "Perfect Diamond"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Gem",
+    "Quality": "Chipped",
+    "Base": "Chipped Skull"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Gem",
+    "Quality": "Flawed",
+    "Base": "Flawed Skull"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Gem",
+    "Quality": "Normal",
+    "Base": "Skull"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Gem",
+    "Quality": "Flawless",
+    "Base": "Flawless Skull"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Gem",
+    "Quality": "Perfect",
+    "Base": "Perfect Skull"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Material",
+    "Subtype": "Key",
+    "Base": "Key Of Terror"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Material",
+    "Subtype": "Key",
+    "Base": "Key Of Hate"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Material",
+    "Subtype": "Key",
+    "Base": "Key Of Destruction"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Material",
+    "Subtype": "Part",
+    "Base": "Baal's Eye"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Material",
+    "Subtype": "Part",
+    "Base": "Mephisto's Brain"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Material",
+    "Subtype": "Part",
+    "Base": "Diablo's Horn"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Material",
+    "Subtype": "Essence",
+    "Base": "Twisted Essence Of Suffering"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Material",
+    "Subtype": "Essence",
+    "Base": "Charged Essence Of Hatred"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Material",
+    "Subtype": "Essence",
+    "Base": "Burning Essence Of Terror"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Material",
+    "Subtype": "Essence",
+    "Base": "Festering Essence Of Destruction"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Material",
+    "Subtype": "Statue",
+    "Base": "Talic's Anguish"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Material",
+    "Subtype": "Statue",
+    "Base": "Korlic's Pain"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Material",
+    "Subtype": "Statue",
+    "Base": "Madawc's Ire"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Material",
+    "Subtype": "Statue",
+    "Base": "Bul-Katho's Nightmare"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Material",
+    "Subtype": "Statue",
+    "Base": "Worusk's End"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Material",
+    "Subtype": "Shard",
+    "Base": "Western Worldstone Shard"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Material",
+    "Subtype": "Shard",
+    "Base": "Eastern Worldstone Shard"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Material",
+    "Subtype": "Shard",
+    "Base": "Southern Worldstone Shard"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Material",
+    "Subtype": "Shard",
+    "Base": "Northern Worldstone Shard"
+  },
+  {
+    "Supertype": "Misc",
+    "Type": "Material",
+    "Subtype": "Shard",
+    "Base": "Deep Worldstone Shard"
+  }
+
+]

@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="D2RLootRadar.Application/D2RLootRadar.Application.csproj" />
+  <Project Path="D2RLootRadar.Desktop/D2RLootRadar.Desktop.csproj" />
+  <Project Path="D2RLootRadar.Domain/D2RLootRadar.Domain.csproj" />
+  <Project Path="D2RLootRadar.Infrastructure/D2RLootRadar.Infrastructure.csproj" />
+  <Project Path="D2RLootRadar.Tests/D2RLootRadar.Tests.csproj" Id="9b8d1e65-5cc3-45de-8b5f-dcd1137561fb" />
+</Solution>
