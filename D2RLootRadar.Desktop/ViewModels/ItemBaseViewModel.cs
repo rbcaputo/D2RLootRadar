@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace D2RLootBeeper.Desktop.ViewModels;
+namespace D2RLootRadar.Desktop.ViewModels;
 
 /// <summary>
 /// Represents a single selectable item base in the watch list UI (a checkbox row).

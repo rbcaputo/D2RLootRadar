@@ -4,7 +4,7 @@ using D2RLootRadar.Application.Contracts;
 using D2RLootRadar.Application.Settings;
 using System.Windows.Threading;
 
-namespace D2RLootBeeper.Desktop.ViewModels;
+namespace D2RLootRadar.Desktop.ViewModels;
 
 /// <summary>
 /// Backs the Settings window: alert tone, alert volume, and overlay preferences.

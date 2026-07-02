@@ -1,8 +1,8 @@
-﻿using D2RLootBeeper.Desktop.ViewModels;
+﻿using D2RLootRadar.Desktop.ViewModels;
 using System.ComponentModel;
 using System.Windows;
 
-namespace D2RLootBeeper.Desktop.Views;
+namespace D2RLootRadar.Desktop.Views;
 
 /// <summary>
 /// Modal Settings window: alert tone/volume and overlay toggle.

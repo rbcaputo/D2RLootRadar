@@ -3,7 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 
-namespace D2RLootBeeper.Desktop.ViewModels;
+namespace D2RLootRadar.Desktop.ViewModels;
 
 /// <summary>
 /// Represents a category group in the UI.

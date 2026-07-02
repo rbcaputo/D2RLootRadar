@@ -1,4 +1,4 @@
-﻿using D2RLootBeeper.Desktop.Views;
+﻿using D2RLootRadar.Desktop.Views;
 using D2RLootRadar.Application.Contracts;
 using System.Windows.Interop;
 using System.Windows.Threading;

@@ -1,5 +1,5 @@
-﻿using D2RLootBeeper.Desktop.ViewModels;
-using D2RLootBeeper.Desktop.Views;
+﻿using D2RLootRadar.Desktop.ViewModels;
+using D2RLootRadar.Desktop.Views;
 using D2RLootRadar.Application.Contracts;
 using D2RLootRadar.Application.Monitoring;
 using D2RLootRadar.Desktop.Services;
@@ -15,7 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Windows;
 
-namespace D2RLootBeeper.Desktop;
+namespace D2RLootRadar.Desktop;
 
 /// <summary>
 /// WPF application entry point.

@@ -1,16 +1,15 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using D2RLootBeeper.Desktop.Views;
 using D2RLootRadar.Application.Contracts;
 using D2RLootRadar.Application.Settings;
-using D2RLootRadar.Desktop.ViewModels;
+using D2RLootRadar.Desktop.Views;
 using D2RLootRadar.Domain.Loot;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Threading;
 
-namespace D2RLootBeeper.Desktop.ViewModels;
+namespace D2RLootRadar.Desktop.ViewModels;
 
 /// <summary>
 /// Backs the main window:

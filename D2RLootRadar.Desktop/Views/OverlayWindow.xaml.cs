@@ -6,7 +6,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 
-namespace D2RLootBeeper.Desktop.Views;
+namespace D2RLootRadar.Desktop.Views;
 
 /// <summary>
 /// A full-virtual-desktop, click-through, always-non-activating window that renders a
