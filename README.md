@@ -1,5 +1,8 @@
 # D2RLootRadar
 
+[![CI]((https://github.com/rbcaputo/D2RLootRadar/actions/workflows/ci.yml/badge.svg)]
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+
 A lightweight Windows overlay tool for **Diablo II: Resurrected** that watches the ground for item base types you care about, and alerts you the moment one drops — no more scanning a pile of white items hoping you didn't miss something underneath.
 
 Tap **ALT** (D2R's native "show item labels" key) and D2RLootRadar reads the labels on screen via OCR, fuzzy-matches them against your personal watch list, and plays a tone plus an on-screen marker if something you're watching for is there.
