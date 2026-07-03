@@ -37,6 +37,24 @@ public partial class SettingsViewModel : ObservableObject
   private int _beepFrequencyHz;
 
   /// <summary>
+  /// Length of the alert tone in milliseconds.
+  /// </summary>
+  [ObservableProperty]
+  private int _beepDurationMs;
+
+  /// <summary>
+  /// Minimum fuzzy-match similarity (0.0-1.0) for a detected text token to count as a match.
+  /// </summary>
+  [ObservableProperty]
+  private double _fuzzyMatchThreshold;
+
+  /// <summary>
+  /// How long a detection marker stays on screen before auto-hiding, in seconds.
+  /// </summary>
+  [ObservableProperty]
+  private int _markerDisplaySeconds;
+
+  /// <summary>
   /// Whether the on-screen detection overlay is shown after a match.
   /// </summary>
   [ObservableProperty]
@@ -68,6 +86,9 @@ public partial class SettingsViewModel : ObservableObject
     UserSettings settings = _settingsStore.Load();
     _beepVolume = settings.BeepVolume;
     _beepFrequencyHz = settings.BeepFrequencyHz;
+    _beepDurationMs = settings.BeepDurationMs;
+    _fuzzyMatchThreshold = settings.FuzzyMatchThreshold;
+    _markerDisplaySeconds = settings.MarkerDisplaySeconds;
     _overlayEnabled = settings.OverlayEnabled;
   }
 
@@ -94,6 +115,18 @@ public partial class SettingsViewModel : ObservableObject
 
   partial void OnBeepFrequencyHzChanged(int value)
     => ScheduleSave();
+
+  partial void OnBeepDurationMsChanged(int value)
+    => ScheduleSave();
+
+  partial void OnFuzzyMatchThresholdChanged(double value)
+    => ScheduleSave();
+
+  partial void OnMarkerDisplaySecondsChanged(int value)
+  {
+    _overlayService.SetMarkerDisplaySeconds(value);
+    ScheduleSave();
+  }
 
   partial void OnOverlayEnabledChanged(bool value)
   {
@@ -126,6 +159,9 @@ public partial class SettingsViewModel : ObservableObject
     {
       BeepVolume = BeepVolume,
       BeepFrequencyHz = BeepFrequencyHz,
+      BeepDurationMs = BeepDurationMs,
+      FuzzyMatchThreshold = FuzzyMatchThreshold,
+      MarkerDisplaySeconds = MarkerDisplaySeconds,
       OverlayEnabled = OverlayEnabled
     });
   }

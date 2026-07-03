@@ -8,9 +8,10 @@
 public sealed record UserSettings
 {
   private double _fuzzyMatchThreshold = 0.80;
-  private int _beepFrequencyHz = 900;
+  private int _beepFrequencyHz = 800;
   private int _beepDurationMs = 200;
-  private int _beepVolume = 70;
+  private int _beepVolume = 10;
+  private int _markerDisplaySeconds = 2;
 
   /// <summary>
   /// Item base names selected by the user. (e.g. "Monarch, "Ber Rune").
@@ -29,7 +30,7 @@ public sealed record UserSettings
 
   /// <summary>
   /// Beep tone frequency in Hz.
-  /// Clamped to 100-5000 Hz. Default: 900.
+  /// Clamped to 100-5000 Hz. Default: 800 Hz.
   /// </summary>
   public int BeepFrequencyHz
   {
@@ -49,12 +50,23 @@ public sealed record UserSettings
 
   /// <summary>
   /// Beep volume as a percentage.
-  /// 0 = mute (no playback attempted at all).
+  /// 0 = mute (no playback attempted at all). Default: 10.
   /// </summary>
   public int BeepVolume
   {
     get => _beepVolume;
     init => _beepVolume = Math.Clamp(value, 0, 100);
+  }
+
+  /// <summary>
+  /// How long a detection marker stays on screen before auto-hiding, in seconds -
+  /// or until the next detection, whichever comes firts.
+  /// Clamped to 1-10 s. Default: 2 s.
+  /// </summary>
+  public int MarkerDisplaySeconds
+  {
+    get => _markerDisplaySeconds;
+    init => _markerDisplaySeconds = Math.Clamp(value, 1, 10);
   }
 
   /// <summary>

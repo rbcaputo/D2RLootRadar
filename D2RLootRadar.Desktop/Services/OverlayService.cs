@@ -81,4 +81,14 @@ public sealed class OverlayService : IOverlayService
         _window.Hide();
       });
   }
+
+  /// <inheritdoc />
+  public void SetMarkerDisplaySeconds(int seconds)
+    =>
+    // Mutating a DispatcherTimer's Interval must happen on the thread that owns it.
+    // In practice this is always called from the UI thread already (Settings window binding),
+    // but dispatching keeps the contract safe regardless of caller thread.
+    _dispatcher.BeginInvoke(() =>
+      _hideTimer.Interval = TimeSpan.FromSeconds(Math.Max(1, seconds))
+    );
 }

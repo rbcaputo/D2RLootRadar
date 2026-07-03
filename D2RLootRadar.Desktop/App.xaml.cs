@@ -14,6 +14,7 @@ using D2RLootRadar.Infrastructure.Processes;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Windows;
+using Microsoft.Extensions.Logging;
 
 namespace D2RLootRadar.Desktop;
 
@@ -36,6 +37,12 @@ public partial class App : System.Windows.Application
       .CreateDefaultBuilder()
       .ConfigureServices(ConfigureServices)
       .Build();
+
+    DispatcherUnhandledException += (_, ea) =>
+      _host.Services.GetRequiredService<ILogger<App>>()
+        .LogError(ea.Exception, "Unhandled exception on the UI thread.");
+    // Don't set ea.Handled = true - we want to know if something is broken,
+    // not paper over it and keep running in a possibly-corrupt state.
   }
 
   /// <summary>

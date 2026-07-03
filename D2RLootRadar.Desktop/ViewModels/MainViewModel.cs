@@ -30,8 +30,6 @@ public partial class MainViewModel : ObservableObject
   private readonly DispatcherTimer _processTimer;
   private readonly DispatcherTimer _saveTimer;
 
-  private UserSettings _settings = new();
-
   /// <summary>
   /// Whether D2R is currently running, polled every 3 seconds via <see cref="_processTimer"/>.
   /// </summary>
@@ -124,11 +122,11 @@ public partial class MainViewModel : ObservableObject
       .Where(i => i.IsSelected)
       .Select(i => i.Name);
 
-    _settings = _settings with
+    UserSettings current = _settingsStore.Load();
+    _settingsStore.Save(current with
     {
       SelectedItemBases = [.. selected]
-    };
-    _settingsStore.Save(_settings);
+    });
   }
 
   /// <summary>
@@ -150,10 +148,10 @@ public partial class MainViewModel : ObservableObject
   private void Load()
   {
     IsGameRunning = _gameProcessService.IsRunning();
-    _settings = _settingsStore.Load();
-
+    
+    UserSettings settings = _settingsStore.Load();
     HashSet<string> selected
-      = new(_settings.SelectedItemBases, StringComparer.OrdinalIgnoreCase);
+      = new(settings.SelectedItemBases, StringComparer.OrdinalIgnoreCase);
 
     // Group by DisplayGroup (e.g. "Axe", "Sword", "Circlet", "Rune", "Key").
     // Sort by domain category first so related slots appear together,

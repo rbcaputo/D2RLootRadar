@@ -10,9 +10,10 @@ public class UserSettingsTests
     UserSettings settings = new();
 
     Assert.Equal(0.80, settings.FuzzyMatchThreshold);
-    Assert.Equal(900, settings.BeepFrequencyHz);
+    Assert.Equal(800, settings.BeepFrequencyHz);
     Assert.Equal(200, settings.BeepDurationMs);
-    Assert.Equal(70, settings.BeepVolume);
+    Assert.Equal(10, settings.BeepVolume);
+    Assert.Equal(2, settings.MarkerDisplaySeconds);
     Assert.True(settings.OverlayEnabled);
     Assert.Empty(settings.SelectedItemBases);
   }
@@ -69,5 +70,19 @@ public class UserSettingsTests
     };
 
     Assert.Equal(expected, settings.BeepVolume);
+  }
+
+  [Theory]
+  [InlineData(0, 1)]
+  [InlineData(15, 10)]
+  [InlineData(5, 5)]
+  public void MarkerDisplaySeconds_ClampsTo1_50Range(int input, int expected)
+  {
+    UserSettings settings = new()
+    {
+      MarkerDisplaySeconds = input
+    };
+
+    Assert.Equal(expected, settings.MarkerDisplaySeconds);
   }
 }

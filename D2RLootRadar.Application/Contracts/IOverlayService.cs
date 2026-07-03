@@ -18,4 +18,11 @@ public interface IOverlayService
   /// Disabling hides it immediately.
   /// </summary>
   void SetEnabled(bool enabled);
+
+  /// <summary>
+  /// Sets how long a marker stays visible before auto-hiding, in seconds.
+  /// Takes effect on the next call to <see cref="ShowMarkers"/> -
+  /// does not retroactively shorten or extend a marker already on screen.
+  /// </summary>
+  void SetMarkerDisplaySeconds(int seconds);
 }
