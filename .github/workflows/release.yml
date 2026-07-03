@@ -1,0 +1,46 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 10 SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Restore
+        run: dotnet restore D2RLootRadar.slnx
+
+      - name: Run tests before releasing
+        run: dotnet test D2RLootRadar.Tests/D2RLootRadar.Tests.csproj --configuration Release
+
+      - name: Publish self-contained win-x64 build
+        run: >
+          dotnet publish D2RLootRadar.Desktop/D2RLootRadar.Desktop.csproj
+          --configuration Release
+          --runtime win-x64
+          --self-contained true
+          --output publish
+
+      - name: Zip published output
+        shell: pwsh
+        run: Compress-Archive -Path publish/* -DestinationPath D2RLootRadar-${{ github.ref_name }}-win-x64.zip
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: D2RLootRadar-${{ github.ref_name }}-win-x64.zip
+          generate_release_notes: true
