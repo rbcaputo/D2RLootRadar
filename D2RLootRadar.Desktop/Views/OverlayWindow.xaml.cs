@@ -94,7 +94,7 @@ public partial class OverlayWindow : Window
     {
       Width = baseSize,
       Height = baseSize,
-      Stroke = new SolidColorBrush(Color.FromRgb(255, 210, 60)),
+      Stroke = new SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 210, 60)),
       StrokeThickness = 3,
       RenderTransformOrigin = new(0.5, 0.5),
       RenderTransform = new ScaleTransform(1, 1)

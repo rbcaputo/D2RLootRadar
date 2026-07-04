@@ -73,6 +73,7 @@ public partial class App : System.Windows.Application
 
     services.AddSingleton<MainViewModel>();
     services.AddSingleton<MainWindow>();
+    services.AddSingleton<TrayIconService>();
     services.AddTransient<SettingsViewModel>();
     services.AddTransient<SettingsWindow>();
   }
@@ -87,10 +88,14 @@ public partial class App : System.Windows.Application
     // Start the keyboard hook and loot detection pipeline.
     _host.Services.GetRequiredService<LootMonitoringService>().Start();
 
-    MainWindow window
+    MainWindow mainWindow
       = _host.Services.GetRequiredService<MainWindow>();
 
-    window.Show();
+    // Wire the tray icon to the main window before showing it,
+    // so the very first X-button close correctly minimizes to tray instead of closing.
+    _host.Services.GetRequiredService<TrayIconService>().AttachTo(mainWindow);
+
+    mainWindow.Show();
     base.OnStartup(ea);
   }
 
