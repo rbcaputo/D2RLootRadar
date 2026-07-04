@@ -39,18 +39,20 @@ Everything is triggered by the ALT key press itself — there's no polling loop 
 
 ## Features
 
-- **583 item bases** across all D2R item categories — amulets, armor, belts, boots, charms, gems, gloves, helmets, jewels, materials, rings, runes, shields, and weapons — pick exactly which ones you want alerts for
-- **OCR-baed detection**, not memory reading or packet inspection — it only ever looks at what's rendered on your screen, the same way you would
-- **Fuzzy matching** tolerant of OCR misreads and truncated text (e.g. a partially-obscured "Monarchi" still matches "Monarch")
-- **Configurable audio alert** — tone frequency and volume, with a test-sound button
-- **On-screen overlay marker** at the detected item's exact screen position, non-interactive and click-through so it never gets in the way of actually playing
-- Detects whether D2R is currently running, so the app is safe to leave open all the time
+- **583 item bases** (as of this writing) across all D2R item categories — amulets, armor, belts, boots, charms, gems, gloves, helmets, jewels, materials, rings, runes, shields, and weapons — pick exactly which ones you want alerts for. The catalog may lag behind the newest patches; see [Known limitations](#known-limitations).
+- **OCR-based detection**, not memory reading or packet inspection — it only ever looks at what's rendered on your screen, the same way you would.
+- **Fuzzy matching** tolerant of OCR misreads and truncated text (e.g. a partially-obscured "Monarchi" still matches "Monarch").
+- **Configurable audio alert** — tune tone frequency and volume, with a test-sound button.
+- **Configurable match sensitivity** — tune how forgiving OCR matching is.
+- **Configurable marker display time** — tune how long the on-screen marker stays visible.
+- **On-screen overlay marker** at the detected item's exact screen position, non-interactive and click-through so it never gets in the way of actually playing.
+- Detects whether D2R is currently running, so the app is safe to leave open all the time.
 
 ## Requirements
 
 - Windows 10/11
-- [.NET 10 Desktop Runtime](https://dotnet.microsoft.com/download) (or the .NET 10 SDK if you're building from source)
-- Diablo  II: Resurrected, running in **windowed** or **borderless fullscreen** mode
+- [.NET 10 Desktop Runtime](https://dotnet.microsoft.com/download) (or the .NET 10 SDK if you're building from source).
+- Diablo  II: Resurrected, running in **windowed** or **borderless fullscreen** mode.
 
 > **Note on display modes:** true exclusive fullscreen bypasses the Windows compositor (DWM), which both the screen capture and the overlay rely on. If detection or the overlay marker don't seem to work, switch D2R to borderless fullscreen or windowed mode in its display settings.
 
@@ -58,7 +60,14 @@ Everything is triggered by the ALT key press itself — there's no polling loop 
 
 ## Getting started
 
-## Build from source
+### Download
+
+Grab the latest build from the [Releases page](https://github.com/rbcaputo/D2RLootRadar/releases/latest) — download `D2RLootRadar-v1.0.0-win-x64.zip` (not the "Source code" zip/tar.gz — those are just the raw source, not a runnable build), extract it, and run `D2RLootRadar.Desktop.exe`.
+
+Building from source is only necessary if you want to modify the code yourself.
+
+### Build from source
+
 ```bash
 git clone https://github.com/rbcaputo/D2RLootRadar.git
 cd D2RLootRadar
@@ -70,21 +79,27 @@ Or open `D2RLootRadar.slnx` in Visual Studio 2022+ and run the `D2RLootRadar.Des
 
 ### Using the app
 
-1. **Lauch D2RLootRadar** and D2R (in either order — the app polls for the game process every few seconds).
+1. **Launch D2RLootRadar** and D2R (in either order — the app polls for the game process every few seconds).
 2. In the **main window**, check off the item bases you want to be alerted for. They're grouped by category and searchable by expanding each group.
-3. Open **Settings** (gear icon) to configure the alert tone's frequency and volume, preview it with **Test Sound**, and toggle the on-screen overlay marker.
+3. Open **Settings** to configure the alert tone's frequency and volume, preview it with **Test Sound**, and toggle the on-screen overlay marker.
 4. Play normally. When loot drops, tap **ALT** the same way you already do to read item labels — if anything on your watch list is on the ground, you'll hear the alert and see a marker over it.
 
 Your selection and settings are saved automatically (debounced ~400ms after your last change) to `settings.json`, next to the executable.
 
-### Advanced configuration
+### Alert & overlay tuning
 
-A couple of settings aren't exposed in the UI yet and can be tuned directly in `settings.json`:
+All of the alert and overlay behavior is configurable from the Settings window:
 
-|Field|Default|Description|
-|-----|-------|-----------|
-|`FuzzyMatchThreshold`|`0.80`|Minimum similarity (0.0-1.0) for a detected text token to count as a match. Lower = more forgiving of OCR misreads, but more prone to false positives.|
-|`BeepDurationMs`|`200`|Length of the alert tone in milliseconds.|
+|Setting|Default|Description|
+|-------|-------|-----------|
+|Beep Volume|100%|0 mutes the alert entirely|
+|Beep Frequency|800 Hz| Pitch of the alert tone|
+|Beep Duration|200ms|Length of the alert tone|
+|Match Sensitivity|80%|Minimum similarity for OCR text to count as a match. Lower is more forgiving of misreads but more prone to false positives|
+|Marker Display Time|2s| How long the on-screen marker stays visible. Kept short by default — see [Known limitations](#known-limitations) regarding marker drift if you move after a detection|
+|Show overlay on detection|On|Toggles the on-screen marker entirely|
+
+Each settings has a "i" tooltip in the Settings window with the same explanation.
 
 ## Project structure
 
