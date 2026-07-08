@@ -14,7 +14,7 @@ public class UserSettingsTests
     Assert.Equal(200, settings.BeepDurationMs);
     Assert.Equal(10, settings.BeepVolume);
     Assert.Equal(2, settings.MarkerDisplaySeconds);
-    Assert.False(settings.DetectUniquesOnly);
+    Assert.Equal(DetectionMode.All, settings.Mode);
     Assert.True(settings.OverlayEnabled);
     Assert.Empty(settings.SelectedItemBases);
   }
