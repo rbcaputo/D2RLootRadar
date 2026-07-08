@@ -1,4 +1,4 @@
-# D2RLootRadar
+# D2RLootRadar (v1.1.0)
 
 [![CI](https://github.com/rbcaputo/D2RLootRadar/actions/workflows/ci.yml/badge.svg)](https://github.com/rbcaputo/D2RLootRadar/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
@@ -15,9 +15,11 @@ Tap **ALT** (D2R's native "show item labels" key) and D2RLootRadar reads the lab
 
 ## Why
 
-This started from a familiar frustration: standing over a pile of white items after a group kill or a super chest open, eyes scanning line by line for the one base you actually need for a runeword — easy to miss, especially in a rush or when the labels clump together.
+This started from a familiar frustration: standing over a pile of white items after a group kill or a super chest open, eyes scanning line by line for the one base you actually need for a runeword — easy to miss, especially in a rush or when the labels clump together. It gets worse the longer a farming session runs: eye strain and plain mental fatigue creep in over hours of grinding, and a label you'd catch instantly on your first run can slip right past on your fiftieth.
 
 D2RLootRadar doesn't replace that scan, and it isn't perfect — OCR misreads happen, and it won't catch everything. What it does is give you a second pass: a beep and a marker on anything from your watch list, so you don't have to rely on catching it the first time. Some players can eye-scan a burst of drops fast enough that this adds little for them, and that's fine — this is a small quality-of-life tool for the rest of us who'd rather not risk running past a rune base in a stack of junk.
+
+It's best thought of as commplementary to D2R's own native loot filter, not a replacement for it — the in-game filter already cuts down the clutter you have to scan in the first place; D2RLootRadar is the safety net that catches what's left, even in the labels that do stay visible.
 
 ## How it works
 
@@ -39,7 +41,9 @@ Everything is triggered by the ALT key press itself — there's no polling loop 
 
 ## Features
 
-- **583 item bases** (as of this writing) across all D2R item categories — amulets, armor, belts, boots, charms, gems, gloves, helmets, jewels, materials, rings, runes, shields, and weapons — pick exactly which ones you want alerts for. The catalog may lag behind the newest patches; see [Known limitations](#known-limitations).
+- **583+ item bases** (as of this writing) across all D2R item categories — amulets, armor, belts, boots, charms, gems, gloves, helmets, jewels, materials, rings, runes, shields, and weapons — pick exactly which ones you want alerts for. The catalog may lag behind the newest patches; see [Known limitations](#known-limitations).
+- **Set/Unique indicators in the watch list** — a base that has a Set version shows a small green dot next to its name, and a tan/gold dot if it has a Unique version (both, if it has each). Hover the name to see exactly which Set and/or Unique items exist for that base. The green dot is mostly a convenience, since D2R already renders Set labels in a bright, hard-to-miss green — the tan/glod one carries more practical value, since a Unique label's color can blend more easily into a warm dungeon floor.
+- **Detection mode filter** — restrict alerts to only Unique-quality drops (tan/gold label, detected by sampling the label's actual on-screen color) or only Superior-quality drops (detected from the "Superior" text prefix, since Superior shares its white/gray label color with Cracked/Damaged/Low Quality and can't be told apart by color alone). Defaults to All, alerting on any watch-list match regardless of quality.
 - **OCR-based detection**, not memory reading or packet inspection — it only ever looks at what's rendered on your screen, the same way you would.
 - **Fuzzy matching** tolerant of OCR misreads and truncated text (e.g. a partially-obscured "Monarchi" still matches "Monarch").
 - **Configurable audio alert** — tune tone frequency and volume, with a test-sound button.
@@ -56,13 +60,13 @@ Everything is triggered by the ALT key press itself — there's no polling loop 
 
 > **Note on display modes:** true exclusive fullscreen bypasses the Windows compositor (DWM), which both the screen capture and the overlay rely on. If detection or the overlay marker don't seem to work, switch D2R to borderless fullscreen or windowed mode in its display settings.
 
-> **Note on multi-monitor setups:** overlay marker positioning is currently validated for single-monitor use. Mixed-DPI multi-monitor setups may see markers offset by a few pixels — see [Known limitations](#known-limitations).
+> **Note on multi-monitor setups:** overlay marker positioning is currently validated for single-monitor use. Mixed-DPI multi-monitor setups may see markers offset by a few or more pixels — see [Known limitations](#known-limitations).
 
 ## Getting started
 
 ### Download
 
-Grab the latest build from the [Releases page](https://github.com/rbcaputo/D2RLootRadar/releases/latest) — download `D2RLootRadar-v1.0.0-win-x64.zip` (not the "Source code" zip/tar.gz — those are just the raw source, not a runnable build), extract it, and run `D2RLootRadar.Desktop.exe`.
+Grab the latest build from the [Releases page](https://github.com/rbcaputo/D2RLootRadar/releases/latest) — download `D2RLootRadar-v1.1.0-win-x64.zip` (not the "Source code" zip/tar.gz — those are just the raw source, not a runnable build), extract it, and run `D2RLootRadar.Desktop.exe`.
 
 Building from source is only necessary if you want to modify the code yourself.
 
@@ -80,9 +84,9 @@ Or open `D2RLootRadar.slnx` in Visual Studio 2022+ and run the `D2RLootRadar.Des
 ### Using the app
 
 1. **Launch D2RLootRadar** and D2R (in either order — the app polls for the game process every few seconds).
-2. In the **main window**, check off the item bases you want to be alerted for. They're grouped by category and searchable by expanding each group.
-3. Open **Settings** to configure the alert tone's frequency and volume, preview it with **Test Sound**, and toggle the on-screen overlay marker.
-4. Play normally. When loot drops, tap **ALT** the same way you already do to read item labels — if anything on your watch list is on the ground, you'll hear the alert and see a marker over it.
+2. In the **main window**, check off the item bases you want to be alerted for. They're grouped by category and searchable by expanding each group. A green dot next to a name means that base has a Set version; a tan/gold dot means it has a Unique version — hover the name to see which ones.
+3. Open **Settings** to configure the alert tone's frequency and volume, preview it with **Test Sound**, choose a **detection mode** (All/Unique only/Superior only), and toggle the on-screen overlay marker.
+4. Play normally. When loot drops, tap **ALT** the same way you already do to read item labels — if anything on your watch list is on the ground (and matches your detection mode), you'll hear the alert and see a marker over it.
 
 Your selection and settings are saved automatically (debounced ~400ms after your last change) to `settings.json`, next to the executable.
 
@@ -97,6 +101,7 @@ All of the alert and overlay behavior is configurable from the Settings window:
 |Beep Duration|200ms|Length of the alert tone|
 |Match Sensitivity|80%|Minimum similarity for OCR text to count as a match. Lower is more forgiving of misreads but more prone to false positives|
 |Marker Display Time|2s| How long the on-screen marker stays visible. Kept short by default — see [Known limitations](#known-limitations) regarding marker drift if you move after a detection|
+|Detection Mode|All|**All** alerts on any watch-list match regardless of quality. **Unique only** restricts alerts to Unique-quality (tan/gold label) drops, detected by sampling the label's color. **Superior only** restricts alerts to items whose label reads "Superior [name]"|
 |Show overlay on detection|On|Toggles the on-screen marker entirely|
 
 Each settings has a "i" tooltip in the Settings window with the same explanation.
@@ -129,6 +134,8 @@ Covers the parts of the pipeline that are pure logic and don't require a running
 - **Mixed-DPI multi-monitor setups aren't validated yet.** The overlay currently captures DPI scale once, from whichever monitor initializes it — on a setup with different scaling per monitor, marker placement could be off by a few pixels on secondary displays. Single-monitor setups are unnafected.
 - **OCR accuracy depends on your in-game text/UI scale.** If you're seeing missed detections, try adjusting D2R's UI scale settings, or lower `FuzzyMatcherThreshold` slightly.
 - **Marker offset while a side panel (inventory or character screen) is open.** D2R shifts its rendered game viewport left/right to make room for the panel, but the captured window's screen rectangle stays the same — so a detection made while a panel is open can place the overlay marker off from the item's actual position by roughly the panel's width. **Workaround:** prefer scanning for items with those panels closed, or re-tap ALT after closing the panel to get a fresh, correctly-aligned reading.
+- **Unique-only detection is color-calibrated against standard D2R visuals.** It samples the label's actual rendered color and classifies it by hue/saturation. If you run ENB, ReShade, or another visual mod that shifts color grading, classification accuracy may degrade — the color bands were tuned against unmodified D2R.
+- **Superior-only detection depends on OCR reading the "Superior" word itself**, since Superior shares its white/gray label color with Cracked/Damaged/Low Quality and can't be distinguished by color the way Unique can. If a label is partially obscured such that OCR misses or mangles the word "Superior", that detection is filtered out even though the item is genuinely Superior.
 
 ## Contributing
 
