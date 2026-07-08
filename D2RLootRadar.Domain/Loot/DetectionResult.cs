@@ -10,9 +10,15 @@
 /// Pixel position of the label within the original captured frame (pre-crop, pre-upscale).
 /// Used to place the overlay marker.
 /// </param>
+/// <param name="Rarity">
+/// Whether the label's color is Unique (tan/gold) or not.
+/// <see cref="LabelRarity.Unknown"/> when no color could be sampled at all -
+/// never treat Unknown as equivalent to <see cref="LabelRarity.Unique"/> or <see cref="LabelRarity.Other"/>.
+/// </param>
 public sealed record DetectionResult(
   string RawText,
   string NormalizedText,
   float Confidence,
-  PixelRect BoundingBox
+  PixelRect BoundingBox,
+  LabelRarity Rarity
 );

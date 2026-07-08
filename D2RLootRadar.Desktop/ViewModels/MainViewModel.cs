@@ -148,7 +148,7 @@ public partial class MainViewModel : ObservableObject
   private void Load()
   {
     IsGameRunning = _gameProcessService.IsRunning();
-    
+
     UserSettings settings = _settingsStore.Load();
     HashSet<string> selected
       = new(settings.SelectedItemBases, StringComparer.OrdinalIgnoreCase);
@@ -165,7 +165,12 @@ public partial class MainViewModel : ObservableObject
     {
       IEnumerable<ItemBaseViewModel> items = group
         .OrderBy(x => x.Name)
-        .Select(x => new ItemBaseViewModel(x.Name, selected.Contains(x.Name)));
+        .Select(x => new ItemBaseViewModel(
+          x.Name,
+          selected.Contains(x.Name),
+          x.SetVariants,
+          x.UniqueVariants
+        ));
 
       CategoryViewModel category = new(group.Key, items);
       category.PropertyChanged += OnCategoryPropertyChanged;

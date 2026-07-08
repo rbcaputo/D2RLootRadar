@@ -45,6 +45,13 @@ public sealed class LootMonitoringService : IDisposable
   private const int MinPasses = 2;
 
   /// <summary>
+  /// The exact text of the Superior quality prefix, as D2R renders it.
+  /// Shared between <see cref="QualityPrefixes"/> (stripped for matching) and <see cref="HasSuperiorPrefix"/>
+  /// (checked for the Superior-only filter) so the literal string exists in exactly one place.
+  /// </summary>
+  private const string SuperiorPrefix = "Superior";
+
+  /// <summary>
   /// Upper bound on how long a single ALT-triggered pipeline run (all passes combined)
   /// may run before it is cancelled.
   /// Chiefly a safety net for a held ALT key combined with a slow OCR pass -
@@ -60,7 +67,7 @@ public sealed class LootMonitoringService : IDisposable
       "Crude",
       "Damaged",
       "Low Quality",
-      "Superior"
+      SuperiorPrefix
     };
 
   /// <summary>
@@ -109,7 +116,7 @@ public sealed class LootMonitoringService : IDisposable
     => _keyboardMonitor.Stop();
 
   /// <summary>
-  /// Strips a leading "Superior"/"Cracked"/"Damaged" quality prefix from OCR'd text,
+  /// Strips a leading "Superior"/"Cracked"/"Damaged"/"Low Quality" quality prefix from OCR'd text,
   /// since the catalog store bare base names (e.g. "Phase Blade", not "Superior Phase Blade").
   /// 
   /// Internal rather than private specifically so it can be unit-tested directly
@@ -124,6 +131,48 @@ public sealed class LootMonitoringService : IDisposable
 
     return normalizedText;
   }
+
+  /// <summary>
+  /// Restricts detections to a specific <see cref="DetectionMode"/> before they're matched against the watch list.
+  /// <see cref="DetectionMode.All"/> is a no-op - returns <paramref name="detections"/> unchanged.
+  /// 
+  /// <para>
+  /// <see cref="DetectionMode.UniqueOnly"/> is color-based: keeps only <see cref="LabelRarity.Unique"/> detections.
+  /// <see cref="LabelRarity.Unknowm"/> (an inconclusive color sample) is excluded here too -
+  /// it must never be treated as a match.
+  /// </para>
+  /// 
+  /// <para>
+  /// <see cref="DetectionMode.SuperiorOnly"/> is text-based, via <see cref="HasSuperiorPrefix"/>:
+  /// Superior has no distinct label color of its own -
+  /// it renders in the same white/gray as Cracked/Damaged/Low Quality, so color alone can't tell them apart.
+  /// The recognized text itself has to carry the "Superior" word for this filter to have anything to key off.
+  /// </para>
+  /// 
+  /// Internal rather than private so it can be unit-tested directly, same rationale as
+  /// <see cref="StripQualityPrefix"/>.
+  /// </summary>
+  internal static IEnumerable<DetectionResult> FilterByMode(
+    IEnumerable<DetectionResult> detections,
+    DetectionMode mode
+  ) => mode switch
+  {
+    DetectionMode.UniqueOnly => detections.Where(d => d.Rarity == LabelRarity.Unique),
+    DetectionMode.SuperiorOnly => detections.Where(HasSuperiorPrefix),
+    _ => detections
+  };
+
+  /// <summary>
+  /// Whether a detection's recognized text starts with the "Superior" quality prefix.
+  /// Checked against <see cref="DetectionResult.NormalizedText"/>, which <c>OcrService</c> already lowercases
+  /// (and, for multi-word lines, collapses internal whitespace on) -
+  /// so a plain ordinal-ignore-case prefix check is sufficient here.
+  /// </summary>
+  private static bool HasSuperiorPrefix(DetectionResult detection)
+    => detection.NormalizedText.StartsWith(
+         SuperiorPrefix + " ",
+         StringComparison.OrdinalIgnoreCase
+       );
 
   /// <summary>
   /// Handles a Left ALT key down.
@@ -227,6 +276,14 @@ public sealed class LootMonitoringService : IDisposable
         = await _ocrService.DetectAsync(capture.ImageData, cToken);
       if (detections.Count == 0)
         continue;
+
+      if (settings.Mode != DetectionMode.All)
+      {
+        detections
+          = [.. FilterByMode(detections, settings.Mode)];
+        if (detections.Count == 0)
+          continue;
+      }
 
       // One marker per distinct matched item name -
       // first matching detection for that item wins its on-screen position.

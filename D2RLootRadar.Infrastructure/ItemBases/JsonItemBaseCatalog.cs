@@ -15,7 +15,9 @@ namespace D2RLootRadar.Infrastructure.ItemBases;
 ///   "Supertype": "Weapon" | "Armor" | "Misc",
 ///   "Type": "One-Handed" | "Two-Handed" | "Belt" | "Torso" | ... | "Rune" | "Gem" | ...,
 ///   "Subtype": "Axe" | "Sword" | "Circlet" | "Pelt" | "Key" | ... (optional),
-///   "Base": "Phase Blade" ← the floor-label text matched by OCR
+///   "Base": "Phase Blade" ← the floor-label text matched by OCR,
+///   "Sets": ["Arctic Binding, ...] (optional - Set items sharing this base, if any),
+///   "Uniques": ["Stormshield, ...] (optional - Unique items sharing this base, if any)
 /// }
 /// </code>
 /// 
@@ -54,8 +56,7 @@ public sealed class JsonItemBaseCatalog : IItemBaseCatalog
     => _items;
 
   /// <summary>
-  /// Reads and deserializes <c>Data/item-bases.json</c>,
-  /// mapping each DTO to a domain <see cref="ItemBase"/>.
+  /// Reads and deserializes <c>Data/item-bases.json</c>, mapping each DTO to a domain <see cref="ItemBase"/>.
   /// </summary>
   private List<ItemBase> Load()
   {
@@ -73,15 +74,20 @@ public sealed class JsonItemBaseCatalog : IItemBaseCatalog
   }
 
   /// <summary>
-  /// Maps a single JSON DTO to its domain <see cref="ItemBase"/>,
-  /// resolving category and display group.
+  /// Maps a single JSON DTO to its domain <see cref="ItemBase"/>, resolving category and display group.
   /// </summary>
   private ItemBase Map(ItemBaseDto dto)
   {
     ItemCategory category = ResolveCategory(dto);
     string displayGroup = dto.Subtype ?? dto.Type;
 
-    return new(dto.Base, category, displayGroup);
+    return new(
+      dto.Base,
+      category,
+      displayGroup,
+      dto.Sets ?? [],
+      dto.Uniques ?? []
+    );
   }
 
   /// <summary>

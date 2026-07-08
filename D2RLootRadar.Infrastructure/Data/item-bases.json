@@ -11,49 +11,70 @@
     "Type": "One-Handed",
     "Subtype": "Amazon Javelin",
     "Quality": "Exceptional",
-    "Base": "Ceremonial Javelin"
+    "Base": "Ceremonial Javelin",
+    "Uniques": [
+      "Titan's Revenge"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "One-Handed",
     "Subtype": "Amazon Javelin",
     "Quality": "Elite",
-    "Base": "Matriarchal Javelin"
+    "Base": "Matriarchal Javelin",
+    "Uniques": [
+      "Thunderstroke"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "One-Handed",
     "Subtype": "Axe",
     "Quality": "Normal",
-    "Base": "Hand Axe"
+    "Base": "Hand Axe",
+    "Uniques": [
+      "The Gnasher"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "One-Handed",
     "Subtype": "Axe",
     "Quality": "Exceptional",
-    "Base": "Hatchet"
+    "Base": "Hatchet",
+    "Uniques": [
+      "Coldkill"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "One-Handed",
     "Subtype": "Axe",
     "Quality": "Elite",
-    "Base": "Tomahawk"
+    "Base": "Tomahawk",
+    "Uniques": [
+      "Razor's Edge"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "One-Handed",
     "Subtype": "Axe",
     "Quality": "Normal",
-    "Base": "Axe"
+    "Base": "Axe",
+    "Uniques": [
+      "Deathspade"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "One-Handed",
     "Subtype": "Axe",
     "Quality": "Exceptional",
-    "Base": "Cleaver"
+    "Base": "Cleaver",
+    "Uniques": [
+      "Butcher's Pupil"
+    ]
   },
   {
     "Supertype": "Weapon",
@@ -67,63 +88,97 @@
     "Type": "One-Handed",
     "Subtype": "Axe",
     "Quality": "Normal",
-    "Base": "Double Axe"
+    "Base": "Double Axe",
+    "Sets": [
+      "Berserker's Hatchet"
+    ],
+    "Uniques": [
+      "Bladebone"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "One-Handed",
     "Subtype": "Axe",
     "Quality": "Exceptional",
-    "Base": "Twin Axe"
+    "Base": "Twin Axe",
+    "Uniques": [
+      "Islestrike"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "One-Handed",
     "Subtype": "Axe",
     "Quality": "Elite",
-    "Base": "Ettin Axe"
+    "Base": "Ettin Axe",
+    "Uniques": [
+      "Rune Master"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "One-Handed",
     "Subtype": "Axe",
     "Quality": "Normal",
-    "Base": "Military Pick"
+    "Base": "Military Pick",
+    "Sets": [
+      "Tancred's Crowbill"
+    ],
+    "Uniques": [
+      "Skull Splitter"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "One-Handed",
     "Subtype": "Axe",
     "Quality": "Exceptional",
-    "Base": "Crowbill"
+    "Base": "Crowbill",
+    "Uniques": [
+      "Blackleach Blade",
+      "Pompeii's Wrath"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "One-Handed",
     "Subtype": "Axe",
     "Quality": "Elite",
-    "Base": "War Spike"
+    "Base": "War Spike",
+    "Uniques": [
+      "Cranebeak"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "One-Handed",
     "Subtype": "Axe",
     "Quality": "Normal",
-    "Base": "War Axe"
+    "Base": "War Axe",
+    "Uniques": [
+      "Rakescar"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "One-Handed",
     "Subtype": "Axe",
     "Quality": "Exceptional",
-    "Base": "Naga"
+    "Base": "Naga",
+    "Uniques": [
+      "Guardian Naga"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "One-Handed",
     "Subtype": "Axe",
     "Quality": "Elite",
-    "Base": "Berserker Axe"
+    "Base": "Berserker Axe",
+    "Uniques": [
+      "Death Cleaver"
+    ]
   },
   {
     "Supertype": "Weapon",
@@ -165,7 +220,10 @@
     "Type": "One-Handed",
     "Subtype": "Claw",
     "Quality": "Elite",
-    "Base": "Wrist Sword"
+    "Base": "Wrist Sword",
+    "Uniques": [
+      "Jade Talon"
+    ]
   },
   {
     "Supertype": "Weapon",
@@ -207,7 +265,10 @@
     "Type": "One-Handed",
     "Subtype": "Claw",
     "Quality": "Elite",
-    "Base": "Battle Cestus"
+    "Base": "Battle Cestus",
+    "Uniques": [
+      "Shadow Killer"
+    ]
   },
   {
     "Supertype": "Weapon",
@@ -228,7 +289,10 @@
     "Type": "One-Handed",
     "Subtype": "Claw",
     "Quality": "Elite",
-    "Base": "Feral Claws"
+    "Base": "Feral Claws",
+    "Uniques": [
+      "Firelizard's Talons"
+    ]
   },
   {
     "Supertype": "Weapon",
@@ -242,7 +306,10 @@
     "Type": "One-Handed",
     "Subtype": "Claw",
     "Quality": "Exceptional",
-    "Base": "Greater Talons"
+    "Base": "Greater Talons",
+    "Uniques": [
+      "Bartuc's Cut-Throat"
+    ]
   },
   {
     "Supertype": "Weapon",
@@ -270,154 +337,223 @@
     "Type": "One-Handed",
     "Subtype": "Claw",
     "Quality": "Elite",
-    "Base": "Scissors Suwayyah"
+    "Base": "Scissors Suwayyah",
+    "Sets": [
+      "Natalya's Mark"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "One-Handed",
     "Subtype": "Club",
     "Quality": "Normal",
-    "Base": "Club"
+    "Base": "Club",
+    "Uniques": [
+      "Felloak"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "One-Handed",
     "Subtype": "Club",
     "Quality": "Exceptional",
-    "Base": "Cudgel"
+    "Base": "Cudgel",
+    "Uniques": [
+      "Dark Clan Crusher"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "One-Handed",
     "Subtype": "Club",
     "Quality": "Elite",
-    "Base": "Truncheon"
+    "Base": "Truncheon",
+    "Uniques": [
+      "Nord's Tenderizer"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "One-Handed",
     "Subtype": "Club",
     "Quality": "Normal",
-    "Base": "Spiked Club"
+    "Base": "Spiked Club",
+    "Uniques": [
+      "Stoutnail"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "One-Handed",
     "Subtype": "Club",
     "Quality": "Exceptional",
-    "Base": "Barbed Club"
+    "Base": "Barbed Club",
+    "Uniques": [
+      "Fleshrender"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "One-Handed",
     "Subtype": "Club",
     "Quality": "Elite",
-    "Base": "Tyrant Club"
+    "Base": "Tyrant Club",
+    "Uniques": [
+      "Demon Limb"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "One-Handed",
     "Subtype": "Dagger",
     "Quality": "Normal",
-    "Base": "Dagger"
+    "Base": "Dagger",
+    "Uniques": [
+      "Gull"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "One-Handed",
     "Subtype": "Dagger",
     "Quality": "Exceptional",
-    "Base": "Poignard"
+    "Base": "Poignard",
+    "Uniques": [
+      "Spineripper"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "One-Handed",
     "Subtype": "Dagger",
     "Quality": "Elite",
-    "Base": "Bone Knife"
+    "Base": "Bone Knife",
+    "Uniques": [
+      "Wizardspike"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "One-Handed",
     "Subtype": "Dagger",
     "Quality": "Normal",
-    "Base": "Dirk"
+    "Base": "Dirk",
+    "Uniques": [
+      "The Diggler"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "One-Handed",
     "Subtype": "Dagger",
     "Quality": "Exceptional",
-    "Base": "Rondel"
+    "Base": "Rondel",
+    "Uniques": [
+      "Heart Carver"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "One-Handed",
     "Subtype": "Dagger",
     "Quality": "Elite",
-    "Base": "Mithril Point"
+    "Base": "Mithril Point",
+    "Uniques": [
+      "Bloodpact Shard"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "One-Handed",
     "Subtype": "Dagger",
     "Quality": "Normal",
-    "Base": "Kris"
+    "Base": "Kris",
+    "Sets": [
+      "Bane's Oathmaker"
+    ],
+    "Uniques": [
+      "The Jade Tan Do"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "One-Handed",
     "Subtype": "Dagger",
     "Quality": "Exceptional",
-    "Base": "Cinquedeas"
+    "Base": "Cinquedeas",
+    "Uniques": [
+      "Blackbog's Sharp"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "One-Handed",
     "Subtype": "Dagger",
     "Quality": "Elite",
-    "Base": "Fanged Knife"
+    "Base": "Fanged Knife",
+    "Uniques": [
+      "Fleshripper"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "One-Handed",
     "Subtype": "Dagger",
     "Quality": "Normal",
-    "Base": "Blade"
+    "Base": "Blade",
+    "Uniques": [
+      "Spectral Shard"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "One-Handed",
     "Subtype": "Dagger",
     "Quality": "Exceptional",
-    "Base": "Stiletto"
+    "Base": "Stiletto",
+    "Uniques": [
+      "Stormspike"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "One-Handed",
     "Subtype": "Dagger",
     "Quality": "Elite",
-    "Base": "Legend Spike"
+    "Base": "Legend Spike",
+    "Uniques": [
+      "Ghostflame"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "One-Handed",
     "Subtype": "Hammer",
     "Quality": "Normal",
-    "Base": "War Hammer"
+    "Base": "War Hammer",
+    "Uniques": [
+      "Ironstone"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "One-Handed",
     "Subtype": "Hammer",
     "Quality": "Exceptional",
-    "Base": "Battle Hammer"
+    "Base": "Battle Hammer",
+    "Uniques": [
+      "Earthshaker"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "One-Handed",
     "Subtype": "Hammer",
     "Quality": "Elite",
-    "Base": "Legendary Mallet"
+    "Base": "Legendary Mallet",
+    "Uniques": [
+      "Schaefer's Hammer"
+    ]
   },
   {
     "Supertype": "Weapon",
@@ -480,7 +616,10 @@
     "Type": "One-Handed",
     "Subtype": "Javelin",
     "Quality": "Elite",
-    "Base": "Balrog Spear"
+    "Base": "Balrog Spear",
+    "Uniques": [
+      "Demon's Arch"
+    ]
   },
   {
     "Supertype": "Weapon",
@@ -501,7 +640,10 @@
     "Type": "One-Handed",
     "Subtype": "Javelin",
     "Quality": "Elite",
-    "Base": "Ghost Glaive"
+    "Base": "Ghost Glaive",
+    "Uniques": [
+      "Wraith Flight"
+    ]
   },
   {
     "Supertype": "Weapon",
@@ -522,70 +664,103 @@
     "Type": "One-Handed",
     "Subtype": "Javelin",
     "Quality": "Elite",
-    "Base": "Winged Harpoon"
+    "Base": "Winged Harpoon",
+    "Uniques": [
+      "Gargoyle's Bite"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "One-Handed",
     "Subtype": "Mace",
     "Quality": "Normal",
-    "Base": "Mace"
+    "Base": "Mace",
+    "Uniques": [
+      "Crushflange"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "One-Handed",
     "Subtype": "Mace",
     "Quality": "Exceptional",
-    "Base": "Flanged Mace"
+    "Base": "Flanged Mace",
+    "Uniques": [
+      "Sureshrill Frost"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "One-Handed",
     "Subtype": "Mace",
     "Quality": "Elite",
-    "Base": "Reinforced Mace"
+    "Base": "Reinforced Mace",
+    "Sets": [
+      "Dangoon's Teaching"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "One-Handed",
     "Subtype": "Mace",
     "Quality": "Normal",
-    "Base": "Morning Star"
+    "Base": "Morning Star",
+    "Uniques": [
+      "Bloodrise"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "One-Handed",
     "Subtype": "Mace",
     "Quality": "Exceptional",
-    "Base": "Jagged Star"
+    "Base": "Jagged Star",
+    "Sets": [
+      "Aldur's Rhythm"
+    ],
+    "Uniques": [
+      "Moonfall"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "One-Handed",
     "Subtype": "Mace",
     "Quality": "Elite",
-    "Base": "Devil Star"
+    "Base": "Devil Star",
+    "Uniques": [
+      "Baranar's Star"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "One-Handed",
     "Subtype": "Mace",
     "Quality": "Normal",
-    "Base": "Flail"
+    "Base": "Flail",
+    "Uniques": [
+      "The General's Tan Do Li Ga"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "One-Handed",
     "Subtype": "Mace",
     "Quality": "Exceptional",
-    "Base": "Knout"
+    "Base": "Knout",
+    "Uniques": [
+      "Baezil's Vortex"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "One-Handed",
     "Subtype": "Mace",
     "Quality": "Elite",
-    "Base": "Scourge"
+    "Base": "Scourge",
+    "Uniques": [
+      "Horizon's Tornado"
+    ]
   },
   {
     "Supertype": "Weapon",
@@ -627,7 +802,10 @@
     "Type": "One-Handed",
     "Subtype": "Orb",
     "Quality": "Elite",
-    "Base": "Eldritch Orb"
+    "Base": "Eldritch Orb",
+    "Uniques": [
+      "Eschuta's Temper"
+    ]
   },
   {
     "Supertype": "Weapon",
@@ -683,49 +861,76 @@
     "Type": "One-Handed",
     "Subtype": "Orb",
     "Quality": "Exceptional",
-    "Base": "Swirling Crystal"
+    "Sets": [
+      "Tal Rasha's Lidless Eye"
+    ],
+    "Base": "Swirling Crystal",
+    "Uniques": [
+      "The Oculus"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "One-Handed",
     "Subtype": "Orb",
     "Quality": "Elite",
-    "Base": "Dimensional Shard"
+    "Base": "Dimensional Shard",
+    "Uniques": [
+      "Death's Fathom"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "One-Handed",
     "Subtype": "Scepter",
     "Quality": "Normal",
-    "Base": "Scepter"
+    "Base": "Scepter",
+    "Uniques": [
+      "Knell Striker"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "One-Handed",
     "Subtype": "Scepter",
     "Quality": "Exceptional",
-    "Base": "Rune Scepter"
+    "Base": "Rune Scepter",
+    "Uniques": [
+      "Zakarum's Hand"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "One-Handed",
     "Subtype": "Scepter",
     "Quality": "Elite",
-    "Base": "Mighty Scepter"
+    "Base": "Mighty Scepter",
+    "Uniques": [
+      "Heaven's Light"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "One-Handed",
     "Subtype": "Scepter",
     "Quality": "Normal",
-    "Base": "Grand Scepter"
+    "Sets": [
+      "Civerb's Cudgel"
+    ],
+    "Base": "Grand Scepter",
+    "Uniques": [
+      "Rusthandle"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "One-Handed",
     "Subtype": "Scepter",
     "Quality": "Exceptional",
-    "Base": "Holy Water Sprinkler"
+    "Base": "Holy Water Sprinkler",
+    "Uniques": [
+      "The Fetid Sprinkler"
+    ]
   },
   {
     "Supertype": "Weapon",
@@ -739,35 +944,56 @@
     "Type": "One-Handed",
     "Subtype": "Scepter",
     "Quality": "Normal",
-    "Base": "War Scepter"
+    "Base": "War Scepter",
+    "Sets": [
+      "Milabrega's Rod"
+    ],
+    "Uniques": [
+      "Stormeye"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "One-Handed",
     "Subtype": "Scepter",
     "Quality": "Exceptional",
-    "Base": "Divine Scepter"
+    "Base": "Divine Scepter",
+    "Uniques": [
+      "Hand of Blessed Light"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "One-Handed",
     "Subtype": "Scepter",
     "Quality": "Elite",
-    "Base": "Caduceus"
+    "Base": "Caduceus",
+    "Sets": [
+      "Griswold's Redemption"
+    ],
+    "Uniques": [
+      "Astreon's Iron Ward"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "One-Handed",
     "Subtype": "Sword",
     "Quality": "Normal",
-    "Base": "Short Sword"
+    "Base": "Short Sword",
+    "Uniques": [
+      "Rixot's Keen"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "One-Handed",
     "Subtype": "Sword",
     "Quality": "Exceptional",
-    "Base": "Gladius"
+    "Base": "Gladius",
+    "Uniques": [
+      "Bloodletter"
+    ]
   },
   {
     "Supertype": "Weapon",
@@ -781,56 +1007,83 @@
     "Type": "One-Handed",
     "Subtype": "Sword",
     "Quality": "Normal",
-    "Base": "Scimitar"
+    "Base": "Scimitar",
+    "Uniques": [
+      "Blood Crescent"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "One-Handed",
     "Subtype": "Sword",
     "Quality": "Exceptional",
-    "Base": "Cutlass"
+    "Base": "Cutlass",
+    "Uniques": [
+      "Coldsteel Eye"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "One-Handed",
     "Subtype": "Sword",
     "Quality": "Elite",
-    "Base": "Ataghan"
+    "Base": "Ataghan",
+    "Uniques": [
+      "Djinn Slayer"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "One-Handed",
     "Subtype": "Sword",
     "Quality": "Normal",
-    "Base": "Sabre"
+    "Base": "Sabre",
+    "Sets": [
+      "Angelic Sickle"
+    ],
+    "Uniques": [
+      "Skewer of Krintiz"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "One-Handed",
     "Subtype": "Sword",
     "Quality": "Exceptional",
-    "Base": "Shamshir"
+    "Base": "Shamshir",
+    "Uniques": [
+      "Hexfire"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "One-Handed",
     "Subtype": "Sword",
     "Quality": "Elite",
-    "Base": "Elegant Blade"
+    "Base": "Elegant Blade",
+    "Uniques": [
+      "Bloodmoon"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "One-Handed",
     "Subtype": "Sword",
     "Quality": "Normal",
-    "Base": "Falchion"
+    "Base": "Falchion",
+    "Uniques": [
+      "Gleamscythe"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "One-Handed",
     "Subtype": "Sword",
     "Quality": "Exceptional",
-    "Base": "Tulwar"
+    "Base": "Tulwar",
+    "Uniques": [
+      "Blade of Ali Baba"
+    ]
   },
   {
     "Supertype": "Weapon",
@@ -851,28 +1104,44 @@
     "Type": "One-Handed",
     "Subtype": "Sword",
     "Quality": "Exceptional",
-    "Base": "Dimensional Blade"
+    "Base": "Dimensional Blade",
+    "Uniques": [
+      "Ginther's Rift"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "One-Handed",
     "Subtype": "Sword",
     "Quality": "Elite",
-    "Base": "Phase Blade"
+    "Base": "Phase Blade",
+    "Uniques": [
+      "Azurewrath",
+      "Lightsabre"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "One-Handed",
     "Subtype": "Sword",
     "Quality": "Normal",
-    "Base": "Broad Sword"
+    "Sets": [
+      "Isenhart's Lightbrand"
+    ],
+    "Base": "Broad Sword",
+    "Uniques": [
+      "Griswold's Edge"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "One-Handed",
     "Subtype": "Sword",
     "Quality": "Exceptional",
-    "Base": "Battle Sword"
+    "Base": "Battle Sword",
+    "Uniques": [
+      "Headstriker"
+    ]
   },
   {
     "Supertype": "Weapon",
@@ -886,42 +1155,69 @@
     "Type": "One-Handed",
     "Subtype": "Sword",
     "Quality": "Normal",
-    "Base": "Long Sword"
+    "Base": "Long Sword",
+    "Sets": [
+      "Cleglaw's Tooth"
+    ],
+    "Uniques": [
+      "Hellplague"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "One-Handed",
     "Subtype": "Sword",
     "Quality": "Exceptional",
-    "Base": "Rune Sword"
+    "Base": "Rune Sword",
+    "Uniques": [
+      "Plague Bearer"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "One-Handed",
     "Subtype": "Sword",
     "Quality": "Elite",
-    "Base": "Cryptic Sword"
+    "Sets": [
+      "Sazabi's Cobalt Redeemer"
+    ],
+    "Base": "Cryptic Sword",
+    "Uniques": [
+      "Frostwind"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "One-Handed",
     "Subtype": "Sword",
     "Quality": "Normal",
-    "Base": "War Sword"
+    "Base": "War Sword",
+    "Sets": [
+      "Death's Touch"
+    ],
+    "Uniques": [
+      "Culwen's Point"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "One-Handed",
     "Subtype": "Sword",
     "Quality": "Exceptional",
-    "Base": "Ancient Sword"
+    "Base": "Ancient Sword",
+    "Uniques": [
+      "The Atlantean"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "One-Handed",
     "Subtype": "Sword",
     "Quality": "Elite",
-    "Base": "Mythical Sword"
+    "Base": "Mythical Sword",
+    "Sets": [
+      "Bul-Katho's Tribal Guardian"
+    ]
   },
   {
     "Supertype": "Weapon",
@@ -935,7 +1231,20 @@
     "Type": "One-Handed",
     "Subtype": "Throwing Axe",
     "Quality": "Exceptional",
-    "Base": "Flying Axe"
+    "Base": "Francisca",
+    "Uniques": [
+      "The Scalper"
+    ]
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Throwing Axe",
+    "Quality": "Elite",
+    "Base": "Flying Axe",
+    "Uniques": [
+      "Gimmershred"
+    ]
   },
   {
     "Supertype": "Weapon",
@@ -956,7 +1265,10 @@
     "Type": "One-Handed",
     "Subtype": "Throwing Axe",
     "Quality": "Elite",
-    "Base": "Winged Axe"
+    "Base": "Winged Axe",
+    "Uniques": [
+      "Lacerator"
+    ]
   },
   {
     "Supertype": "Weapon",
@@ -970,7 +1282,10 @@
     "Type": "One-Handed",
     "Subtype": "Throwing Knife",
     "Quality": "Exceptional",
-    "Base": "Battle Dart"
+    "Base": "Battle Dart",
+    "Uniques": [
+      "Deathbit"
+    ]
   },
   {
     "Supertype": "Weapon",
@@ -982,16 +1297,46 @@
   {
     "Supertype": "Weapon",
     "Type": "One-Handed",
+    "Subtype": "Throwing Knife",
+    "Quality": "Normal",
+    "Base": "Balanced Knife"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Throwing Knife",
+    "Quality": "Exceptional",
+    "Base": "War Dart"
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
+    "Subtype": "Throwing Knife",
+    "Quality": "Elite",
+    "Base": "Winged Knife",
+    "Uniques": [
+      "Warshrike"
+    ]
+  },
+  {
+    "Supertype": "Weapon",
+    "Type": "One-Handed",
     "Subtype": "Wand",
     "Quality": "Normal",
-    "Base": "Wand"
+    "Base": "Wand",
+    "Uniques": [
+      "Torch of Iro"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "One-Handed",
     "Subtype": "Wand",
     "Quality": "Exceptional",
-    "Base": "Burnt Dart"
+    "Base": "Burnt Wand",
+    "Uniques": [
+      "Suicide Branch"
+    ]
   },
   {
     "Supertype": "Weapon",
@@ -1005,14 +1350,20 @@
     "Type": "One-Handed",
     "Subtype": "Wand",
     "Quality": "Normal",
-    "Base": "Yew Wand"
+    "Base": "Yew Wand",
+    "Uniques": [
+      "Maelstrom"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "One-Handed",
     "Subtype": "Wand",
     "Quality": "Exceptional",
-    "Base": "Petrified Wand"
+    "Base": "Petrified Wand",
+    "Uniques": [
+      "Carin Shard"
+    ]
   },
   {
     "Supertype": "Weapon",
@@ -1026,42 +1377,66 @@
     "Type": "One-Handed",
     "Subtype": "Wand",
     "Quality": "Normal",
-    "Base": "Bone Wand"
+    "Sets": [
+      "Sander's Superstition"
+    ],
+    "Base": "Bone Wand",
+    "Uniques": [
+      "Gravenspine"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "One-Handed",
     "Subtype": "Wand",
     "Quality": "Exceptional",
-    "Base": "Tomb Wand"
+    "Base": "Tomb Wand",
+    "Uniques": [
+      "Arm of King Leoric"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "One-Handed",
     "Subtype": "Wand",
     "Quality": "Elite",
-    "Base": "Lich Wand"
+    "Base": "Lich Wand",
+    "Uniques": [
+      "Boneshade"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "One-Handed",
     "Subtype": "Wand",
     "Quality": "Normal",
-    "Base": "Grim Wand"
+    "Base": "Grim Wand",
+    "Sets": [
+      "Infernal Torch"
+    ],
+    "Uniques": [
+      "Ume's Lament"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "One-Handed",
     "Subtype": "Wand",
     "Quality": "Exceptional",
-    "Base": "Grave Wand"
+    "Base": "Grave Wand",
+    "Uniques": [
+      "Blackhand Key"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "One-Handed",
     "Subtype": "Wand",
     "Quality": "Elite",
-    "Base": "Unearthed Wand"
+    "Base": "Unearthed Wand",
+    "Uniques": [
+      "Death's Web"
+    ]
   },
   {
     "Supertype": "Weapon",
@@ -1082,7 +1457,10 @@
     "Type": "Two-Handed",
     "Subtype": "Amazon Bow",
     "Quality": "Elite",
-    "Base": "Matriarchal Bow"
+    "Base": "Matriarchal Bow",
+    "Uniques": [
+      "Blood Raven's Charge"
+    ]
   },
   {
     "Supertype": "Weapon",
@@ -1096,14 +1474,20 @@
     "Type": "Two-Handed",
     "Subtype": "Amazon Bow",
     "Quality": "Exceptional",
-    "Base": "Ceremonial Bow"
+    "Base": "Ceremonial Bow",
+    "Uniques": [
+      "Lycander's Aim"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Amazon Bow",
     "Quality": "Elite",
-    "Base": "Grand Matron Bow"
+    "Base": "Grand Matron Bow",
+    "Sets": [
+      "M'avina's Caster"
+    ]
   },
   {
     "Supertype": "Weapon",
@@ -1124,7 +1508,10 @@
     "Type": "Two-Handed",
     "Subtype": "Amazon Spear",
     "Quality": "Elite",
-    "Base": "Matriarchal Spear"
+    "Base": "Matriarchal Spear",
+    "Uniques": [
+      "StoneRaven"
+    ]
   },
   {
     "Supertype": "Weapon",
@@ -1138,7 +1525,10 @@
     "Type": "Two-Handed",
     "Subtype": "Amazon Spear",
     "Quality": "Exceptional",
-    "Base": "Ceremonial Pike"
+    "Base": "Ceremonial Pike",
+    "Uniques": [
+      "Lycander's Flank"
+    ]
   },
   {
     "Supertype": "Weapon",
@@ -1152,14 +1542,20 @@
     "Type": "Two-Handed",
     "Subtype": "Axe",
     "Quality": "Normal",
-    "Base": "Large Axe"
+    "Base": "Large Axe",
+    "Uniques": [
+      "Axe of Fechmar"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Axe",
     "Quality": "Exceptional",
-    "Base": "Military Axe"
+    "Base": "Military Axe",
+    "Uniques": [
+      "Warlord's Trust"
+    ]
   },
   {
     "Supertype": "Weapon",
@@ -1173,98 +1569,140 @@
     "Type": "Two-Handed",
     "Subtype": "Axe",
     "Quality": "Normal",
-    "Base": "Broad Axe"
+    "Base": "Broad Axe",
+    "Uniques": [
+      "Goreshovel"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Axe",
     "Quality": "Normal",
-    "Base": "Bearded Axe"
+    "Base": "Bearded Axe",
+    "Uniques": [
+      "Spellsteel"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Axe",
     "Quality": "Normal",
-    "Base": "Silver-Edged Axe"
+    "Base": "Silver-Edged Axe",
+    "Uniques": [
+      "Ethereal Edge"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Axe",
     "Quality": "Normal",
-    "Base": "Battle Axe"
+    "Base": "Battle Axe",
+    "Uniques": [
+      "The Chieftain"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Axe",
     "Quality": "Exceptional",
-    "Base": "Tabar"
+    "Base": "Tabar",
+    "Uniques": [
+      "Stormrider"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Axe",
     "Quality": "Elite",
-    "Base": "Decapitator"
+    "Base": "Decapitator",
+    "Uniques": [
+      "Hellslayer"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Axe",
     "Quality": "Normal",
-    "Base": "Great Axe"
+    "Base": "Great Axe",
+    "Uniques": [
+      "Brainhew"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Axe",
     "Quality": "Exceptional",
-    "Base": "Gothic Axe"
+    "Base": "Gothic Axe",
+    "Uniques": [
+      "Boneslayer Blade"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Axe",
     "Quality": "Elite",
-    "Base": "Champion Axe"
+    "Base": "Champion Axe",
+    "Uniques": [
+      "Messerschmidt's Reaver"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Axe",
     "Quality": "Normal",
-    "Base": "Giant Axe"
+    "Base": "Giant Axe",
+    "Uniques": [
+      "Humongous"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Axe",
     "Quality": "Exceptional",
-    "Base": "Ancient Axe"
+    "Base": "Ancient Axe",
+    "Uniques": [
+      "The Minotaur"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Axe",
     "Quality": "Elite",
-    "Base": "Glorious Axe"
+    "Base": "Glorious Axe",
+    "Uniques": [
+      "Executioner's Justice"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Bow",
     "Quality": "Normal",
-    "Base": "Short Bow"
+    "Base": "Short Bow",
+    "Uniques": [
+      "Pluckeye"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Bow",
     "Quality": "Exceptional",
-    "Base": "Edge Bow"
+    "Base": "Edge Bow",
+    "Uniques": [
+      "Skystrike"
+    ]
   },
   {
     "Supertype": "Weapon",
@@ -1278,14 +1716,20 @@
     "Type": "Two-Handed",
     "Subtype": "Bow",
     "Quality": "Normal",
-    "Base": "Hunter's Bow"
+    "Base": "Hunter's Bow",
+    "Uniques": [
+      "Witherstring"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Bow",
     "Quality": "Exceptional",
-    "Base": "Razor Bow"
+    "Base": "Razor Bow",
+    "Uniques": [
+      "Riphook"
+    ]
   },
   {
     "Supertype": "Weapon",
@@ -1299,14 +1743,20 @@
     "Type": "Two-Handed",
     "Subtype": "Bow",
     "Quality": "Normal",
-    "Base": "Long Bow"
+    "Base": "Long Bow",
+    "Uniques": [
+      "Raven Claw"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Bow",
     "Quality": "Exceptional",
-    "Base": "Cedar Bow"
+    "Base": "Cedar Bow",
+    "Uniques": [
+      "Kuko Shakaku"
+    ]
   },
   {
     "Supertype": "Weapon",
@@ -1320,14 +1770,20 @@
     "Type": "Two-Handed",
     "Subtype": "Bow",
     "Quality": "Normal",
-    "Base": "Composite Bow"
+    "Base": "Composite Bow",
+    "Uniques": [
+      "Rogue's Bow"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Bow",
     "Quality": "Exceptional",
-    "Base": "Double Bow"
+    "Base": "Double Bow",
+    "Uniques": [
+      "Endlesshail"
+    ]
   },
   {
     "Supertype": "Weapon",
@@ -1341,14 +1797,20 @@
     "Type": "Two-Handed",
     "Subtype": "Bow",
     "Quality": "Normal",
-    "Base": "Short Battle Bow"
+    "Base": "Short Battle Bow",
+    "Uniques": [
+      "Stormstrike"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Bow",
     "Quality": "Exceptional",
-    "Base": "Short Siege Bow"
+    "Base": "Short Siege Bow",
+    "Uniques": [
+      "Witchwild String"
+    ]
   },
   {
     "Supertype": "Weapon",
@@ -1362,77 +1824,116 @@
     "Type": "Two-Handed",
     "Subtype": "Bow",
     "Quality": "Normal",
-    "Base": "Long Battle Bow"
+    "Base": "Long Battle Bow",
+    "Sets": [
+      "Vidala's Barb"
+    ],
+    "Uniques": [
+      "Wizendraw"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Bow",
     "Quality": "Exceptional",
-    "Base": "Large Siege Bow"
+    "Base": "Large Siege Bow",
+    "Uniques": [
+      "Cliffkiller"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Bow",
     "Quality": "Elite",
-    "Base": "Crusader Bow"
+    "Base": "Crusader Bow",
+    "Uniques": [
+      "Eaglehorn"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Bow",
     "Quality": "Normal",
-    "Base": "Short War Bow"
+    "Base": "Short War Bow",
+    "Sets": [
+      "Arctic Horn"
+    ],
+    "Uniques": [
+      "Hellclap"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Bow",
     "Quality": "Exceptional",
-    "Base": "Rune Bow"
+    "Base": "Rune Bow",
+    "Uniques": [
+      "Magewrath"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Bow",
     "Quality": "Elite",
-    "Base": "Ward Bow"
+    "Base": "Ward Bow",
+    "Uniques": [
+      "Widowmaker"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Bow",
     "Quality": "Normal",
-    "Base": "Long War Bow"
+    "Base": "Long War Bow",
+    "Uniques": [
+      "Blastbark"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Bow",
     "Quality": "Exceptional",
-    "Base": "Gothic Bow"
+    "Base": "Gothic Bow",
+    "Uniques": [
+      "Goldstrike Arch"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Bow",
     "Quality": "Elite",
-    "Base": "Hydra Bow"
+    "Base": "Hydra Bow",
+    "Uniques": [
+      "Windforce"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Crossbow",
     "Quality": "Normal",
-    "Base": "Light Crossbow"
+    "Base": "Light Crossbow",
+    "Uniques": [
+      "Leadcrow"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Crossbow",
     "Quality": "Exceptional",
-    "Base": "Arbalest"
+    "Base": "Arbalest",
+    "Uniques": [
+      "Langer Briser"
+    ]
   },
   {
     "Supertype": "Weapon",
@@ -1446,14 +1947,20 @@
     "Type": "Two-Handed",
     "Subtype": "Crossbow",
     "Quality": "Normal",
-    "Base": "Crossbow"
+    "Base": "Crossbow",
+    "Uniques": [
+      "Ichorsting"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Crossbow",
     "Quality": "Exceptional",
-    "Base": "Siege Crossbow"
+    "Base": "Siege Crossbow",
+    "Uniques": [
+      "Pus Spitter"
+    ]
   },
   {
     "Supertype": "Weapon",
@@ -1467,119 +1974,176 @@
     "Type": "Two-Handed",
     "Subtype": "Crossbow",
     "Quality": "Normal",
-    "Base": "Heavy Crossbow"
+    "Base": "Heavy Crossbow",
+    "Uniques": [
+      "Hellcast"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Crossbow",
     "Quality": "Exceptional",
-    "Base": "Ballista"
+    "Base": "Ballista",
+    "Uniques": [
+      "Buriza-Do Kyanon"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Crossbow",
     "Quality": "Elite",
-    "Base": "Colossus Crossbow"
+    "Base": "Colossus Crossbow",
+    "Uniques": [
+      "Hellrack"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Crossbow",
     "Quality": "Normal",
-    "Base": "Repeating Crossbow"
+    "Base": "Repeating Crossbow",
+    "Uniques": [
+      "Dracul's Grasp"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Crossbow",
     "Quality": "Exceptional",
-    "Base": "Chu-Ko-Nu"
+    "Base": "Chu-Ko-Nu",
+    "Uniques": [
+      "Demon Machine"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Crossbow",
     "Quality": "Elite",
-    "Base": "Demon Crossbow"
+    "Base": "Demon Crossbow",
+    "Uniques": [
+      "Gut Siphon"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Hammer",
     "Quality": "Normal",
-    "Base": "Maul"
+    "Base": "Maul",
+    "Uniques": [
+      "Bonesnap"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Hammer",
     "Quality": "Exceptional",
-    "Base": "War Club"
+    "Base": "War Club",
+    "Uniques": [
+      "Bloodtree Stump"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Hammer",
     "Quality": "Elite",
-    "Base": "Ogre Maul"
+    "Sets": [
+      "Immortal King's Stone Crusher"
+    ],
+    "Base": "Ogre Maul",
+    "Uniques": [
+      "Windhammer"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Hammer",
     "Quality": "Normal",
-    "Base": "Great Maul"
+    "Base": "Great Maul",
+    "Uniques": [
+      "Steeldriver"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Hammer",
     "Quality": "Exceptional",
-    "Base": "Martel De Fer"
+    "Base": "Martel de Fer",
+    "Uniques": [
+      "The Gavel of Pain"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Hammer",
     "Quality": "Elite",
-    "Base": "Thunder Maul"
+    "Base": "Thunder Maul",
+    "Uniques": [
+      "Earth Shifter"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Polearm",
     "Quality": "Normal",
-    "Base": "Bardiche"
+    "Base": "Bardiche",
+    "Uniques": [
+      "Dimoak's Hew"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Polearm",
     "Quality": "Exceptional",
-    "Base": "Lochaber Axe"
+    "Base": "Lochaber Axe",
+    "Uniques": [
+      "The Meat Scraper"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Polearm",
     "Quality": "Elite",
-    "Base": "Ogre Axe"
+    "Base": "Ogre Axe",
+    "Uniques": [
+      "Bonehew"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Polearm",
     "Quality": "Normal",
-    "Base": "Voulge"
+    "Base": "Voulge",
+    "Uniques": [
+      "Steelgoad"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Polearm",
     "Quality": "Exceptional",
-    "Base": "Bill"
+    "Sets": [
+      "Hwanin's Justice"
+    ],
+    "Base": "Bill",
+    "Uniques": [
+      "Blackleach Blade"
+    ]
   },
   {
     "Supertype": "Weapon",
@@ -1593,56 +2157,80 @@
     "Type": "Two-Handed",
     "Subtype": "Polearm",
     "Quality": "Normal",
-    "Base": "Scythe"
+    "Base": "Scythe",
+    "Uniques": [
+      "Soul Harvest"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Polearm",
     "Quality": "Exceptional",
-    "Base": "Battle Scythe"
+    "Base": "Battle Scythe",
+    "Uniques": [
+      "Athena's Wrath"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Polearm",
     "Quality": "Elite",
-    "Base": "Thresher"
+    "Base": "Thresher",
+    "Uniques": [
+      "The Reaper's Toll"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Polearm",
     "Quality": "Normal",
-    "Base": "Poleaxe"
+    "Base": "Poleaxe",
+    "Uniques": [
+      "The Battlebranch"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Polearm",
     "Quality": "Exceptional",
-    "Base": "Partizan"
+    "Base": "Partizan",
+    "Uniques": [
+      "Pierre Tombale Couant"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Polearm",
     "Quality": "Elite",
-    "Base": "Cryptic Axe"
+    "Base": "Cryptic Axe",
+    "Uniques": [
+      "Tomb Reaver"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Polearm",
     "Quality": "Normal",
-    "Base": "Halberd"
+    "Base": "Halberd",
+    "Uniques": [
+      "Woestave"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Polearm",
     "Quality": "Exceptional",
-    "Base": "Bec-De-Corbin"
+    "Base": "Bec-de-Corbin",
+    "Uniques": [
+      "Husoldal Evo"
+    ]
   },
   {
     "Supertype": "Weapon",
@@ -1656,56 +2244,80 @@
     "Type": "Two-Handed",
     "Subtype": "Polearm",
     "Quality": "Normal",
-    "Base": "War Scythe"
+    "Base": "War Scythe",
+    "Uniques": [
+      "The Grim Reaper"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Polearm",
     "Quality": "Exceptional",
-    "Base": "Grim Scythe"
+    "Base": "Grim Scythe",
+    "Uniques": [
+      "Grim's Burning Dead"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Polearm",
     "Quality": "Elite",
-    "Base": "Giant Thresher"
+    "Base": "Giant Thresher",
+    "Uniques": [
+      "Stormspire"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Spear",
     "Quality": "Normal",
-    "Base": "Spear"
+    "Base": "Spear",
+    "Uniques": [
+      "The Dragon Chang"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Spear",
     "Quality": "Exceptional",
-    "Base": "War Spear"
+    "Base": "War Spear",
+    "Uniques": [
+      "The Impaler"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Spear",
     "Quality": "Elite",
-    "Base": "Hyperion Spear"
+    "Base": "Hyperion Spear",
+    "Uniques": [
+      "Arioc's Needle'"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Spear",
     "Quality": "Normal",
-    "Base": "Trident"
+    "Base": "Trident",
+    "Uniques": [
+      "Razortine"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Spear",
     "Quality": "Exceptional",
-    "Base": "Fuscina"
+    "Base": "Fuscina",
+    "Uniques": [
+      "Kelpie Snare"
+    ]
   },
   {
     "Supertype": "Weapon",
@@ -1719,35 +2331,50 @@
     "Type": "Two-Handed",
     "Subtype": "Spear",
     "Quality": "Normal",
-    "Base": "Brandistock"
+    "Base": "Brandistock",
+    "Uniques": [
+      "Bloodthief"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Spear",
     "Quality": "Exceptional",
-    "Base": "War Fork"
+    "Base": "War Fork",
+    "Uniques": [
+      "Soulfeast Tine"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Spear",
     "Quality": "Elite",
-    "Base": "Mancatcher"
+    "Base": "Mancatcher",
+    "Uniques": [
+      "Viperfork"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Spear",
     "Quality": "Normal",
-    "Base": "Spetum"
+    "Base": "Spetum",
+    "Uniques": [
+      "Lance of Yaggai"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Spear",
     "Quality": "Exceptional",
-    "Base": "Yari"
+    "Base": "Yari",
+    "Uniques": [
+      "Hone Sundan"
+    ]
   },
   {
     "Supertype": "Weapon",
@@ -1761,35 +2388,50 @@
     "Type": "Two-Handed",
     "Subtype": "Spear",
     "Quality": "Normal",
-    "Base": "Pike"
+    "Base": "Pike",
+    "Uniques": [
+      "The Tannr Gorerod"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Spear",
     "Quality": "Exceptional",
-    "Base": "Lance"
+    "Base": "Lance",
+    "Uniques": [
+      "Spire of Honor"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Spear",
     "Quality": "Elite",
-    "Base": "War Pike"
+    "Base": "War Pike",
+    "Uniques": [
+      "Steel Pillar"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Staff",
     "Quality": "Normal",
-    "Base": "Short Staff"
+    "Base": "Short Staff",
+    "Uniques": [
+      "Bane Ash"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Staff",
     "Quality": "Exceptional",
-    "Base": "Jo Staff"
+    "Base": "Jo Staff",
+    "Uniques": [
+      "Razorswitch"
+    ]
   },
   {
     "Supertype": "Weapon",
@@ -1803,14 +2445,20 @@
     "Type": "Two-Handed",
     "Subtype": "Staff",
     "Quality": "Normal",
-    "Base": "Long Staff"
+    "Base": "Long Staff",
+    "Uniques": [
+      "Serpent Lord"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Staff",
     "Quality": "Exceptional",
-    "Base": "Quarterstaff"
+    "Base": "Quarterstaff",
+    "Uniques": [
+      "Ribcracker"
+    ]
   },
   {
     "Supertype": "Weapon",
@@ -1824,35 +2472,56 @@
     "Type": "Two-Handed",
     "Subtype": "Staff",
     "Quality": "Normal",
-    "Base": "Gnarled Staff"
+    "Base": "Gnarled Staff",
+    "Uniques": [
+      "Spire of Lazarus"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Staff",
     "Quality": "Exceptional",
-    "Base": "Cedar Staff"
+    "Base": "Cedar Staff",
+    "Uniques": [
+      "Chromatic Ire"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Staff",
     "Quality": "Elite",
-    "Base": "Elder Staff"
+    "Sets": [
+      "Naj's Puzzler"
+    ],
+    "Base": "Elder Staff",
+    "Uniques": [
+      "Ondal's Wisdom"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Staff",
     "Quality": "Normal",
-    "Base": "Battle Staff"
+    "Sets": [
+      "Cathan's Rule"
+    ],
+    "Base": "Battle Staff",
+    "Uniques": [
+      "The Salamander"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Staff",
     "Quality": "Exceptional",
-    "Base": "Gothic Staff"
+    "Base": "Gothic Staff",
+    "Uniques": [
+      "Warpspear"
+    ]
   },
   {
     "Supertype": "Weapon",
@@ -1866,56 +2535,83 @@
     "Type": "Two-Handed",
     "Subtype": "Staff",
     "Quality": "Normal",
-    "Base": "War Staff"
+    "Base": "War Staff",
+    "Sets": [
+      "Arcanna's Deathwand"
+    ],
+    "Uniques": [
+      "The Iron Jang Bong"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Staff",
     "Quality": "Exceptional",
-    "Base": "Rune Staff"
+    "Base": "Rune Staff",
+    "Uniques": [
+      "Skull Collector"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Staff",
     "Quality": "Elite",
-    "Base": "Archon Staff"
+    "Base": "Archon Staff",
+    "Uniques": [
+      "Mang Song's Lesson"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Sword",
     "Quality": "Normal",
-    "Base": "Two-Handed Sword"
+    "Base": "Two-Handed Sword",
+    "Uniques": [
+      "Shadowfang"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Sword",
     "Quality": "Exceptional",
-    "Base": "Espandon"
+    "Base": "Espandon",
+    "Uniques": [
+      "Crainte Vomir"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Sword",
     "Quality": "Elite",
-    "Base": "Legend Sword"
+    "Base": "Legend Sword",
+    "Uniques": [
+      "Dreadfang"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Sword",
     "Quality": "Normal",
-    "Base": "Claymore"
+    "Base": "Claymore",
+    "Uniques": [
+      "Soulflay"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Sword",
     "Quality": "Exceptional",
-    "Base": "Dacian Falx"
+    "Base": "Dacian Falx",
+    "Uniques": [
+      "Bing Sz Wang"
+    ]
   },
   {
     "Supertype": "Weapon",
@@ -1929,56 +2625,80 @@
     "Type": "Two-Handed",
     "Subtype": "Sword",
     "Quality": "Normal",
-    "Base": "Giant Sword"
+    "Base": "Giant Sword",
+    "Uniques": [
+      "Kinemil's Awl"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Sword",
     "Quality": "Exceptional",
-    "Base": "Tusk Sword"
+    "Base": "Tusk Sword",
+    "Uniques": [
+      "The Vile Husk"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Sword",
     "Quality": "Elite",
-    "Base": "Balrog Blade"
+    "Base": "Balrog Blade",
+    "Uniques": [
+      "Flamebellow"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Sword",
     "Quality": "Normal",
-    "Base": "Bastard Sword"
+    "Base": "Bastard Sword",
+    "Uniques": [
+      "Blacktongue"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Sword",
     "Quality": "Exceptional",
-    "Base": "Gothic Sword"
+    "Base": "Gothic Sword",
+    "Uniques": [
+      "Cloudcrack"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Sword",
     "Quality": "Elite",
-    "Base": "Champion Sword"
+    "Base": "Champion Sword",
+    "Uniques": [
+      "Doombringer"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Sword",
     "Quality": "Normal",
-    "Base": "Flamberge"
+    "Base": "Flamberge",
+    "Uniques": [
+      "Ripsaw"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Sword",
     "Quality": "Exceptional",
-    "Base": "Zweihander"
+    "Base": "Zweihander",
+    "Uniques": [
+      "Todesfaelle Flamme"
+    ]
   },
   {
     "Supertype": "Weapon",
@@ -1992,105 +2712,195 @@
     "Type": "Two-Handed",
     "Subtype": "Sword",
     "Quality": "Normal",
-    "Base": "Great Sword"
+    "Base": "Great Sword",
+    "Uniques": [
+      "The Patriarch"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Sword",
     "Quality": "Exceptional",
-    "Base": "Executioner Sword"
+    "Base": "Executioner Sword",
+    "Uniques": [
+      "Swordguard"
+    ]
   },
   {
     "Supertype": "Weapon",
     "Type": "Two-Handed",
     "Subtype": "Sword",
     "Quality": "Elite",
-    "Base": "Colossus Blade"
+    "Sets": [
+      "Bul-Katho's Sacred Charge"
+    ],
+    "Base": "Colossus Blade",
+    "Uniques": [
+      "The Grandfather"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Belt",
     "Quality": "Normal",
-    "Base": "Sash"
+    "Base": "Sash",
+    "Sets": [
+      "Death's Guard"
+    ],
+    "Uniques": [
+      "Lenymo"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Belt",
     "Quality": "Exceptional",
-    "Base": "Demonhide Sash"
+    "Base": "Demonhide Sash",
+    "Uniques": [
+      "String of Ears"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Belt",
     "Quality": "Elite",
-    "Base": "Spiderweb Sash"
+    "Base": "Spiderweb Sash",
+    "Uniques": [
+      "Arachnid Mesh"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Belt",
     "Quality": "Normal",
-    "Base": "Light Belt"
+    "Base": "Light Belt",
+    "Sets": [
+      "Arctic Binding",
+      "Bane's Authority"
+    ],
+    "Uniques": [
+      "Snakecord"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Belt",
     "Quality": "Exceptional",
-    "Base": "Sharkskin Belt"
+    "Base": "Sharkskin Belt",
+    "Sets": [
+      "M'avina's Tenet"
+    ],
+    "Uniques": [
+      "Razortail"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Belt",
     "Quality": "Elite",
-    "Base": "Vampirefang Belt"
+    "Base": "Vampirefang Belt",
+    "Uniques": [
+      "Nosferatu's Coil"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Belt",
     "Quality": "Normal",
-    "Base": "Belt"
+    "Base": "Belt",
+    "Sets": [
+      "Hsaru's Iron Stay",
+      "Hwanin's Blessing"
+    ],
+    "Uniques": [
+      "Nightsmoke"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Belt",
     "Quality": "Exceptional",
-    "Base": "Mesh Sash"
+    "Sets": [
+      "Tal Rasha's Fine-Spun Cloth"
+    ],
+    "Base": "Mesh Belt",
+    "Uniques": [
+      "Gloom's Trap"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Belt",
     "Quality": "Elite",
-    "Base": "Mithril Coil"
+    "Base": "Mithril Coil",
+    "Sets": [
+      "Credendum"
+    ],
+    "Uniques": [
+      "Verdungo's Hearty Cord"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Belt",
     "Quality": "Normal",
-    "Base": "Heavy Belt"
+    "Base": "Heavy Belt",
+    "Sets": [
+      "Iratha's Cord",
+      "Infernal Sign"
+    ],
+    "Uniques": [
+      "Goldwrap"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Belt",
     "Quality": "Exceptional",
-    "Base": "Battle Belt"
+    "Sets": [
+      "Wilhelm's Pride"
+    ],
+    "Base": "Battle Belt",
+    "Uniques": [
+      "Snowclash"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Belt",
     "Quality": "Elite",
-    "Base": "Troll Belt"
+    "Sets": [
+      "Trang-Oul's Girth"
+    ],
+    "Base": "Troll Belt",
+    "Uniques": [
+      "Gheed's Wager"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Belt",
     "Quality": "Normal",
-    "Base": "Plated Belt"
+    "Base": "Plated Belt",
+    "Sets": [
+      "Sigon's Wrap"
+    ],
+    "Uniques": [
+      "Bladebucle"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Belt",
     "Quality": "Exceptional",
-    "Base": "War Belt"
+    "Base": "War Belt",
+    "Sets": [
+      "Immortal King's Detail"
+    ],
+    "Uniques": [
+      "Thundergod's Vigor"
+    ]
   },
   {
     "Supertype": "Armor",
@@ -2102,31 +2912,55 @@
     "Supertype": "Armor",
     "Type": "Torso",
     "Quality": "Normal",
-    "Base": "Quilted Armor"
+    "Base": "Quilted Armor",
+    "Sets": [
+      "Arctic Furs"
+    ],
+    "Uniques": [
+      "Grayform"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Torso",
     "Quality": "Exceptional",
-    "Base": "Ghost Armor"
+    "Base": "Ghost Armor",
+    "Uniques": [
+      "The Spirit Shroud"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Torso",
     "Quality": "Elite",
-    "Base": "Dusk Shroud"
+    "Sets": [
+      "Dark Adherent"
+    ],
+    "Base": "Dusk Shroud",
+    "Uniques": [
+      "Ormu's Robes"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Torso",
     "Quality": "Normal",
-    "Base": "Leather Armor"
+    "Base": "Leather Armor",
+    "Sets": [
+      "Vidala's Ambush"
+    ],
+    "Uniques": [
+      "Blinkbat's Form"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Torso",
     "Quality": "Exceptional",
-    "Base": "Serpentskin Armor"
+    "Base": "Serpentskin Armor",
+    "Uniques": [
+      "Skin of the Vipermagi"
+    ]
   },
   {
     "Supertype": "Armor",
@@ -2138,13 +2972,22 @@
     "Supertype": "Armor",
     "Type": "Torso",
     "Quality": "Normal",
-    "Base": "Hard Leather Armor"
+    "Base": "Hard Leather Armor",
+    "Sets": [
+      "Bane's Wraithskin"
+    ],
+    "Uniques": [
+      "The Centurion"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Torso",
     "Quality": "Exceptional",
-    "Base": "Demonhide Armor"
+    "Base": "Demonhide Armor",
+    "Uniques": [
+      "Skin of the Flayed One"
+    ]
   },
   {
     "Supertype": "Armor",
@@ -2156,31 +2999,52 @@
     "Supertype": "Armor",
     "Type": "Torso",
     "Quality": "Normal",
-    "Base": "Studded Leather"
+    "Base": "Studded Leather",
+    "Sets": [
+      "Cow King's Hide"
+    ],
+    "Uniques": [
+      "Twitchthroe"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Torso",
     "Quality": "Exceptional",
-    "Base": "Trellised Armor"
+    "Base": "Trellised Armor",
+    "Uniques": [
+      "Iron Pelt"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Torso",
     "Quality": "Elite",
-    "Base": "Wire Fleece"
+    "Base": "Wire Fleece",
+    "Uniques": [
+      "The Gladiator's Bane"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Torso",
     "Quality": "Normal",
-    "Base": "Ring Mail"
+    "Sets": [
+      "Angelic Mantle"
+    ],
+    "Base": "Ring Mail",
+    "Uniques": [
+      "Darkglow"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Torso",
     "Quality": "Exceptional",
-    "Base": "Linked Mail"
+    "Base": "Linked Mail",
+    "Uniques": [
+      "Spirit Forge"
+    ]
   },
   {
     "Supertype": "Armor",
@@ -2192,31 +3056,55 @@
     "Supertype": "Armor",
     "Type": "Torso",
     "Quality": "Normal",
-    "Base": "Scale Mail"
+    "Base": "Scale Mail",
+    "Uniques": [
+      "Hawkmail"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Torso",
     "Quality": "Exceptional",
-    "Base": "Tigulated Mail"
+    "Sets": [
+      "Hwanin's Refuge"
+    ],
+    "Base": "Tigulated Mail",
+    "Uniques": [
+      "Crow Caw"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Torso",
     "Quality": "Elite",
-    "Base": "Loricated Mail"
+    "Base": "Loricated Mail",
+    "Sets": [
+      "Natalya's Shadow"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Torso",
     "Quality": "Normal",
-    "Base": "Breast Plate"
+    "Base": "Breast Plate",
+    "Sets": [
+      "Isenhart's Plate"
+    ],
+    "Uniques": [
+      "Venom Ward"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Torso",
     "Quality": "Exceptional",
-    "Base": "Cuirass"
+    "Base": "Cuirass",
+    "Sets": [
+      "Haemosu's Adamant"
+    ],
+    "Uniques": [
+      "Duriel's Shell"
+    ]
   },
   {
     "Supertype": "Armor",
@@ -2228,13 +3116,22 @@
     "Supertype": "Armor",
     "Type": "Torso",
     "Quality": "Normal",
-    "Base": "Chain Mail"
+    "Base": "Chain Mail",
+    "Sets": [
+      "Cathan's Mesh"
+    ],
+    "Uniques": [
+      "Sparking Mail"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Torso",
     "Quality": "Exceptional",
-    "Base": "Mesh Armor"
+    "Base": "Mesh Armor",
+    "Uniques": [
+      "Shaftstop"
+    ]
   },
   {
     "Supertype": "Armor",
@@ -2246,31 +3143,58 @@
     "Supertype": "Armor",
     "Type": "Torso",
     "Quality": "Normal",
-    "Base": "Splint Mail"
+    "Base": "Splint Mail",
+    "Sets": [
+      "Berserker's Hauberk"
+    ],
+    "Uniques": [
+      "Iceblink"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Torso",
     "Quality": "Exceptional",
-    "Base": "Russet Armor"
+    "Base": "Russet Armor",
+    "Sets": [
+      "Horazon's Dominion"
+    ],
+    "Uniques": [
+      "Skullder's Ire"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Torso",
     "Quality": "Elite",
-    "Base": "Balrog Skin"
+    "Base": "Balrog Skin",
+    "Sets": [
+      "Sazabi's Ghost Liberator"
+    ],
+    "Uniques": [
+      "Arkaine's Valor'"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Torso",
     "Quality": "Normal",
-    "Base": "Light Plate"
+    "Base": "Light Plate",
+    "Sets": [
+      "Arcanna's Flesh"
+    ],
+    "Uniques": [
+      "Heavenly Garb"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Torso",
     "Quality": "Exceptional",
-    "Base": "Mage Plate"
+    "Base": "Mage Plate",
+    "Uniques": [
+      "Que-Hegan's Wisdom"
+    ]
   },
   {
     "Supertype": "Armor",
@@ -2282,103 +3206,186 @@
     "Supertype": "Armor",
     "Type": "Torso",
     "Quality": "Normal",
-    "Base": "Field Plate"
+    "Base": "Field Plate",
+    "Uniques": [
+      "Rockfleece"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Torso",
     "Quality": "Exceptional",
-    "Base": "Sharktooth Armor"
+    "Base": "Sharktooth Armor",
+    "Uniques": [
+      "Toothrow"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Torso",
     "Quality": "Elite",
-    "Base": "Kraken Shell"
+    "Base": "Kraken Shell",
+    "Sets": [
+      "M'avina's Embrace"
+    ],
+    "Uniques": [
+      "Leviathan"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Torso",
     "Quality": "Normal",
-    "Base": "Plate Mail"
+    "Base": "Plate Mail",
+    "Uniques": [
+      "Boneflesh"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Torso",
     "Quality": "Exceptional",
-    "Base": "Templar Coat"
+    "Base": "Templar Coat",
+    "Uniques": [
+      "Guardian Angel"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Torso",
     "Quality": "Elite",
-    "Base": "Hellforged Plate"
+    "Base": "Hellforge Plate",
+    "Sets": [
+      "Naj's Light Plate"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Torso",
     "Quality": "Normal",
-    "Base": "Gothic Plate"
+    "Base": "Gothic Plate",
+    "Sets": [
+      "Sigon's Shelter"
+    ],
+    "Uniques": [
+      "Rattlecage"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Torso",
     "Quality": "Exceptional",
-    "Base": "Embossed Plate"
+    "Base": "Embossed Plate",
+    "Uniques": [
+      "Atma's Wail"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Torso",
     "Quality": "Elite",
-    "Base": "Lacquered Plate"
+    "Base": "Lacquered Plate",
+    "Sets": [
+      "Tal Rasha's Guardianship"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Torso",
     "Quality": "Normal",
-    "Base": "Full Plate Mail"
+    "Base": "Full Plate Mail",
+    "Sets": [
+      "Tancred's Spine",
+      "Warlord's Mantle"
+    ],
+    "Uniques": [
+      "Goldskin"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Torso",
     "Quality": "Exceptional",
-    "Base": "Chaos Armor"
+    "Sets": [
+      "Trang-Oul's Scales"
+    ],
+    "Base": "Chaos Armor",
+    "Uniques": [
+      "Black Hades"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Torso",
     "Quality": "Elite",
-    "Base": "Shadow Plate"
+    "Base": "Shadow Plate",
+    "Sets": [
+      "Aldur's Deception"
+    ],
+    "Uniques": [
+      "Steel Carapace"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Torso",
     "Quality": "Normal",
-    "Base": "Ancient Armor"
+    "Base": "Ancient Armor",
+    "Sets": [
+      "Milabrega's Robe"
+    ],
+    "Uniques": [
+      "Silks of the Victor"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Torso",
     "Quality": "Exceptional",
-    "Base": "Ornate Plate"
+    "Base": "Ornate Plate",
+    "Sets": [
+      "Griswold's Heart"
+    ],
+    "Uniques": [
+      "Corpsemourn"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Torso",
     "Quality": "Elite",
-    "Base": "Sacred Armor"
+    "Base": "Sacred Armor",
+    "Sets": [
+      "Immortal King's Soul Cage"
+    ],
+    "Uniques": [
+      "Templar's Might",
+      "Tyrael's Might"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Boots",
     "Quality": "Normal",
-    "Base": "Boots"
+    "Base": "Boots",
+    "Sets": [
+      "Tancred's Hobnails"
+    ],
+    "Uniques": [
+      "Hotspur"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Boots",
     "Quality": "Exceptional",
-    "Base": "Demonhide Boots"
+    "Base": "Demonhide Boots",
+    "Sets": [
+      "Rite of Passage"
+    ],
+    "Uniques": [
+      "Infernostride"
+    ]
   },
   {
     "Supertype": "Armor",
@@ -2390,193 +3397,354 @@
     "Supertype": "Armor",
     "Type": "Boots",
     "Quality": "Normal",
-    "Base": "Heavy Boots"
+    "Base": "Heavy Boots",
+    "Sets": [
+      "Cow King's Hooves",
+      "Sander's Riprap"
+    ],
+    "Uniques": [
+      "Gorefoot"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Boots",
     "Quality": "Exceptional",
-    "Base": "Sharkskin Boots"
+    "Base": "Sharkskin Boots",
+    "Uniques": [
+      "Waterwalk"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Boots",
     "Quality": "Elite",
-    "Base": "Scarabshell Boots"
+    "Base": "Scarabshell Boots",
+    "Uniques": [
+      "Sandstorm Trek"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Boots",
     "Quality": "Normal",
-    "Base": "Chain Boots"
+    "Base": "Chain Boots",
+    "Sets": [
+      "Hsaru's Iron Heel"
+    ],
+    "Uniques": [
+      "Treads of Cthon"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Boots",
     "Quality": "Exceptional",
-    "Base": "Mesh Boots"
+    "Base": "Mesh Boots",
+    "Sets": [
+      "Natalya's Soul"
+    ],
+    "Uniques": [
+      "Silkweave"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Boots",
     "Quality": "Elite",
-    "Base": "Boneweave Boots"
-  },
-  {
-    "Supertype": "Armor",
-    "Type": "Boots",
-    "Quality": "Normal",
-    "Base": "Light Plated Boots"
-  },
-  {
-    "Supertype": "Armor",
-    "Type": "Boots",
-    "Quality": "Exceptional",
-    "Base": "Battle Boots"
-  },
-  {
-    "Supertype": "Armor",
-    "Type": "Boots",
-    "Quality": "Elite",
-    "Base": "Mirrored Boots"
+    "Base": "Boneweave Boots",
+    "Uniques": [
+      "Marrowwalk"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Boots",
     "Quality": "Normal",
-    "Base": "Greaves"
+    "Base": "Light Plated Boots",
+    "Sets": [
+      "Vidala's Fetlock"
+    ],
+    "Uniques": [
+      "Goblin Toe"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Boots",
     "Quality": "Exceptional",
-    "Base": "War Boots"
+    "Base": "Battle Boots",
+    "Sets": [
+      "Aldur's Advance"
+    ],
+    "Uniques": [
+      "War Traveler"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Boots",
     "Quality": "Elite",
-    "Base": "Myrmidon Greaves"
+    "Sets": [
+      "Horazon's Legacy"
+    ],
+    "Base": "Mirrored Boots",
+    "Uniques": [
+      "Wraithstep"
+    ]
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Boots",
+    "Quality": "Normal",
+    "Base": "Greaves",
+    "Sets": [
+      "Sigon's Sabot",
+      "Warlord's Authority"
+    ],
+    "Uniques": [
+      "Tearhaunch"
+    ]
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Boots",
+    "Quality": "Exceptional",
+    "Base": "War Boots",
+    "Sets": [
+      "Immortal King's Pillar"
+    ],
+    "Uniques": [
+      "Gore Rider"
+    ]
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Boots",
+    "Quality": "Elite",
+    "Base": "Myrmidon Greaves",
+    "Uniques": [
+      "Shadow Dancer"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Gloves",
     "Quality": "Normal",
-    "Base": "Leather Gloves"
+    "Base": "Leather Gloves",
+    "Sets": [
+      "Death's Hand"
+    ],
+    "Uniques": [
+      "The Hand of Broc"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Gloves",
     "Quality": "Exceptional",
-    "Base": "Demonhide Gloves"
+    "Sets": [
+      "Horazon's Hold"
+    ],
+    "Base": "Demonhide Gloves",
+    "Uniques": [
+      "Venom Grip"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Gloves",
     "Quality": "Elite",
-    "Base": "Bramble Mitts"
+    "Base": "Bramble Mitts",
+    "Sets": [
+      "Laying of Hands"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Gloves",
     "Quality": "Normal",
-    "Base": "Heavy Gloves"
+    "Sets": [
+      "Sander's Taboo"
+    ],
+    "Base": "Heavy Gloves",
+    "Uniques": [
+      "Bloodfist"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Gloves",
     "Quality": "Exceptional",
-    "Base": "Sharkskin Gloves"
+    "Base": "Sharkskin Gloves",
+    "Sets": [
+      "Magnus' Skin"
+    ],
+    "Uniques": [
+      "Gravepalm"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Gloves",
     "Quality": "Elite",
-    "Base": "Vampirebone Gloves"
+    "Base": "Vampirebone Gloves",
+    "Uniques": [
+      "Dracul's Grasp"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Gloves",
     "Quality": "Normal",
-    "Base": "Chain Gloves"
+    "Sets": [
+      "Cleglaw's Pincers"
+    ],
+    "Base": "Chain Gloves",
+    "Uniques": [
+      "Chance Guards"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Gloves",
     "Quality": "Exceptional",
-    "Base": "Heavy Bracers"
+    "Base": "Heavy Bracers",
+    "Sets": [
+      "Trang-Oul's Claws"
+    ],
+    "Uniques": [
+      "Ghoulhide"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Gloves",
     "Quality": "Elite",
-    "Base": "Vambraces"
+    "Base": "Vambraces",
+    "Uniques": [
+      "Soul Drainer"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Gloves",
     "Quality": "Normal",
-    "Base": "Light Gauntlets"
+    "Base": "Light Gauntlets",
+    "Sets": [
+      "Iratha's Cuff",
+      "Arctic Mitts"
+    ],
+    "Uniques": [
+      "Magefist"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Gloves",
     "Quality": "Exceptional",
-    "Base": "Battle Gloves"
+    "Sets": [
+      "M'avina's Icy Clutch"
+    ],
+    "Base": "Battle Gauntlets",
+    "Uniques": [
+      "Lava Gout"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Gloves",
     "Quality": "Elite",
-    "Base": "Crusader Gloves"
+    "Base": "Crusader Gauntlets"
   },
   {
     "Supertype": "Armor",
     "Type": "Gloves",
     "Quality": "Normal",
-    "Base": "Gauntlets"
+    "Base": "Gauntlets",
+    "Sets": [
+      "Sigon's Gage",
+      "Warlord's Conquest"
+    ],
+    "Uniques": [
+      "Frostburn"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Gloves",
     "Quality": "Exceptional",
-    "Base": "War Gauntlets"
+    "Sets": [
+      "Immortal King's Forge"
+    ],
+    "Base": "War Gauntlets",
+    "Uniques": [
+      "Hellmouth"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Gloves",
     "Quality": "Elite",
-    "Base": "Ogre Gauntlets"
+    "Base": "Ogre Gauntlets",
+    "Uniques": [
+      "Steelrend"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Helmet",
     "Quality": "Normal",
-    "Base": "Cap"
+    "Base": "Cap",
+    "Sets": [
+      "Infernal Cranium",
+      "Sander's Paragon"
+    ],
+    "Uniques": [
+      "Biggin's Bonnet"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Helmet",
     "Quality": "Exceptional",
-    "Base": "War Hat"
+    "Sets": [
+      "Cow King's Horns"
+    ],
+    "Base": "War Hat",
+    "Uniques": [
+      "Peasant Crown"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Helmet",
     "Quality": "Elite",
-    "Base": "Shako"
+    "Base": "Shako",
+    "Uniques": [
+      "Harlequin Crest"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Helmet",
     "Quality": "Normal",
-    "Base": "Skull Cap"
+    "Base": "Skull Cap",
+    "Sets": [
+      "Arcanna's Head"
+    ],
+    "Uniques": [
+      "Tarnhelm"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Helmet",
     "Quality": "Exceptional",
-    "Base": "Sallet"
+    "Base": "Sallet",
+    "Uniques": [
+      "Rockstopper"
+    ]
   },
   {
     "Supertype": "Armor",
@@ -2588,31 +3756,55 @@
     "Supertype": "Armor",
     "Type": "Helmet",
     "Quality": "Normal",
-    "Base": "Helm"
+    "Base": "Helm",
+    "Sets": [
+      "Berserker's Headgear"
+    ],
+    "Uniques": [
+      "Coif of Glory"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Helmet",
     "Quality": "Exceptional",
-    "Base": "Casque"
+    "Base": "Casque",
+    "Uniques": [
+      "Stealskull"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Helmet",
     "Quality": "Elite",
-    "Base": "Armet"
+    "Base": "Armet",
+    "Uniques": [
+      "Steel Shade"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Helmet",
     "Quality": "Normal",
-    "Base": "Full Helm"
+    "Sets": [
+      "Isenhart's Horns"
+    ],
+    "Base": "Full Helm",
+    "Uniques": [
+      "Duskdeep"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Helmet",
     "Quality": "Exceptional",
-    "Base": "Basinet"
+    "Sets": [
+      "Sazabi's Mental Sheath"
+    ],
+    "Base": "Basinet",
+    "Uniques": [
+      "Darksight Helm"
+    ]
   },
   {
     "Supertype": "Armor",
@@ -2624,80 +3816,158 @@
     "Supertype": "Armor",
     "Type": "Helmet",
     "Quality": "Normal",
-    "Base": "Great Helm"
+    "Base": "Great Helm",
+    "Sets": [
+      "Sigon's Visor",
+      "Warlord's Lust"
+    ],
+    "Uniques": [
+      "Howltusk"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Helmet",
     "Quality": "Exceptional",
-    "Base": "Winged Helm"
+    "Sets": [
+      "Guillaume's Face"
+    ],
+    "Base": "Winged Helm",
+    "Uniques": [
+      "Valkyrie Wing"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Helmet",
     "Quality": "Elite",
-    "Base": "Spired Helm"
+    "Sets": [
+      "Ondal's Almighty"
+    ],
+    "Base": "Spired Helm",
+    "Uniques": [
+      "Nightwing's Veil"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Helmet",
     "Quality": "Normal",
-    "Base": "Mask"
+    "Base": "Mask",
+    "Sets": [
+      "Cathan's Visage"
+    ],
+    "Uniques": [
+      "The Face of Horror"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Helmet",
     "Quality": "Exceptional",
-    "Base": "Death Mask"
+    "Sets": [
+      "Tal Rasha's Horadric Crest"
+    ],
+    "Base": "Death Mask",
+    "Uniques": [
+      "Blackhorn's Face",
+      "Hellwarden's Will"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Helmet",
     "Quality": "Elite",
-    "Base": "Demonhead"
+    "Base": "Demonhead",
+    "Sets": [
+      "Horazon's Countenance"
+    ],
+    "Uniques": [
+      "Andariel's Visage"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Helmet",
     "Quality": "Normal",
-    "Base": "Crown"
+    "Base": "Crown",
+    "Sets": [
+      "Iratha's Coil",
+      "Milabrega's Diadem"
+    ],
+    "Uniques": [
+      "Undead Crown"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Helmet",
     "Quality": "Exceptional",
-    "Base": "Grand Crown"
+    "Sets": [
+      "Hwanin's Splendor"
+    ],
+    "Base": "Grand Crown",
+    "Uniques": [
+      "Crown of Thieves"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Helmet",
     "Quality": "Elite",
-    "Base": "Corona"
+    "Sets": [
+      "Griswold's Valor"
+    ],
+    "Base": "Corona",
+    "Uniques": [
+      "Crown of Ages"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Helmet",
     "Quality": "Normal",
-    "Base": "Bone Helm"
+    "Base": "Bone Helm",
+    "Sets": [
+      "Tancred's Skull"
+    ],
+    "Uniques": [
+      "Wormskull"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Helmet",
     "Quality": "Exceptional",
-    "Base": "Grim Helm"
+    "Base": "Grim Helm",
+    "Sets": [
+      "Natalya's Totem"
+    ],
+    "Uniques": [
+      "Vampire Gaze"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Helmet",
     "Quality": "Elite",
-    "Base": "Bone Visage"
+    "Base": "Bone Visage",
+    "Sets": [
+      "Trang-Oul's Visage"
+    ],
+    "Uniques": [
+      "Giant Skull"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Helmet",
     "Subtype": "Circlet",
     "Quality": "Normal",
-    "Base": "Circlet"
+    "Base": "Circlet",
+    "Sets": [
+      "Naj's Circlet"
+    ]
   },
   {
     "Supertype": "Armor",
@@ -2711,14 +3981,23 @@
     "Type": "Helmet",
     "Subtype": "Circlet",
     "Quality": "Exceptional",
-    "Base": "Tiara"
+    "Base": "Tiara",
+    "Uniques": [
+      "Kira's Guardian"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Helmet",
     "Subtype": "Circlet",
     "Quality": "Elite",
-    "Base": "Diadem"
+    "Base": "Diadem",
+    "Sets": [
+      "M'avina's True Sight"
+    ],
+    "Uniques": [
+      "Griffon's Eye"
+    ]
   },
   {
     "Supertype": "Armor",
@@ -2760,7 +4039,10 @@
     "Type": "Helmet",
     "Subtype": "Primal",
     "Quality": "Elite",
-    "Base": "Fury Visor"
+    "Base": "Fury Visor",
+    "Uniques": [
+      "Wolfhowl"
+    ]
   },
   {
     "Supertype": "Armor",
@@ -2781,7 +4063,10 @@
     "Type": "Helmet",
     "Subtype": "Primal",
     "Quality": "ELite",
-    "Base": "Destroyer Helm"
+    "Base": "Destroyer Helm",
+    "Uniques": [
+      "Demonhorn's Edge"
+    ]
   },
   {
     "Supertype": "Armor",
@@ -2802,21 +4087,30 @@
     "Type": "Helmet",
     "Subtype": "Primal",
     "Quality": "Elite",
-    "Base": "Conqueror Crown"
+    "Base": "Conqueror Crown",
+    "Uniques": [
+      "Halaberd's Reign"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Helmet",
     "Subtype": "Primal",
     "Quality": "Normal",
-    "Base": "Avenger Guard"
+    "Base": "Avenger Guard",
+    "Sets": [
+      "Immortal King's Will"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Helmet",
     "Subtype": "Primal",
     "Quality": "Exceptional",
-    "Base": "Slayer Guard"
+    "Base": "Slayer Guard",
+    "Uniques": [
+      "Arreat's Face"
+    ]
   },
   {
     "Supertype": "Armor",
@@ -2844,7 +4138,10 @@
     "Type": "Helmet",
     "Subtype": "Pelt",
     "Quality": "Elite",
-    "Base": "Blood Spirit"
+    "Base": "Blood Spirit",
+    "Uniques": [
+      "Cerebus' Bite"
+    ]
   },
   {
     "Supertype": "Armor",
@@ -2879,14 +4176,20 @@
     "Type": "Helmet",
     "Subtype": "Pelt",
     "Quality": "Exceptional",
-    "Base": "Hunter's Guise'"
+    "Base": "Hunter's Guise",
+    "Sets": [
+      "Aldur's Stony Gaze"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Helmet",
     "Subtype": "Pelt",
     "Quality": "Elite",
-    "Base": "Earth Spirit"
+    "Base": "Earth Spirit",
+    "Uniques": [
+      "Spirit Keeper"
+    ]
   },
   {
     "Supertype": "Armor",
@@ -2907,7 +4210,10 @@
     "Type": "Helmet",
     "Subtype": "Pelt",
     "Quality": "Elite",
-    "Base": "Sky Spirit"
+    "Base": "Sky Spirit",
+    "Uniques": [
+      "Ravenlore"
+    ]
   },
   {
     "Supertype": "Armor",
@@ -2921,7 +4227,10 @@
     "Type": "Helmet",
     "Subtype": "Pelt",
     "Quality": "Exceptional",
-    "Base": "Totemic Mask"
+    "Base": "Totemic Mask",
+    "Uniques": [
+      "Jalal's Mane"
+    ]
   },
   {
     "Supertype": "Armor",
@@ -2934,13 +4243,22 @@
     "Supertype": "Armor",
     "Type": "Shield",
     "Quality": "Normal",
-    "Base": "Buckler"
+    "Base": "Buckler",
+    "Sets": [
+      "Hsaru's Iron Fist"
+    ],
+    "Uniques": [
+      "Pelta Lunata"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Shield",
     "Quality": "Exceptional",
-    "Base": "Defender"
+    "Base": "Defender",
+    "Uniques": [
+      "Visceratuant"
+    ]
   },
   {
     "Supertype": "Armor",
@@ -2952,31 +4270,55 @@
     "Supertype": "Armor",
     "Type": "Shield",
     "Quality": "Normal",
-    "Base": "Small Shield"
+    "Base": "Small Shield",
+    "Sets": [
+      "Cleglaw's Claw"
+    ],
+    "Uniques": [
+      "Umbral Disk"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Shield",
     "Quality": "Exceptional",
-    "Base": "Round Shield"
+    "Sets": [
+      "Whitstan's Guard"
+    ],
+    "Base": "Round Shield",
+    "Uniques": [
+      "Moser's Blessed Circle"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Shield",
     "Quality": "Elite",
-    "Base": "Luna"
+    "Base": "Luna",
+    "Uniques": [
+      "Blackoak Shield"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Shield",
     "Quality": "Normal",
-    "Base": "Large Shield"
+    "Base": "Large Shield",
+    "Sets": [
+      "Civerb's Ward"
+    ],
+    "Uniques": [
+      "Stormguild"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Shield",
     "Quality": "Exceptional",
-    "Base": "Scutum"
+    "Base": "Scutum",
+    "Uniques": [
+      "Stormchaser"
+    ]
   },
   {
     "Supertype": "Armor",
@@ -2988,91 +4330,148 @@
     "Supertype": "Armor",
     "Type": "Shield",
     "Quality": "Normal",
-    "Base": "Kite Shield"
+    "Base": "Kite Shield",
+    "Sets": [
+      "Milabrega's Orb"
+    ],
+    "Uniques": [
+      "Steelclash"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Shield",
     "Quality": "Exceptional",
-    "Base": "Dragon Shield"
+    "Base": "Dragon Shield",
+    "Uniques": [
+      "Tiamat's Rebuke"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Shield",
     "Quality": "Elite",
-    "Base": "Monarch"
+    "Base": "Monarch",
+    "Uniques": [
+      "Stormshield"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Shield",
     "Quality": "Normal",
-    "Base": "Spiked Shield"
+    "Base": "Spiked Shield",
+    "Uniques": [
+      "Swordback Hold"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Shield",
     "Quality": "Exceptional",
-    "Base": "Barbed Shield"
+    "Base": "Barbed Shield",
+    "Uniques": [
+      "Lance Guard"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Shield",
     "Quality": "Elite",
-    "Base": "Blade Barrier"
+    "Base": "Blade Barrier",
+    "Uniques": [
+      "Spike Thorn"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Shield",
     "Quality": "Normal",
-    "Base": "Tower Shield"
+    "Sets": [
+      "Sigon's Guard"
+    ],
+    "Base": "Tower Shield",
+    "Uniques": [
+      "Bverrit Keep"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Shield",
     "Quality": "Exceptional",
-    "Base": "Pavise"
+    "Base": "Pavise",
+    "Uniques": [
+      "Gerke's Sanctuary"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Shield",
     "Quality": "Elite",
-    "Base": "Aegis"
+    "Base": "Aegis",
+    "Uniques": [
+      "Medusa's Gaze"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Shield",
     "Quality": "Normal",
-    "Base": "Bone Shield"
+    "Base": "Bone Shield",
+    "Uniques": [
+      "Wall of the Eyeless"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Shield",
     "Quality": "Exceptional",
-    "Base": "Grim Shield"
+    "Base": "Grim Shield",
+    "Uniques": [
+      "Lidless Wall"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Shield",
     "Quality": "Elite",
-    "Base": "Troll Nest"
+    "Base": "Troll Nest",
+    "Uniques": [
+      "Head Hunter's Glory"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Shield",
     "Quality": "Normal",
-    "Base": "Gothic Shield"
+    "Base": "Gothic Shield",
+    "Sets": [
+      "Isenhart's Parry"
+    ],
+    "Uniques": [
+      "The Ward"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Shield",
     "Quality": "Exceptional",
-    "Base": "Ancient Shield"
+    "Base": "Ancient Shield",
+    "Uniques": [
+      "Radament's Sphere"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Shield",
     "Quality": "Elite",
-    "Base": "Ward"
+    "Base": "Ward",
+    "Sets": [
+      "Taebaek's Glory"
+    ],
+    "Uniques": [
+      "Spirit Ward"
+    ]
   },
   {
     "Supertype": "Armor",
@@ -3149,14 +4548,20 @@
     "Type": "Shield",
     "Subtype": "Head",
     "Quality": "Exceptional",
-    "Base": "Cantor Trophy"
+    "Base": "Cantor Trophy",
+    "Sets": [
+      "Trang-Oul's Wing"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Shield",
     "Subtype": "Head",
     "Quality": "Elite",
-    "Base": "Succubus Skull"
+    "Base": "Succubus Skull",
+    "Uniques": [
+      "Boneflame"
+    ]
   },
   {
     "Supertype": "Armor",
@@ -3170,14 +4575,20 @@
     "Type": "Shield",
     "Subtype": "Head",
     "Quality": "Exceptional",
-    "Base": "Hierophant Trophy"
+    "Base": "Hierophant Trophy",
+    "Uniques": [
+      "Homunculus"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Shield",
     "Subtype": "Head",
     "Quality": "Elite",
-    "Base": "Bloodlord Skull"
+    "Base": "Bloodlord Skull",
+    "Uniques": [
+      "Darkforce Spawn"
+    ]
   },
   {
     "Supertype": "Armor",
@@ -3219,7 +4630,10 @@
     "Type": "Shield",
     "Subtype": "Auric",
     "Quality": "Elite",
-    "Base": "Sacred Rondache"
+    "Base": "Sacred Rondache",
+    "Uniques": [
+      "Alma Negra"
+    ]
   },
   {
     "Supertype": "Armor",
@@ -3254,14 +4668,20 @@
     "Type": "Shield",
     "Subtype": "Auric",
     "Quality": "Exceptional",
-    "Base": "Gilded Shield"
+    "Base": "Gilded Shield",
+    "Uniques": [
+      "Herald of Zakarum"
+    ]
   },
   {
     "Supertype": "Armor",
     "Type": "Shield",
     "Subtype": "Auric",
     "Quality": "Elite",
-    "Base": "Zakarum Shield"
+    "Base": "Zakarum Shield",
+    "Uniques": [
+      "Dragonscale"
+    ]
   },
   {
     "Supertype": "Armor",
@@ -3282,7 +4702,130 @@
     "Type": "Shield",
     "Subtype": "Auric",
     "Quality": "Elite",
-    "Base": "Vortex Shield"
+    "Base": "Vortex Shield",
+    "Sets": [
+      "Griswold's Honor"
+    ]
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Shield",
+    "Subtype": "Book",
+    "Quality": "Normal",
+    "Base": "Old Book"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Shield",
+    "Subtype": "Book",
+    "Quality": "Exceptional",
+    "Base": "Burnt Text",
+    "Uniques": [
+      "Measured Wrath"
+    ]
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Shield",
+    "Subtype": "Book",
+    "Quality": "Elite",
+    "Base": "Forgotten Volume"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Shield",
+    "Subtype": "Book",
+    "Quality": "Normal",
+    "Base": "Grimoire"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Shield",
+    "Subtype": "Book",
+    "Quality": "Exceptional",
+    "Base": "Possessed Grimoire"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Shield",
+    "Subtype": "Book",
+    "Quality": "Elite",
+    "Base": "Blasphemous Grimoire",
+    "Uniques": [
+      "Ars Al'Diabolos"
+    ]
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Shield",
+    "Subtype": "Book",
+    "Quality": "Normal",
+    "Base": "Codex"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Shield",
+    "Subtype": "Book",
+    "Quality": "Exceptional",
+    "Base": "Dark Codex"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Shield",
+    "Subtype": "Book",
+    "Quality": "Normal",
+    "Base": "Occult Codex",
+    "Sets": [
+      "Horazon's Secrets"
+    ]
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Shield",
+    "Subtype": "Book",
+    "Quality": "Normal",
+    "Base": "Compendium"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Shield",
+    "Subtype": "Book",
+    "Quality": "Exceptional",
+    "Base": "Possessed Compendium"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Shield",
+    "Subtype": "Book",
+    "Quality": "Elite",
+    "Base": "Blasphemous Compendium",
+    "Uniques": [
+      "Ars Tor'Baalos"
+    ]
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Shield",
+    "Subtype": "Book",
+    "Quality": "Normal",
+    "Base": "Tome"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Shield",
+    "Subtype": "Book",
+    "Quality": "Exceptional",
+    "Base": "Dark Tome"
+  },
+  {
+    "Supertype": "Armor",
+    "Type": "Shield",
+    "Subtype": "Book",
+    "Quality": "Elite",
+    "Base": "Occult Tome",
+    "Uniques": [
+      "Ars Dul'Mephistos"
+    ]
   },
   {
     "Supertype": "Misc",
@@ -3485,32 +5028,100 @@
   {
     "Supertype": "Misc",
     "Type": "Ring",
-    "Base": "Ring"
+    "Base": "Ring",
+    "Sets": [
+      "Cathan's Seal",
+      "Angelic Halo"
+    ],
+    "Uniques": [
+      "Bul-Kathos' Wedding Band",
+      "Carrion Wind",
+      "Constricting Ring",
+      "Dwarf Star",
+      "Manald Heal",
+      "Nagelring",
+      "Nature's Peace",
+      "Opalvein",
+      "Raven Frost",
+      "Sling",
+      "The Stone of Jordan",
+      "Wisp Projector"
+    ]
   },
   {
     "Supertype": "Misc",
     "Type": "Amulet",
-    "Base": "Amulet"
+    "Base": "Amulet",
+    "Sets": [
+      "Civerb's Icon",
+      "Iratha's Collar",
+      "Vidala's Snare",
+      "Cathan's Sigil",
+      "Tancred's Weird",
+      "Angelic Wings",
+      "Arcanna's Sign",
+      "Tal Rasha's Adjudication",
+      "Telling of Beads"
+    ],
+    "Uniques": [
+      "Atma's Scarab",
+      "Crescent Moon",
+      "Entropy Locket",
+      "Highlord's Wrath",
+      "Mara's Kaleidoscope",
+      "Metalgrid",
+      "Nokozan Relic",
+      "Saracen's Chance",
+      "Seraph's Hymn",
+      "The Cat's Eye",
+      "The Eye of Etlich",
+      "The Mahim-Oak Curio",
+      "The Rising Sun"
+    ]
   },
   {
     "Supertype": "Misc",
     "Type": "Charm",
-    "Base": "Small Charm"
+    "Base": "Small Charm",
+    "Uniques": [
+      "Annihilus"
+    ]
   },
   {
     "Supertype": "Misc",
     "Type": "Charm",
-    "Base": "Large Charm"
+    "Base": "Large Charm",
+    "Uniques": [
+      "Hellfire Torch"
+    ]
   },
   {
     "Supertype": "Misc",
     "Type": "Charm",
-    "Base": "Grand Charm"
+    "Base": "Grand Charm",
+    "Uniques": [
+      "Black Cleft",
+      "Bone Break",
+      "Cold Rupture",
+      "Crack of the Heavens",
+      "Flame Rift",
+      "Gheed's Fortune",
+      "Rotting Fissure"
+    ]
   },
   {
     "Supertype": "Misc",
     "Type": "Jewel",
-    "Base": "Jewel"
+    "Base": "Jewel",
+    "Uniques": [
+      "Defender's Bile",
+      "Defender's Fire",
+      "Guardian's Light",
+      "Guardian's Thunder",
+      "Protector's Frost",
+      "Protector's Stone",
+      "Rainbow Facet"
+    ]
   },
   {
     "Supertype": "Misc",
@@ -3842,5 +5453,4 @@
     "Subtype": "Shard",
     "Base": "Deep Worldstone Shard"
   }
-
 ]

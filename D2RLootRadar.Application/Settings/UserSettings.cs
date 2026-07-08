@@ -70,6 +70,12 @@ public sealed record UserSettings
   }
 
   /// <summary>
+  /// Restricts which detections are matched against the watch list.
+  /// Default: <see cref="DetectionMode.All"/> (no filtering - current behavior).
+  /// </summary>
+  public DetectionMode Mode { get; init; } = DetectionMode.All;
+
+  /// <summary>
   /// Whether the on-screen detection overlay is shown after a match.
   /// </summary>
   public bool OverlayEnabled { get; init; } = true;

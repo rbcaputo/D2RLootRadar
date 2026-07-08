@@ -83,7 +83,6 @@ public sealed class OcrService : IOcrService, IDisposable
   /// <param name="cToken">
   /// Cancels the wait for the engine lock. Does not interrupt an OCR pass already running.
   /// </param>
-  /// <returns></returns>
   public async Task<IReadOnlyCollection<DetectionResult>> DetectAsync(
     byte[] imageData,
     CancellationToken cToken
@@ -144,9 +143,10 @@ public sealed class OcrService : IOcrService, IDisposable
         continue;
 
       PixelRect box
-        = GetBoundingBox(iterator, PageIteratorLevel.Word, topCropPixels);
+        = GetBoundingBox(iterator, PageIteratorLevel.Word, topCropPixels, out Rect upscaledBox);
+      LabelRarity rarity = SampleRarity(upscaled, masked, upscaledBox, raw);
 
-      results.Add(new(raw, raw.ToLowerInvariant(), confidence / 100f, box));
+      results.Add(new(raw, raw.ToLowerInvariant(), confidence / 100f, box, rarity));
     }
     while (iterator.Next(PageIteratorLevel.Word));
 
@@ -167,9 +167,10 @@ public sealed class OcrService : IOcrService, IDisposable
       string normalized
         = Regex.Replace(raw.ToLowerInvariant().Trim(), @"\s+", " ");
       PixelRect box
-        = GetBoundingBox(iterator, PageIteratorLevel.TextLine, topCropPixels);
+        = GetBoundingBox(iterator, PageIteratorLevel.TextLine, topCropPixels, out Rect upscaledBox);
+      LabelRarity rarity = SampleRarity(upscaled, masked, upscaledBox, raw);
 
-      results.Add(new(raw, normalized, confidence / 100f, box));
+      results.Add(new(raw, normalized, confidence / 100f, box, rarity));
     }
     while (iterator.Next(PageIteratorLevel.TextLine));
 
@@ -181,20 +182,27 @@ public sealed class OcrService : IOcrService, IDisposable
   /// the original captured frame's pixel space:
   /// divide by the upscale factor, then re-add the crop's top offset.
   /// </summary>
+  /// <param name="upscaledBox">
+  /// The raw, unmapped box in upscaled pixel scene -
+  /// the same coordinate space as the upscaled color frame and its text mask -
+  /// so callers can sample label color from the exact region Tesseract recognized text in,
+  /// without re-deriving it.
+  /// </param>
   private static PixelRect GetBoundingBox(
     ResultIterator iterator,
     PageIteratorLevel level,
-    int topCropPixels
+    int topCropPixels,
+    out Rect upscaledBox
   )
   {
-    if (!iterator.TryGetBoundingBox(level, out Rect box))
+    if (!iterator.TryGetBoundingBox(level, out upscaledBox))
       return default;
 
     return new(
-      X: (int)(box.X1 / UpscaleFactor),
-      Y: (int)(box.Y1 / UpscaleFactor) + topCropPixels,
-      Width: (int)(box.Width / UpscaleFactor),
-      Height: (int)(box.Height / UpscaleFactor)
+      X: (int)(upscaledBox.X1 / UpscaleFactor),
+      Y: (int)(upscaledBox.Y1 / UpscaleFactor) + topCropPixels,
+      Width: (int)(upscaledBox.Width / UpscaleFactor),
+      Height: (int)(upscaledBox.Height / UpscaleFactor)
     );
   }
 
@@ -360,6 +368,109 @@ public sealed class OcrService : IOcrService, IDisposable
     }
 
     return mask;
+  }
+
+  /// <summary>
+  /// Decides whether a detection is a Unique label by averaging the color of every
+  /// foreground (text) pixel inside <paramref name="upscaledBox"/>.
+  /// 
+  /// <para>
+  /// Samples from <paramref name="colorSource"/> - the still-colored, pre-mask upscaled frame -
+  /// restricted to the pixels <paramref name="mask"/> flagged as text (see <see cref="AdaptiveTextMask"/>).
+  /// This deliberately excludes the label panel's dark background from the average,
+  /// which a naive whole-box sample would not.
+  /// </para>
+  /// 
+  /// <para>
+  /// Returns <see cref="LabelRarity.Unknown"/> for a degenerate box (clipped fully outside the frame)
+  /// or when no foreground pixel is found within it -
+  /// callers must not treat Unknown as equivalent to <see cref="LabelRarity.Unique"/> or
+  /// <see cref="LabelRarity.Other"/>.
+  /// </para>
+  /// </summary>
+  private static unsafe LabelRarity SampleRarity(
+    Bitmap colorSource,
+    Bitmap mask,
+    Rect upscaledBox,
+    string? debugLabel = null
+  )
+  {
+    int x1 = Math.Max(0, upscaledBox.X1);
+    int y1 = Math.Max(0, upscaledBox.Y1);
+    int x2 = Math.Min(colorSource.Width, upscaledBox.X1 + upscaledBox.Width);
+    int y2 = Math.Min(colorSource.Height, upscaledBox.Y1 + upscaledBox.Height);
+
+    if (x2 <= x1 || y2 <= y1)
+      return LabelRarity.Unknowm;
+
+    Rectangle region = new(x1, y1, x2 - x1, y2 - y1);
+
+    BitmapData colorData = colorSource.LockBits(
+      region,
+      ImageLockMode.ReadOnly,
+      PixelFormat.Format32bppArgb
+    );
+    BitmapData maskData = mask.LockBits(
+      region,
+      ImageLockMode.ReadOnly,
+      PixelFormat.Format32bppArgb
+    );
+
+    try
+    {
+      byte* colorPtr = (byte*)colorData.Scan0;
+      byte* maskPtr = (byte*)maskData.Scan0;
+
+      long sumR = 0, sumG = 0, sumB = 0;
+      int count = 0;
+
+      for (int y = 0; y < region.Height; y++)
+      {
+        byte* colorRow = colorPtr + y * colorData.Stride;
+        byte* maskRow = maskPtr + y * maskData.Stride;
+
+        for (int x = 0; x < region.Width; x++)
+        {
+          // AdaptiveTextMask writes 0 (black) for text, 255 (white) for background.
+          if (maskRow[x * 4] != 0)
+            continue;
+
+          sumB += colorRow[x * 4];
+          sumG += colorRow[x * 4 + 1];
+          sumR += colorRow[x * 4 + 2];
+
+          count++;
+        }
+      }
+
+      if (count == 0)
+      {
+#if DEBUG
+        System.Diagnostics.Debug.WriteLine(
+          $"[RarityDebug] \"{debugLabel}\" box=({x1},{y1},{x2 - x1}x{y2 - y1}) " +
+          "no foreground pixels found -> Unknown"
+        );
+#endif
+        return LabelRarity.Unknowm;
+      }
+
+      byte avgR = (byte)(sumR / count);
+      byte avgG = (byte)(sumG / count);
+      byte avgB = (byte)(sumB / count);
+      LabelRarity classified = LabelRarityClassifier.Classify(avgR, avgG, avgB);
+
+#if DEBUG
+      System.Diagnostics.Debug.WriteLine(
+        $"[RarityDebug] \"{debugLabel}\" avgRGB=({avgR},{avgG},{avgB}) n={count} -> {classified}"
+      );
+#endif
+      return classified;
+    }
+    finally
+    {
+      colorSource.UnlockBits(colorData);
+      mask.UnlockBits(maskData);
+    }
   }
 
   /// <summary>

@@ -13,4 +13,18 @@
 /// Sub-classification derived from the item database taxonomy (Subtype ?? Type).
 /// Drives the grouping in the config UI - e.g. "Axe", "Sword", "Circlet", "Rune", "Key".
 /// </param>
-public sealed record ItemBase(string Name, ItemCategory Category, string DisplayGroup);
+/// <param name="SetVariants">
+/// Names of Set items that share this base, if any (e.g. "Light Belt" → "Arctic Binding", "Bane's Authority").
+/// Empty - never null - when this base has no Set version.
+/// </param>
+/// <param name="UniqueVariants">
+/// Names of Unique item that share this base, if any (e.g. "Monarch" → "Stormshield").
+/// Empty - never null - when this base has no Unique version.
+/// </param>
+public sealed record ItemBase(
+  string Name,
+  ItemCategory Category,
+  string DisplayGroup,
+  IReadOnlyList<string> SetVariants,
+  IReadOnlyList<string> UniqueVariants
+);

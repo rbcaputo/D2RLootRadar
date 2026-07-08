@@ -7,7 +7,7 @@ using System.Windows.Threading;
 namespace D2RLootRadar.Desktop.ViewModels;
 
 /// <summary>
-/// Backs the Settings window: alert tone, alert volume, and overlay preferences.
+/// Backs the Settings window: alert tone, alert volume, overlay, and detection preferences.
 /// 
 /// <para>
 /// <strong>Auto-save:</strong>
@@ -55,6 +55,40 @@ public partial class SettingsViewModel : ObservableObject
   private int _markerDisplaySeconds;
 
   /// <summary>
+  /// Backing field for the three mutually-exclusive detection-mode radio buyttons bellow.
+  /// Not itself an <c>[ObservableProperty]</c> - each radio button raises change notifications for all three,
+  /// since selecting one always deselects the other two.
+  /// </summary>
+  private DetectionMode _detectionMode;
+
+  /// <summary>
+  /// Radio button: no filtering, every watch-list match alerts (current/default behavior).
+  /// </summary>
+  public bool IsDetectAllSelected
+  {
+    get => _detectionMode == DetectionMode.All;
+    set => SetDetectionMode(value, DetectionMode.All);
+  }
+
+  /// <summary>
+  /// Radio button: only tan/gold (Unique) labels are matched against the watch list.
+  /// </summary>
+  public bool IsDetectUniqueOnlySelected
+  {
+    get => _detectionMode == DetectionMode.UniqueOnly;
+    set => SetDetectionMode(value, DetectionMode.UniqueOnly);
+  }
+
+  /// <summary>
+  /// Radio button: only labels with a "Superior" text prefix are matched against the watch list.
+  /// </summary>
+  public bool IsDetectSuperiorOnlySelected
+  {
+    get => _detectionMode == DetectionMode.SuperiorOnly;
+    set => SetDetectionMode(value, DetectionMode.SuperiorOnly);
+  }
+
+  /// <summary>
   /// Whether the on-screen detection overlay is shown after a match.
   /// </summary>
   [ObservableProperty]
@@ -84,12 +118,34 @@ public partial class SettingsViewModel : ObservableObject
     };
 
     UserSettings settings = _settingsStore.Load();
+
     _beepVolume = settings.BeepVolume;
     _beepFrequencyHz = settings.BeepFrequencyHz;
     _beepDurationMs = settings.BeepDurationMs;
     _fuzzyMatchThreshold = settings.FuzzyMatchThreshold;
     _markerDisplaySeconds = settings.MarkerDisplaySeconds;
+    _detectionMode = settings.Mode;
     _overlayEnabled = settings.OverlayEnabled;
+  }
+
+  /// <summary>
+  /// Backs all three radio-button properties above.
+  /// A radio button only ever raises this with <paramref name="isChecked"/> = true
+  /// (WPF doesn't fire the setter for the one being unchecked),
+  /// so unconditionally adopting <paramref name="mode"/> is correct - no need to handle the false case.
+  /// </summary>
+  private void SetDetectionMode(bool isChecked, DetectionMode mode)
+  {
+    if (!isChecked || _detectionMode == mode)
+      return;
+
+    _detectionMode = mode;
+
+    OnPropertyChanged(nameof(IsDetectAllSelected));
+    OnPropertyChanged(nameof(IsDetectUniqueOnlySelected));
+    OnPropertyChanged(nameof(IsDetectSuperiorOnlySelected));
+
+    ScheduleSave();
   }
 
   // --- Commands -----
@@ -162,6 +218,7 @@ public partial class SettingsViewModel : ObservableObject
       BeepDurationMs = BeepDurationMs,
       FuzzyMatchThreshold = FuzzyMatchThreshold,
       MarkerDisplaySeconds = MarkerDisplaySeconds,
+      Mode = _detectionMode,
       OverlayEnabled = OverlayEnabled
     });
   }
