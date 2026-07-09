@@ -27,15 +27,12 @@ namespace D2RLootRadar.Infrastructure.Capture;
 /// </summary>
 public sealed class GameCaptureService : IGameCaptureService
 {
-  private static readonly string[] ProcessNames
-    = D2RProcess.Names;
-
   /// <inheritdoc />
   public Task<CaptureFrame> CaptureAsync(CancellationToken cToken)
   {
     cToken.ThrowIfCancellationRequested();
 
-    IntPtr hwnd = FindD2RWindow();
+    IntPtr hwnd = GameWindowLocator.FindWindow();
     if (hwnd == IntPtr.Zero)
       return Task.FromResult(CaptureFrame.Empty);
 
@@ -69,31 +66,5 @@ public sealed class GameCaptureService : IGameCaptureService
 
     // Return synchronously - bitmap encoding is CPU-bound and very fast.
     return Task.FromResult(new CaptureFrame(stream.ToArray(), windowBounds));
-  }
-
-  /// <summary>
-  /// Locates the D2R main window handle by process name, trying each known
-  /// execultable/window title variant in turn.
-  /// Returns <see cref="IntPtr.Zero"/> if the game isn't running.
-  /// </summary>
-  private static IntPtr FindD2RWindow()
-  {
-    foreach (string name in ProcessNames)
-    {
-      Process[] matches = Process.GetProcessesByName(name);
-
-      try
-      {
-        if (matches.Length > 0 && matches[0].MainWindowHandle != IntPtr.Zero)
-          return matches[0].MainWindowHandle;
-      }
-      finally
-      {
-        foreach (Process process in matches)
-          process.Dispose();
-      }
-    }
-
-    return IntPtr.Zero;
   }
 }
