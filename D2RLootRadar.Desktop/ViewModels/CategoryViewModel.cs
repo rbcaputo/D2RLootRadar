@@ -18,7 +18,7 @@ public sealed partial class CategoryViewModel : ObservableObject
   private bool _isExpanded = false;
 
   /// <summary>
-  /// Tri-state seelction state for the header checkbox.
+  /// Tri-state selection state for the header checkbox.
   /// false = none, true = all, null = mixed.
   /// Bound with IsThreeState="False" so the user can only click to true/false,
   /// but a null (mixed) value still renders as indeterminate.
@@ -38,13 +38,11 @@ public sealed partial class CategoryViewModel : ObservableObject
 
       // Unsubscribe during bulk update to fire one notification, not N.
       foreach (ItemBaseViewModel item in Items)
+      {
         item.PropertyChanged -= OnItemPropertyChanged;
-
-      foreach (ItemBaseViewModel item in Items)
         item.IsSelected = select;
-
-      foreach (ItemBaseViewModel item in Items)
         item.PropertyChanged += OnItemPropertyChanged;
+      }
 
       RaiseSelectionProperties();
     }
