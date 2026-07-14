@@ -117,15 +117,15 @@ public partial class MainViewModel : ObservableObject
   /// </summary>
   private void ExecuteSave()
   {
-    IEnumerable<string> selected = Categories
+    Dictionary<string, RarityFlags> selections = Categories
       .SelectMany(c => c.Items)
-      .Where(i => i.IsSelected)
-      .Select(i => i.Name);
+      .Where(i => i.SelectedRarities != RarityFlags.None)
+      .ToDictionary(i => i.Name, i => i.SelectedRarities);
 
     UserSettings current = _settingsStore.Load();
     _settingsStore.Save(current with
     {
-      SelectedItemBases = [.. selected]
+      ItemRaritySelections = selections
     });
   }
 
@@ -150,24 +150,24 @@ public partial class MainViewModel : ObservableObject
     IsGameRunning = _gameProcessService.IsRunning();
 
     UserSettings settings = _settingsStore.Load();
-    HashSet<string> selected
-      = new(settings.SelectedItemBases, StringComparer.OrdinalIgnoreCase);
+    Dictionary<string, RarityFlags> selections
+      = new(settings.ItemRaritySelections, StringComparer.OrdinalIgnoreCase);
 
     // Group by DisplayGroup (e.g. "Axe", "Sword", "Circlet", "Rune", "Key").
-    // Sort by domain category first so related slots appear together,
-    // then alphabetically within each actegory group.
-    var groups = _catalog.GetAll()
+    // Sort by domain category first so related slots appear together, then alphabetically within each category group.
+    IOrderedEnumerable<IGrouping<string, ItemBase>> groups = _catalog.GetAll()
       .GroupBy(x => x.DisplayGroup)
       .OrderBy(g => CategoryOrder(g.First().Category))
       .ThenBy(g => g.Key);
 
-    foreach (var group in groups)
+    foreach (IGrouping<string,ItemBase> group in groups)
     {
       IEnumerable<ItemBaseViewModel> items = group
         .OrderBy(x => x.Name)
         .Select(x => new ItemBaseViewModel(
           x.Name,
-          selected.Contains(x.Name),
+          x.ApplicableRarities,
+          selections.GetValueOrDefault(x.Name, RarityFlags.None),
           x.SetVariants,
           x.UniqueVariants
         ));
@@ -234,11 +234,10 @@ public partial class MainViewModel : ObservableObject
       if (category.SelectedCount == 0)
         continue;
 
-      IReadOnlyList<string> selected
-        = [.. category.Items
-            .Where(i => i.IsSelected)
-            .Select(i => i.Name)
-        ];
+      IReadOnlyList<string> selected = [.. category.Items
+        .Where(i => i.SelectedRarities != RarityFlags.None)
+        .Select(i => i.Name)
+      ];
 
       Summary.Add(new(category.Name, selected));
 

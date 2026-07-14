@@ -401,7 +401,7 @@ public sealed class OcrService : IOcrService, IDisposable
     int y2 = Math.Min(colorSource.Height, upscaledBox.Y1 + upscaledBox.Height);
 
     if (x2 <= x1 || y2 <= y1)
-      return LabelRarity.Unknowm;
+      return LabelRarity.Unknown;
 
     Rectangle region = new(x1, y1, x2 - x1, y2 - y1);
 
@@ -451,7 +451,8 @@ public sealed class OcrService : IOcrService, IDisposable
           "no foreground pixels found -> Unknown"
         );
 #endif
-        return LabelRarity.Unknowm;
+
+        return LabelRarity.Unknown;
       }
 
       byte avgR = (byte)(sumR / count);
@@ -464,6 +465,7 @@ public sealed class OcrService : IOcrService, IDisposable
         $"[RarityDebug] \"{debugLabel}\" avgRGB=({avgR},{avgG},{avgB}) n={count} -> {classified}"
       );
 #endif
+
       return classified;
     }
     finally

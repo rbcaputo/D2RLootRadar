@@ -133,34 +133,43 @@ public sealed class LootMonitoringService : IDisposable
   }
 
   /// <summary>
-  /// Restricts detections to a specific <see cref="DetectionMode"/> before they're matched against the watch list.
-  /// <see cref="DetectionMode.All"/> is a no-op - returns <paramref name="detections"/> unchanged.
-  /// 
-  /// <para>
-  /// <see cref="DetectionMode.UniqueOnly"/> is color-based: keeps only <see cref="LabelRarity.Unique"/> detections.
-  /// <see cref="LabelRarity.Unknowm"/> (an inconclusive color sample) is excluded here too -
-  /// it must never be treated as a match.
-  /// </para>
-  /// 
-  /// <para>
-  /// <see cref="DetectionMode.SuperiorOnly"/> is text-based, via <see cref="HasSuperiorPrefix"/>:
-  /// Superior has no distinct label color of its own -
-  /// it renders in the same white/gray as Cracked/Damaged/Low Quality, so color alone can't tell them apart.
-  /// The recognized text itself has to carry the "Superior" word for this filter to have anything to key off.
-  /// </para>
-  /// 
-  /// Internal rather than private so it can be unit-tested directly, same rationale as
-  /// <see cref="StripQualityPrefix"/>.
+  /// Maps a color-sampled <see cref="LabelRarity"/> to its corresponding single <see cref="RarityFlags"/> bit.
+  /// <see cref="LabelRarity.Unknown"/> maps to <see cref="RarityFlags.None"/> -
+  /// an inconclusive color sample must never satisfy any selection.
   /// </summary>
-  internal static IEnumerable<DetectionResult> FilterByMode(
-    IEnumerable<DetectionResult> detections,
-    DetectionMode mode
-  ) => mode switch
+  private static RarityFlags ColorFlag(LabelRarity rarity)
+    => rarity switch
+    {
+      LabelRarity.Normal => RarityFlags.Normal,
+      LabelRarity.EtherealSocketed => RarityFlags.EtherealSocketed,
+      LabelRarity.Magic => RarityFlags.Magic,
+      LabelRarity.Rare => RarityFlags.Rare,
+      LabelRarity.Set => RarityFlags.Set,
+      LabelRarity.Unique => RarityFlags.Unique,
+      _ => RarityFlags.None
+    };
+
+  /// <summary>
+  /// Whether a detection satisfies a specific item's selected rarities.
+  /// 
+  /// True if the detection's sampled label color is one of the selected flags,
+  /// OR the selection includes Superior and the detection's text carries the Superior prefix -
+  /// these two checks are independent of each other (not both required), since Superior has no label color of its own;
+  /// it's checked from text regardless of which color flags are also selected.
+  /// 
+  /// Internal rather than private so it can be unit-tested directly,
+  /// same rationale as <see cref="StripQualityPrefix"/>.
+  /// </summary>
+  internal static bool IsRarityMatch(DetectionResult detection, RarityFlags selectedRarities)
   {
-    DetectionMode.UniqueOnly => detections.Where(d => d.Rarity == LabelRarity.Unique),
-    DetectionMode.SuperiorOnly => detections.Where(HasSuperiorPrefix),
-    _ => detections
-  };
+    if (
+      selectedRarities != RarityFlags.None &&
+      ColorFlag(detection.Rarity) != RarityFlags.None
+    ) return true;
+
+    return selectedRarities.HasFlag(RarityFlags.Superior) &&
+      HasSuperiorPrefix(detection);
+  }
 
   /// <summary>
   /// Whether a detection's recognized text starts with the "Superior" quality prefix.
@@ -277,14 +286,6 @@ public sealed class LootMonitoringService : IDisposable
       if (detections.Count == 0)
         continue;
 
-      if (settings.Mode != DetectionMode.All)
-      {
-        detections
-          = [.. FilterByMode(detections, settings.Mode)];
-        if (detections.Count == 0)
-          continue;
-      }
-
       // One marker per distinct matched item name -
       // first matching detection for that item wins its on-screen position.
       Dictionary<string, DetectionMarker> markers
@@ -294,16 +295,16 @@ public sealed class LootMonitoringService : IDisposable
       {
         string candidate = StripQualityPrefix(result.NormalizedText);
 
-        foreach (ItemBase item in watchList.Items)
+        foreach (WatchedItem item in watchList.Items)
         {
-          double similarity = _fuzzyMatcher.Similarity(candidate, item.Name);
+          double similarity = _fuzzyMatcher.Similarity(candidate, item.Base.Name);
           if (similarity >= settings.FuzzyMatchThreshold)
           {
-            if (!markers.ContainsKey(item.Name))
+            if (!markers.ContainsKey(item.Base.Name))
             {
               int screenX = capture.WindowBounds.X + result.BoundingBox.CenterX;
               int screenY = capture.WindowBounds.Y + result.BoundingBox.CenterY;
-              markers[item.Name] = new(item.Name, screenX, screenY);
+              markers[item.Base.Name] = new(item.Base.Name, screenX, screenY);
             }
 
             break;
@@ -324,18 +325,22 @@ public sealed class LootMonitoringService : IDisposable
   }
 
   /// <summary>
-  /// Resolves the user's selected item base names against the full catalog to produce the
-  /// set of items to actively match agains this pass.
+  /// Resolves the user's per-item selections against the full catalog to produce the set of items to
+  /// actively match against this pass, each paired with its selected rarities.
   /// Case-insensitive because the stored selection and the catalog names may differ only in casing.
+  /// An item present in settings with <see cref="RarityFlags.None"/> selected is treated as not watched -
+  /// there's no separate "is this item selected" flag, so a zero-flags entry
+  /// (which shouldn't normally occur, but is defended against here) contributes nothing.
   /// </summary>
   private WatchList BuildWatchList(UserSettings settings)
   {
-    HashSet<string> selected
-      = new(settings.SelectedItemBases, StringComparer.OrdinalIgnoreCase);
-    IEnumerable<ItemBase> bases = _catalog.GetAll()
-      .Where(b => selected.Contains(b.Name));
+    Dictionary<string, RarityFlags> selections
+      = new(settings.ItemRaritySelections, StringComparer.OrdinalIgnoreCase);
+    IEnumerable<WatchedItem> items = _catalog.GetAll()
+      .Where(i => selections.GetValueOrDefault(i.Name) != RarityFlags.None)
+      .Select(i => new WatchedItem(i, selections[i.Name]));
 
-    return new(bases);
+    return new(items);
   }
 
   /// <summary>

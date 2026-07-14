@@ -15,9 +15,14 @@ namespace D2RLootRadar.Infrastructure.ItemBases;
 ///   "Supertype": "Weapon" | "Armor" | "Misc",
 ///   "Type": "One-Handed" | "Two-Handed" | "Belt" | "Torso" | ... | "Rune" | "Gem" | ...,
 ///   "Subtype": "Axe" | "Sword" | "Circlet" | "Pelt" | "Key" | ... (optional),
+///   "Tier": ["Normal" | "Exceptional" | "Elite" | "Low" | "Mid" | "High" | ... (optional),
 ///   "Base": "Phase Blade" ← the floor-label text matched by OCR,
+///   "Qualities": ["Normal", "EtherealSocketed", "Magic", "Rare", ...]
+///     (optional - which RarityFlags this base can appear as; omitted entirely for Rune/Gem/Material,
+///      which have no rarity system at all),
 ///   "Sets": ["Arctic Binding, ...] (optional - Set items sharing this base, if any),
-///   "Uniques": ["Stormshield, ...] (optional - Unique items sharing this base, if any)
+///   "Uniques": ["Stormshield, ...] (optional - Unique items sharing this base, if any),
+///   "MaxSockets": 6 (optional - not currently consumed)
 /// }
 /// </code>
 /// 
@@ -80,14 +85,44 @@ public sealed class JsonItemBaseCatalog : IItemBaseCatalog
   {
     ItemCategory category = ResolveCategory(dto);
     string displayGroup = dto.Subtype ?? dto.Type;
+    RarityFlags applicableRarities = ParseQualities(dto);
 
     return new(
       dto.Base,
-      category,
       displayGroup,
+      category,
+      applicableRarities,
       dto.Sets ?? [],
       dto.Uniques ?? []
     );
+  }
+
+  /// <summary>
+  /// Parses a DTO's <see cref="ItemBaseDto.Qualities"/> strings into a single <see cref="RarityFlags"/> value.
+  /// Member names are matched exactly (case-sensitive) - the JSON is expected to spell them the same way the enum does.
+  /// A null or absent array (Rune/Gem/Material) yields <see cref="RarityFlags.None"/>.
+  /// An entry that doesn't match any <see cref="RarityFlags"/> member is logged and skipped,
+  /// rather than failing the whole catalog load over one bad string.
+  /// </summary>
+  private RarityFlags ParseQualities(ItemBaseDto dto)
+  {
+    if (dto.Qualities is null)
+      return RarityFlags.None;
+
+    RarityFlags result = RarityFlags.None;
+
+    foreach (string quality in dto.Qualities)
+      if (Enum.TryParse(quality, ignoreCase: false, out RarityFlags flag))
+        result |= flag;
+      else
+        _logger.LogWarning(
+          "Unrecognized quality '{Quality}' for base '{Base}' - ignored. " +
+          "Check spelling against the RarityFlags enum member names.",
+          quality,
+          dto.Base
+        );
+
+    return result;
   }
 
   /// <summary>

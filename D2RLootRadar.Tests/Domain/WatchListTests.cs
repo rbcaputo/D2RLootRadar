@@ -4,6 +4,13 @@ namespace D2RLootRadar.Tests.Domain;
 
 public class WatchListTests
 {
+  private static WatchedItem Watched(
+    string name,
+    string displayGroup,
+    ItemCategory category,
+    RarityFlags selected = RarityFlags.Unique
+  ) => new(new(name, displayGroup, category, RarityFlags.None, [], []), selected);
+
   [Fact]
   public void Constructor_NullItems_Throws()
     => Assert.Throws<ArgumentNullException>(() => new WatchList(null!));
@@ -11,9 +18,9 @@ public class WatchListTests
   [Fact]
   public void Items_ExactDuplicateItemBase_IsDeduplicated()
   {
-    // Same Name, Category, and DisplayGroup → record equality treats these as one item.
-    ItemBase a = new("Monarch", ItemCategory.Shield, "Shield", [], []);
-    ItemBase b = new("Monarch", ItemCategory.Shield, "Shield", [], []);
+    // Same Name and SelectedRarities → record equality treats these as one entry.
+    WatchedItem a = Watched("Monarch", "Shield", ItemCategory.Shield);
+    WatchedItem b = Watched("Monarch", "Shield", ItemCategory.Shield);
 
     WatchList watchList = new([a, b]);
 
@@ -23,10 +30,23 @@ public class WatchListTests
   [Fact]
   public void Items_SameNameDifferentCategory_IsNotDeduplicated()
   {
-    // Pins the behavior documented on WatchList: deduplication uses full record equality,
-    // not just Name, so two entries that only share a Name are kept distinct.
-    ItemBase a = new("Monarch", ItemCategory.Shield, "Shield", [], []);
-    ItemBase b = new("Monarch", ItemCategory.Weapon, "Mace", [], []);
+    // Pins the behavior documented on WatchList:
+    // deduplication uses full record equality, not just Name,
+    // so two entries that only share a Name are kept distinct.
+    WatchedItem a = Watched("Monarch", "Shield", ItemCategory.Shield);
+    WatchedItem b = Watched("Monarch", "Mace", ItemCategory.Weapon);
+
+    WatchList watchList = new([a, b]);
+
+    Assert.Equal(2, watchList.Items.Count);
+  }
+
+  [Fact]
+  public void Items_SameItemDifferentSelectedRarities_IsNotDeduplicated()
+  {
+    // Same catalog Base but a different rarity selection is a genuinely different entry.
+    WatchedItem a = Watched("Monarch", "Shield", ItemCategory.Shield, RarityFlags.Magic);
+    WatchedItem b = Watched("Monarch", "Shield", ItemCategory.Shield, RarityFlags.Unique);
 
     WatchList watchList = new([a, b]);
 
@@ -36,10 +56,10 @@ public class WatchListTests
   [Fact]
   public void Items_DistinctItems_AreAllPreserved()
   {
-    ItemBase[] items = [
-      new("Monarch", ItemCategory.Shield, "Shield",[],[]),
-      new("Phase Blade", ItemCategory.Weapon, "Sword", [], []),
-      new("Ber Rune", ItemCategory.Rune, "Rune",[],[])
+    WatchedItem[] items = [
+      Watched("Monarch", "Shield", ItemCategory.Shield),
+      Watched("Phase Blade", "Sword", ItemCategory.Weapon),
+      Watched("Ber Rune", "Rune", ItemCategory.Rune)
     ];
 
     WatchList watchList = new(items);
