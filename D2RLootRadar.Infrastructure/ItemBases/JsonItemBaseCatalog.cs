@@ -22,7 +22,7 @@ namespace D2RLootRadar.Infrastructure.ItemBases;
 ///      which have no quality variation - see DeaultRarities for how each of those resolves instead),
 ///   "Sets": ["Arctic Binding, ...] (optional - Set items sharing this base, if any),
 ///   "Uniques": ["Stormshield, ...] (optional - Unique items sharing this base, if any),
-///   "MaxSockets": 6 (optional - not currently consumed)
+///   "MaxSockets": 6 (optional - shown in the watch-list UI's info tooltip)
 /// }
 /// </code>
 /// 
@@ -98,6 +98,7 @@ public sealed class JsonItemBaseCatalog : IItemBaseCatalog
       displayGroup,
       category,
       applicableRarities,
+      dto.MaxSockets,
       dto.Sets ?? [],
       dto.Uniques ?? []
     );

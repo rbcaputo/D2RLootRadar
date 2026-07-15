@@ -168,6 +168,7 @@ public partial class MainViewModel : ObservableObject
           x.Name,
           x.ApplicableRarities,
           selections.GetValueOrDefault(x.Name, RarityFlags.None),
+          x.MaxSockets,
           x.SetVariants,
           x.UniqueVariants
         ));

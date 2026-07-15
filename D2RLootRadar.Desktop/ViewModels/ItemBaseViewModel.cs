@@ -19,6 +19,7 @@ public partial class ItemBaseViewModel(
   string name,
   RarityFlags applicableRarities,
   RarityFlags selectedRarities,
+  int? maxSockets,
   IReadOnlyList<string> setVariants,
   IReadOnlyList<string> uniqueVariants
 ) : ObservableObject
@@ -51,12 +52,10 @@ public partial class ItemBaseViewModel(
   public RarityFlags ApplicableRarities { get; } = applicableRarities;
 
   /// <summary>
-  /// Whether hovering the name should show the variant-name tooltip at all -
-  /// false for the common case of a base with neither a Set nor a Unique version,
-  /// so those rows never pop an empty tooltip.
+  /// Maximum sockets this base can roll, shown in the info icon's tooltip.
+  /// Null when the base can't be socketed at all (e.g. Charms, most jewelry, etc.).
   /// </summary>
-  public bool HasVariants
-    => SetVariants.Count > 0 || UniqueVariants.Count > 0;
+  public int? MaxSockets { get; } = maxSockets;
 
   /// <summary>
   /// Names of Set items that shate this base, shown in the name's hover tooltip.
@@ -74,6 +73,28 @@ public partial class ItemBaseViewModel(
   /// </summary>
   public RarityFlags SelectedRarities
     => _selectedRarities;
+
+  /// <summary>
+  /// Whether this base can roll sockets at all - false items don't get a sockets line in the info tooltip.
+  /// </summary>
+  public bool HasMaxSockets
+    => MaxSockets > 0;
+
+  /// <summary>
+  /// Whether hovering the name should show the variant-name tooltip at all -
+  /// false for the common case of a base with neither a Set nor a Unique version,
+  /// so those rows never pop an empty tooltip.
+  /// </summary>
+  public bool HasVariants
+    => SetVariants.Count > 0 || UniqueVariants.Count > 0;
+
+  /// <summary>
+  /// Whether the info icon has anything at all to show -
+  /// false for the common case of a plain, unsocketable base with no Set or Unique version,
+  /// so those rows never render an icon that just opens an empty tooltip.
+  /// </summary>
+  public bool HasInfo
+    => HasMaxSockets || HasVariants;
 
   /// <summary>
   /// Whether this base has more than one applicable rarity to choose between.

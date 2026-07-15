@@ -21,6 +21,10 @@
 /// (<see cref="RarityFlags.Normal"/>, <see cref="RarityFlags.RuneMaterial"/>, or <see cref="RarityFlags.Shard"/>)
 /// rather than being left unselectable.
 /// </param>
+/// <param name="MaxSockets">
+/// Maximum sockets this base can roll, shown in the watch-list UI's info tooltip.
+/// Null when the base can't be socketed at all (e.g. Charms, most jewelry, etc.).
+/// </param>
 /// <param name="SetVariants">
 /// Names of Set items that share this base, if any (e.g. "Light Belt" → "Arctic Binding", "Bane's Authority").
 /// Empty - never null - when this base has no Set version.
@@ -34,6 +38,7 @@ public sealed record ItemBase(
   string DisplayGroup,
   ItemCategory Category,
   RarityFlags ApplicableRarities,
+  int? MaxSockets,
   IReadOnlyList<string> SetVariants,
   IReadOnlyList<string> UniqueVariants
 );

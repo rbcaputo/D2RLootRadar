@@ -270,47 +270,52 @@
                             <ColumnDefinition Width="Auto" />
                           </Grid.ColumnDefinitions>
 
-                          <TextBlock Grid.Column="0"
-                                     Text="{Binding Name}"
-                                     FontSize="13"
-                                     VerticalAlignment="Center">
-                            <TextBlock.Style>
-                              <Style TargetType="TextBlock">
-                                <Style.Triggers>
-                                  <!-- Only bases with a Set or Unique version get a tooltip at all,
-                                       so a plain base never pops an empty popup on hover. -->
-                                  <DataTrigger Binding="{Binding HasVariants}" Value="True">
-                                    <Setter Property="ToolTip">
-                                      <Setter.Value>
-                                        <ToolTip Background="#1E1B18">
-                                          <StackPanel>
-                                            <ItemsControl ItemsSource="{Binding SetVariants}">
-                                              <ItemsControl.ItemTemplate>
-                                                <DataTemplate>
-                                                  <TextBlock Text="{Binding}"
-                                                           FontSize="12"
-                                                           Foreground="#31DE2F" />
-                                                </DataTemplate>
-                                              </ItemsControl.ItemTemplate>
-                                            </ItemsControl>
-                                            <ItemsControl ItemsSource="{Binding UniqueVariants}">
-                                              <ItemsControl.ItemTemplate>
-                                                <DataTemplate>
-                                                  <TextBlock Text="{Binding}"
-                                                           FontSize="12"
-                                                           Foreground="#C7BB95" />
-                                                </DataTemplate>
-                                              </ItemsControl.ItemTemplate>
-                                            </ItemsControl>
-                                          </StackPanel>
-                                        </ToolTip>
-                                      </Setter.Value>
-                                    </Setter>
-                                  </DataTrigger>
-                                </Style.Triggers>
-                              </Style>
-                            </TextBlock.Style>
-                          </TextBlock>
+                          <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                            <TextBlock Text="{Binding Name}"
+                                       FontSize="13"
+                                       VerticalAlignment="Center" />
+
+                            <!-- Info icon: only rendered when there's actually something to show -
+                                 a plain, unsocketable base with no Set/Unique version gets no icon at all. -->
+                            <TextBlock Text="&#9432;"
+                                       FontSize="13"
+                                       Margin="6,0,0,0"
+                                       VerticalAlignment="Center"
+                                       Cursor="Help"
+                                       Foreground="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"
+                                       Visibility="{Binding HasInfo, Converter={StaticResource BoolToVisibility}}">
+                              <TextBlock.ToolTip>
+                                <ToolTip Background="#1E1B18">
+                                  <StackPanel>
+                                    <TextBlock FontSize="12"
+                                               Foreground="White"
+                                               Visibility="{Binding HasMaxSockets, Converter={StaticResource BoolToVisibility}}">
+                                      <Run Text="Max Sockets: " />
+                                      <Run Text="{Binding MaxSockets, Mode=OneWay}" />
+                                    </TextBlock>
+                                    <ItemsControl ItemsSource="{Binding SetVariants}">
+                                      <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                          <TextBlock Text="{Binding}"
+                                                   FontSize="12"
+                                                   Foreground="#31DE2F" />
+                                        </DataTemplate>
+                                      </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                    <ItemsControl ItemsSource="{Binding UniqueVariants}">
+                                      <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                          <TextBlock Text="{Binding}"
+                                                   FontSize="12"
+                                                   Foreground="#C7BB95" />
+                                        </DataTemplate>
+                                      </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                  </StackPanel>
+                                </ToolTip>
+                              </TextBlock.ToolTip>
+                            </TextBlock>
+                          </StackPanel>
 
                           <!-- Single-rarity bases (Rune/Gem/Material): plain watched/not-watched checkbox -
                                there's only one rarity they can ever appear as, so a picker would be pointless ceremony. -->
