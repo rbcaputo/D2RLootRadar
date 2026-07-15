@@ -19,7 +19,7 @@ namespace D2RLootRadar.Infrastructure.ItemBases;
 ///   "Base": "Phase Blade" ← the floor-label text matched by OCR,
 ///   "Qualities": ["Normal", "EtherealSocketed", "Magic", "Rare", ...]
 ///     (optional - which RarityFlags this base can appear as; omitted entirely for Rune/Gem/Material,
-///      which have no rarity system at all),
+///      which have no quality variation - see DeaultRarities for how each of those resolves instead),
 ///   "Sets": ["Arctic Binding, ...] (optional - Set items sharing this base, if any),
 ///   "Uniques": ["Stormshield, ...] (optional - Unique items sharing this base, if any),
 ///   "MaxSockets": 6 (optional - not currently consumed)
@@ -45,6 +45,12 @@ public sealed class JsonItemBaseCatalog : IItemBaseCatalog
   };
 
   /// <summary>
+  /// The <see cref="ItemBaseDto.Subtype"/> value that marks a Material as a Worldstone Shard rather than
+  /// a Key/Part/Essence/Statue - the one Material group with its own label color.
+  /// </summary>
+  private const string ShardSubtype = "Shard";
+
+  /// <summary>
   /// Eagerly loads and maps the entire catalog from disk.
   /// Throws <see cref="FileNotFoundException"/> immediately if the data file is missing,
   /// since a missing catalog makes the app unusable -
@@ -52,8 +58,8 @@ public sealed class JsonItemBaseCatalog : IItemBaseCatalog
   /// </summary>
   public JsonItemBaseCatalog(ILogger<JsonItemBaseCatalog> logger)
   {
-    _items = Load();
     _logger = logger;
+    _items = Load();
   }
 
   /// <inheritdoc />
@@ -85,7 +91,7 @@ public sealed class JsonItemBaseCatalog : IItemBaseCatalog
   {
     ItemCategory category = ResolveCategory(dto);
     string displayGroup = dto.Subtype ?? dto.Type;
-    RarityFlags applicableRarities = ParseQualities(dto);
+    RarityFlags applicableRarities = ParseQualities(dto, category);
 
     return new(
       dto.Base,
@@ -104,10 +110,10 @@ public sealed class JsonItemBaseCatalog : IItemBaseCatalog
   /// An entry that doesn't match any <see cref="RarityFlags"/> member is logged and skipped,
   /// rather than failing the whole catalog load over one bad string.
   /// </summary>
-  private RarityFlags ParseQualities(ItemBaseDto dto)
+  private RarityFlags ParseQualities(ItemBaseDto dto, ItemCategory category)
   {
     if (dto.Qualities is null)
-      return RarityFlags.None;
+      return DefaultRarities(dto, category);
 
     RarityFlags result = RarityFlags.None;
 
@@ -124,6 +130,28 @@ public sealed class JsonItemBaseCatalog : IItemBaseCatalog
 
     return result;
   }
+
+  /// <summary>
+  /// The single fixed label colorfor a base with no quality variation at all -
+  /// Gem is white (<see cref="RarityFlags.Normal"/>), Rune and every non-Shard Material are
+  /// orange (<see cref="RarityFlags.RuneMaterial"/>), and Worldstone Shards are red (<see cref="RarityFlags.Shard"/>).
+  /// Keeps these flowing through the same selection/watch-list/matching pipeline as every other base,
+  /// instead of needing a separate "is this item wacthed at all" concept.
+  /// </summary>
+  private RarityFlags DefaultRarities(ItemBaseDto dto, ItemCategory category)
+    => category switch
+    {
+      ItemCategory.Gem => RarityFlags.Normal,
+      ItemCategory.Rune => RarityFlags.RuneMaterial,
+      ItemCategory.Material when dto.Subtype == ShardSubtype => RarityFlags.Shard,
+      ItemCategory.Material => RarityFlags.RuneMaterial,
+
+      // Shouldn't happen -
+      // every category without an explicit Qualities array is one of the above.
+      // Defaulting to Normal (rather than None) keeps a mis-tagged entry selectable,
+      // just wrongly colored, instead of silently unwatchable.
+      _ => LogUnexpectedFlaglessCategory(dto, category)
+    };
 
   /// <summary>
   /// Maps Supertype + Type to the domain <see cref="ItemCategory"/>.
@@ -149,15 +177,27 @@ public sealed class JsonItemBaseCatalog : IItemBaseCatalog
       (_, "Gem") => ItemCategory.Gem,
       (_, "Material") => ItemCategory.Material,
 
-      _ => Fallback(dto)
+      _ => LogUnexpectedTypeSubtypeCombination(dto)
     };
+
+  private RarityFlags LogUnexpectedFlaglessCategory(ItemBaseDto dto, ItemCategory category)
+  {
+    _logger.LogWarning(
+      "Base '{Base}' in category '{Category}' has no Qualities array but isn't Gem/Rune/Material - " +
+      "defaulting to Notmal. Update DefaultRarities is this category is meant to be flagless too.",
+      dto.Base,
+      category
+    );
+
+    return RarityFlags.Normal;
+  }
 
   /// <summary>
   /// Called when <see cref="ResolveCategory"/> hits a Supertype/Type combination it doesn't recognize.
   /// Logs a warning (so the gap gets noticed) and defaults to <see cref="ItemCategory.Weapon"/>
   /// rather than throwing, so one unrecognized entry in item-bases.json can't take down the whole catalog load.
   /// </summary>
-  private ItemCategory Fallback(ItemBaseDto dto)
+  private ItemCategory LogUnexpectedTypeSubtypeCombination(ItemBaseDto dto)
   {
     _logger.LogWarning(
       "Unknown type mapping: Supertype='{Supertype}' Type='{Type}'. " +

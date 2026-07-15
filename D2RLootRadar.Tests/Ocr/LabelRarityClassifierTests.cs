@@ -8,6 +8,9 @@ public class LabelRarityClassifierTests
   // RGB values below are the measured average glyph color from real in-game label captures for
   // each of the six tiers - not synthetic "ideal" colors,
   // so these tests double as a regression guard on the calibration itself.
+  //
+  // RuneMaterial and Shard are measured the same way, from Rune and Worldstone Shard captures respectively -
+  // averaged over every glyph pixel with saturation > 0.25 and value > 0.45.
 
   [Theory]
   [InlineData(230, 230, 230, LabelRarity.Normal)] // white
@@ -16,6 +19,8 @@ public class LabelRarityClassifierTests
   [InlineData(242, 241, 121, LabelRarity.Rare)] // yellow
   [InlineData(49, 222, 47, LabelRarity.Set)] // green
   [InlineData(199, 187, 149, LabelRarity.Unique)] // tan/gold
+  [InlineData(215, 159, 5, LabelRarity.RuneMaterial)] // orange
+  [InlineData(218, 92, 92, LabelRarity.Shard)] // red
   public void Classify_NonUniqueTier_ReturnsOthers(
     byte r,
     byte g,
@@ -47,12 +52,25 @@ public class LabelRarityClassifierTests
   {
     // The one genuinely close pair - both live in the ~45-65 degree hue band.
     // This test exists specifically to guard the saturation-based split between them.
-    LabelRarity rare = LabelRarityClassifier.Classify(242, 241, 121);
     LabelRarity unique = LabelRarityClassifier.Classify(199, 187, 149);
+    LabelRarity rare = LabelRarityClassifier.Classify(242, 241, 121);
 
-    Assert.Equal(LabelRarity.Rare, rare);
     Assert.Equal(LabelRarity.Unique, unique);
-    Assert.NotEqual(rare, unique);
+    Assert.Equal(LabelRarity.Rare, rare);
+    Assert.NotEqual(unique, rare);
+  }
+
+  [Fact]
+  public void Classify_RuneMaterialAndRare_DoNotCollideDespiteSharedHueFamily()
+  {
+    // Rune/Material orange sits in the same huw band as Rare/Unique too,
+    // just at much hihger saturation (~98% vs Rare's ~50%) - guard that split as wall.
+    LabelRarity runeMaterial = LabelRarityClassifier.Classify(215, 159, 5);
+    LabelRarity rare = LabelRarityClassifier.Classify(242, 241, 121);
+
+    Assert.Equal(LabelRarity.RuneMaterial, runeMaterial);
+    Assert.Equal(LabelRarity.Rare, rare);
+    Assert.NotEqual(runeMaterial, rare);
   }
 
   [Fact]

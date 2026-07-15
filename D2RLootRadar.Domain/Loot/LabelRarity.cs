@@ -44,5 +44,17 @@ public enum LabelRarity
   /// <summary>
   /// Tan/gold label.
   /// </summary>
-  Unique
+  Unique,
+
+  /// <summary>
+  /// Orange label - Runes, and every Material except shards (Key, Part, Essence, Statue).
+  /// Not a quality tier at all; these bases have no rarity variation,
+  /// this is just the one color they always render in.
+  /// </summary>
+  RuneMaterial,
+
+  /// <summary>
+  /// Red label - Worldstone Shards specifically, distinct from every other Material.
+  /// </summary>
+  Shard
 }

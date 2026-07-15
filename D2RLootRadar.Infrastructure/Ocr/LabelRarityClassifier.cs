@@ -16,6 +16,8 @@ namespace D2RLootRadar.Infrastructure.Ocr;
 /// Unique and Rare are the hardest pair - both sit in the same yellow/gold hue family, only ~15 degrees apart -
 /// but they separate cleanly on saturation and value
 /// (Unique: ~25%^saturation / ~78% value; Rare: ~50% saturation / ~95% value).
+/// Rune/Material (orange) lives in that same hue family too, but at ~98% saturation -
+/// comfortably clear of Rare's ~50%, so it splits off the same way Unique/Rare do, just one tier further out.
 /// </para>
 /// </summary>
 public static class LabelRarityClassifier
@@ -36,6 +38,23 @@ public static class LabelRarityClassifier
   private const double UniqueSaturationCeiling = 0.38;
 
   /// <summary>
+  /// Saturation above this, within the yellow/gold hue band, is Rune/Material (orange) rather than Rare -
+  /// measured ~98% against Rare's ~50%, so this sits with plenty of margin either side.
+  /// </summary>
+  private const double RuneMaterialSaturationFloor = 0.75;
+
+  /// <summary>
+  /// Shard (red) sits near hue 0 and wraps across it - anything at or below this hue,
+  /// or at or above <see cref="ShardHueFloor"/>, is in band.
+  /// </summary>
+  private const double ShardHueCeiling = 20;
+
+  /// <summary>
+  /// <see cref="ShardHueCeiling"/>.
+  /// </summary>
+  private const double ShardHueFloor = 340;
+
+  /// <summary>
   /// Classifies a single sampled label color.
   /// </summary>
   public static LabelRarity Classify(byte r, byte g, byte b)
@@ -48,17 +67,26 @@ public static class LabelRarityClassifier
         ? LabelRarity.Normal
         : LabelRarity.EtherealSocketed;
 
+    // Red wraps across 0 degress, so it's checked before the other distinct hue families.
+    if (hue <= ShardHueCeiling || hue >= ShardHueFloor)
+      return LabelRarity.Shard;
+
     // Distinct hue families - low ambiguity.
     if (hue >= 200 && hue <= 260)
       return LabelRarity.Magic;
     if (hue >= 90 && hue <= 160)
       return LabelRarity.Set;
 
-    // Gold/yellow family: Unique and Rare overlap in hue, separate on saturation instead.
+    // Gold/yellow family: Rune/Material, Unique and Rare overlap in hue, separate on saturation instead.
     if (hue >= 35 && hue <= 70)
+    {
+      if (saturation >= RuneMaterialSaturationFloor)
+        return LabelRarity.RuneMaterial;
+
       return saturation < UniqueSaturationCeiling
         ? LabelRarity.Unique
         : LabelRarity.Rare;
+    }
 
     // Any other hue isn't a color D2R renders item labels in.
     return LabelRarity.Unknown;

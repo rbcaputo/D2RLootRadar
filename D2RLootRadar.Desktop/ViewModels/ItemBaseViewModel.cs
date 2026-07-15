@@ -23,7 +23,21 @@ public partial class ItemBaseViewModel(
   IReadOnlyList<string> uniqueVariants
 ) : ObservableObject
 {
-  private RarityFlags _selectedRarities = selectedRarities;
+  /// <summary>
+  /// Defensive against a stale bit that no longer applies -
+  /// e.g. settings.json saved before a catalog change (this session's Rune/Material Normal → RuneMaterial/Shard
+  /// reclassification being the exact case that motivated this), or simply hand-edited settings.json.
+  /// Without this, a leftover bit outside ApplicableRarities would never surface in the UI
+  /// (no checkbox exists for it) but would still silently count toward SelectedRarities.
+  /// </summary>
+  private RarityFlags _selectedRarities = selectedRarities & applicableRarities;
+
+  /// <summary>
+  /// Whether the rarity picker popup is currently open for this row.
+  /// Pure UI state - never persisted, and resent to closed every time the app starts.
+  /// </summary>
+  [ObservableProperty]
+  private bool _isPopupOpen;
 
   /// <summary>
   /// The item base name, matching the catalog and used as the OCR match target.
@@ -37,6 +51,14 @@ public partial class ItemBaseViewModel(
   public RarityFlags ApplicableRarities { get; } = applicableRarities;
 
   /// <summary>
+  /// Whether hovering the name should show the variant-name tooltip at all -
+  /// false for the common case of a base with neither a Set nor a Unique version,
+  /// so those rows never pop an empty tooltip.
+  /// </summary>
+  public bool HasVariants
+    => SetVariants.Count > 0 || UniqueVariants.Count > 0;
+
+  /// <summary>
   /// Names of Set items that shate this base, shown in the name's hover tooltip.
   /// </summary>
   public IReadOnlyList<string> SetVariants { get; } = setVariants;
@@ -47,21 +69,30 @@ public partial class ItemBaseViewModel(
   public IReadOnlyList<string> UniqueVariants { get; } = uniqueVariants;
 
   /// <summary>
-  /// Whether hovering the name should show the variant-name tooltip at all -
-  /// false for the common case of a base with neither a Set nor a Unique version,
-  /// so those rows never pop an empty tooltip.
-  /// </summary>
-  public bool HasVariants
-    => SetVariants.Count > 0 || UniqueVariants.Count > 0;
-
-  /// <summary>
   /// The user's current rarity selection for this item,
   /// read by <c>MainViewModel</c> when persisting settings.
   /// </summary>
   public RarityFlags SelectedRarities
     => _selectedRarities;
 
-  // --- Selection visibility - whether this base can appear as each rarity at all -----
+  /// <summary>
+  /// Whether this base has more than one applicable rarity to choose between.
+  /// False for Rune/Gem/Material (always just <see cref="RarityFlags.Normal"/>) -
+  /// those rows get a plain wacthed/not-watched checkbox instead of the rarity popup,
+  /// since there's nothing to actually choose there.
+  /// </summary>
+  public bool IsSingleRarity
+    => (int)ApplicableRarities == 0 || (ApplicableRarities & (ApplicableRarities - 1)) == 0;
+
+  /// <summary>
+  /// Whether at least one rarity is currently selected for this item -
+  /// drives the "None" placeholder in the popup toggle's summary when false.
+  /// </summary>
+  public bool HasAnySelection
+    => _selectedRarities != RarityFlags.None;
+
+  // --- Selection visibility -----
+  // Whether this base can appear as each rarity at all.
 
   public bool ShowNormal
     => ApplicableRarities.HasFlag(RarityFlags.Normal);
@@ -78,22 +109,53 @@ public partial class ItemBaseViewModel(
   public bool ShowSuperior
     => ApplicableRarities.HasFlag(RarityFlags.Superior);
 
-  // Selection state - whether the user has each one selected -----
+  // --- Selection state -----
+  // Whether the user has each one selected.
+  //
+  // Each setter toggles just its own bit, so the popup's checkboxes can be found directly and
+  // freely combined (e.g. EtherealSocketed + Set + Superior all on at once).
 
   public bool IsNormalSelected
-    => _selectedRarities.HasFlag(RarityFlags.Normal);
+  {
+    get => _selectedRarities.HasFlag(RarityFlags.Normal);
+    set => SetRarity(RarityFlags.Normal, value);
+  }
+
   public bool IsEtherealSocketedSelected
-    => _selectedRarities.HasFlag(RarityFlags.EtherealSocketed);
+  {
+    get => _selectedRarities.HasFlag(RarityFlags.EtherealSocketed);
+    set => SetRarity(RarityFlags.EtherealSocketed, value);
+  }
+
   public bool IsMagicSelected
-    => _selectedRarities.HasFlag(RarityFlags.Magic);
+  {
+    get => _selectedRarities.HasFlag(RarityFlags.Magic);
+    set => SetRarity(RarityFlags.Magic, value);
+  }
+
   public bool IsRareSelected
-    => _selectedRarities.HasFlag(RarityFlags.Rare);
+  {
+    get => _selectedRarities.HasFlag(RarityFlags.Rare);
+    set => SetRarity(RarityFlags.Rare, value);
+  }
+
   public bool IsSetSelected
-    => _selectedRarities.HasFlag(RarityFlags.Set);
+  {
+    get => _selectedRarities.HasFlag(RarityFlags.Set);
+    set => SetRarity(RarityFlags.Set, value);
+  }
+
   public bool IsUniqueSelected
-    => _selectedRarities.HasFlag(RarityFlags.Unique);
+  {
+    get => _selectedRarities.HasFlag(RarityFlags.Unique);
+    set => SetRarity(RarityFlags.Unique, value);
+  }
+
   public bool IsSuperiorSelected
-    => _selectedRarities.HasFlag(RarityFlags.Superior);
+  {
+    get => _selectedRarities.HasFlag(RarityFlags.Superior);
+    set => SetRarity(RarityFlags.Superior, value);
+  }
 
   /// <summary>
   /// Tri-state selection for this item's checkbox, mirroring the category header's tri-state pattern at the item level:
@@ -116,6 +178,19 @@ public partial class ItemBaseViewModel(
   }
 
   /// <summary>
+  /// Turns a single rarity bit on or off, leaving every other currently-selected bit untouched -
+  /// this is what lets rarities stack (e.g. Set + Unique both on for the same item).
+  /// </summary>
+  private void SetRarity(RarityFlags flag, bool selected)
+  {
+    _selectedRarities = selected
+      ? _selectedRarities | flag
+      : _selectedRarities & ~flag;
+
+    RaiseRaritiesChanged();
+  }
+
+  /// <summary>
   /// Bulk-sets this item's selection:
   /// every rarity this base can actually appear as
   /// ("select all" - only applicable rarities are turned on, not literally all seven), or none at all.
@@ -134,6 +209,7 @@ public partial class ItemBaseViewModel(
   {
     OnPropertyChanged(nameof(AllRaritiesSelected));
     OnPropertyChanged(nameof(SelectedRarities));
+    OnPropertyChanged(nameof(HasAnySelection));
     OnPropertyChanged(nameof(IsNormalSelected));
     OnPropertyChanged(nameof(IsEtherealSocketedSelected));
     OnPropertyChanged(nameof(IsMagicSelected));

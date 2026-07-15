@@ -17,7 +17,10 @@
 /// <para>
 /// Member names match the strings used in <c>item-bases.json</c>'s <c>Qualities</c> array exactly,
 /// so parsing is a direct <see cref="Enum.TryParse{TEnum}(string, bool, out TEnum)"/> per
-/// entry with no separate name-mapping table to maintain.
+/// entry with no separate name-mapping table to maintain -
+/// <see cref="Rune"/> and <see cref="Shard"/> are the two exceptions:
+/// Rune/Gem/Material entries omit <c>Qualities</c> entirely,
+/// so those two are assigned directly by <c>JsonItemBaseCatalog</c> based on category rather than parsed from JSON text.
 /// </para>
 /// </summary>
 [Flags]
@@ -56,7 +59,19 @@ public enum RarityFlags
   Unique = 1 << 5,
 
   /// <summary>
+  /// Orange label - Runes, and every Material except Shards.
+  /// Not a quality tier; these bases have no rarity variation at all,
+  /// this is just their one fixed label color.
+  /// </summary>
+  RuneMaterial = 1 << 6,
+
+  /// <summary>
+  /// Red label - Worldstone Shards specifically.
+  /// </summary>
+  Shard = 1 << 7,
+
+  /// <summary>
   /// Text prefix, not a color - only ever appears on <see cref="Normal"/> or <see cref="EtherealSocketed"/> labels.
   /// </summary>
-  Superior = 1 << 6
+  Superior = 1 << 8
 }
