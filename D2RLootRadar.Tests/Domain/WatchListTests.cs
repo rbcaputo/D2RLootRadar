@@ -9,7 +9,7 @@ public class WatchListTests
     string displayGroup,
     ItemCategory category,
     RarityFlags selected = RarityFlags.Unique
-  ) => new(new(name, displayGroup, category, RarityFlags.None, [], []), selected);
+  ) => new(new(name, displayGroup, category, RarityFlags.None, 0, [], []), selected);
 
   [Fact]
   public void Constructor_NullItems_Throws()

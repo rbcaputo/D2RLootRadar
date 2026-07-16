@@ -259,9 +259,30 @@
                     </Button>
                   </Grid>
 
-                  <!-- Item rows (shown when expanded) -->
+                  <!-- Item rows (shown when expanded).
+                       VirtualizingStackPanel + IsVirtualizing="True" instead of the default StackPanel:
+                       a plain ItemsControl generates every item's container as soon as ItemsSource is
+                       bound, regardless of Visibility - so with ~600 items total across all categories,
+                       each now carrying a Popup-based rarity picker or info-icon tooltip, every row in
+                       every category (including ones never expanded) was being built at startup.
+                       Virtualization defers container generation to the Measure pass instead, and a
+                       Collapsed element never gets measured - so a collapsed category now realizes zero
+                       row containers until the first time it's actually expanded.
+                       VirtualizationMode="Standard" (discard, not recycle) rather than "Recycling" -
+                       deliberately, given each row's Popup carries its own open/closed state
+                       (ItemBaseViewModel.IsPopupOpen); recycling containers across different
+                       ItemBaseViewModels risks that state bleeding from one item's row into another's
+                       after a scroll, which isn't worth the extra container-reuse savings here. -->
                   <ItemsControl ItemsSource="{Binding Items}"
-                                Visibility="{Binding IsExpanded, Converter={StaticResource BoolToVisibility}}">
+                                Visibility="{Binding IsExpanded, Converter={StaticResource BoolToVisibility}}"
+                                VirtualizingPanel.IsVirtualizing="True"
+                                VirtualizingPanel.VirtualizationMode="Standard"
+                                VirtualizingPanel.ScrollUnit="Item">
+                    <ItemsControl.ItemsPanel>
+                      <ItemsPanelTemplate>
+                        <VirtualizingStackPanel />
+                      </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                       <DataTemplate DataType="{x:Type vm:ItemBaseViewModel}">
                         <Grid Margin="30,0,12,0" Height="26">

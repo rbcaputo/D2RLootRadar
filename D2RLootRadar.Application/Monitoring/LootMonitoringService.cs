@@ -299,9 +299,8 @@ public sealed class LootMonitoringService : IDisposable
 
         foreach (WatchedItem item in watchList.Items)
         {
-          double similarity = _fuzzyMatcher.Similarity(candidate, item.Base.Name);
           if (
-            similarity >= settings.FuzzyMatchThreshold &&
+            _fuzzyMatcher.IsMatch(candidate, item.Base.Name, settings.FuzzyMatchThreshold) &&
             IsRarityMatch(result, item.SelectedRarities)
           )
           {

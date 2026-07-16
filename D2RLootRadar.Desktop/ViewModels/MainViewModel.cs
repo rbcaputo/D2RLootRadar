@@ -31,6 +31,15 @@ public partial class MainViewModel : ObservableObject
   private readonly DispatcherTimer _saveTimer;
 
   /// <summary>
+  /// Each category's position in <see cref="Categories"/>' display order, keyed by name.
+  /// Built once in <see cref="Load"/> - Categories is never reordered afterward,
+  /// so this stays valid for the app's whole filetime.
+  /// Lets <see cref="FindInsertionIndex"/> keep <see cref="Summary"/> in the same order without
+  /// re-deriving it from Categories every time.
+  /// </summary>
+  private readonly Dictionary<string, int> _categoryOrder = [];
+
+  /// <summary>
   /// Whether D2R is currently running, polled every 3 seconds via <see cref="_processTimer"/>.
   /// </summary>
   [ObservableProperty]
@@ -160,7 +169,7 @@ public partial class MainViewModel : ObservableObject
       .OrderBy(g => CategoryOrder(g.First().Category))
       .ThenBy(g => g.Key);
 
-    foreach (IGrouping<string,ItemBase> group in groups)
+    foreach (IGrouping<string, ItemBase> group in groups)
     {
       IEnumerable<ItemBaseViewModel> items = group
         .OrderBy(x => x.Name)
@@ -176,10 +185,12 @@ public partial class MainViewModel : ObservableObject
       CategoryViewModel category = new(group.Key, items);
       category.PropertyChanged += OnCategoryPropertyChanged;
 
+      _categoryOrder[category.Name] = Categories.Count;
+
       Categories.Add(category);
     }
 
-    RefreshSummary();
+    RefreshFullSummary();
   }
 
   /// <summary>
@@ -209,22 +220,30 @@ public partial class MainViewModel : ObservableObject
     };
 
   /// <summary>
-  /// Reacts to any category's selection count changing by refreshing the
-  /// summary panel and scheduling a debounced save.
+  /// Reacts to any category's selection count changing by incrementally updating just that
+  /// category's summary entry and scheduling a debounced save.
   /// </summary>
   private void OnCategoryPropertyChanged(object? sender, PropertyChangedEventArgs ea)
   {
-    if (ea.PropertyName == nameof(CategoryViewModel.SelectedCount))
+    if (
+      ea.PropertyName == nameof(CategoryViewModel.SelectedCount) &&
+      sender is CategoryViewModel category
+    )
     {
-      RefreshSummary();
+      RefreshSummary(category);
       ScheduleSave();
     }
   }
 
   /// <summary>
-  /// Rebuilds <see cref="Summary"/> and <see cref="TotalSelectedCount"/> from the current checkbox state.
+  /// Build <see cref="Summary"/> and <see cref="TotalSelectedCount"/> from scratch.
+  /// Only used once, from <see cref="Load"/> - every subsequent change goes through the incremental
+  /// <see cref="RefreshSummary(CategoryViewModel)"/> instead, since rebuilding all
+  /// ~600 item's worth of state on every single checkbox toggle is wasted work,
+  /// and <see cref="ObservableCollection{T}.Clear"/> forces the summary model panel to fully
+  /// regenerate rather than update the one row that changed.
   /// </summary>
-  private void RefreshSummary()
+  private void RefreshFullSummary()
   {
     Summary.Clear();
 
@@ -235,16 +254,83 @@ public partial class MainViewModel : ObservableObject
       if (category.SelectedCount == 0)
         continue;
 
-      IReadOnlyList<string> selected = [.. category.Items
-        .Where(i => i.SelectedRarities != RarityFlags.None)
-        .Select(i => i.Name)
-      ];
+      Summary.Add(BuildSummaryEntry(category));
 
-      Summary.Add(new(category.Name, selected));
-
-      total += selected.Count;
+      total += category.SelectedCount;
     }
 
     TotalSelectedCount = total;
+  }
+
+  /// <summary>
+  /// Updates just the one category's entry in <see cref="Summary"/> -
+  /// added, replaced in place, or removed, depending on its current <see cref="CategoryViewModel.SelectedCount"/> -
+  /// instead of rebuilding the whole summary from scratch on every single toggle.
+  /// </summary>
+  private void RefreshSummary(CategoryViewModel category)
+  {
+    int existingIndex = FindSummaryIndex(category.Name);
+    int previousCount = existingIndex >= 0
+      ? Summary[existingIndex].Items.Count
+      : 0;
+
+    if (category.SelectedCount == 0)
+    {
+      if (existingIndex >= 0)
+        Summary.RemoveAt(existingIndex);
+    }
+    else if (existingIndex >= 0)
+      Summary[existingIndex] = BuildSummaryEntry(category); // same slot - no reordering needed
+    else
+      Summary.Insert(FindInsertionIndex(category.Name), BuildSummaryEntry(category));
+
+    TotalSelectedCount += category.SelectedCount - previousCount;
+  }
+
+  private static SummaryCategoryViewModel BuildSummaryEntry(CategoryViewModel category)
+  {
+    IReadOnlyList<string> selected = [
+      .. category.Items
+        .Where(i => i.SelectedRarities != RarityFlags.None)
+        .Select(i => i.Name)
+    ];
+
+    return new(category.Name, selected);
+  }
+
+  private int FindSummaryIndex(string categoryName)
+  {
+    for (int i = 0; i < Summary.Count; i++)
+      if (Summary[i].Name == categoryName)
+        return i;
+
+    return -1;
+  }
+
+  /// <summary>
+  /// Finds where a newly-non-empty category's summary entry belongs,
+  /// so <see cref="Summary"/> always mirrors <see cref="Categories"/>' display order
+  /// (Rune, then weapons, then armor, ...) even though entries are inserted one at a time
+  /// rather than rebuilt in order every time.
+  /// 
+  /// <para>
+  /// <c>_categoryOrder</c> is populated for every category unconditionally in <see cref="Load"/>,
+  /// so a missing entry here shouldn't be reachable -
+  /// but a UI action like a checkbox click should never be able to crash the app over a stale/missing lookup,
+  /// so an unrecognized name falls back to <see cref="int.MaxValue"/> (appended at the end) rather than throwing.
+  /// </para>
+  /// </summary>
+  private int FindInsertionIndex(string categoryName)
+  {
+    int position
+      = _categoryOrder.GetValueOrDefault(categoryName, int.MaxValue);
+    int insertAt = 0;
+
+    while (
+      insertAt < Summary.Count &&
+      _categoryOrder[Summary[insertAt].Name] < position
+    ) insertAt++;
+
+    return insertAt;
   }
 }
