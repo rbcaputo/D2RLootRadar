@@ -184,53 +184,8 @@
     </Grid>
 
     <Separator Margin="0,20,0,16" />
-    
+
     <TextBlock Text="Detection mode" Margin="0,0,0,4" FontWeight="SemiBold" />
-
-    <StackPanel Orientation="Horizontal" Margin="0,4,0,4">
-      <RadioButton Content="Detect all items"
-                   GroupName="DetectionMode"
-                   IsChecked="{Binding IsDetectAllSelected}" />
-      <Border Style="{StaticResource HelpIconBadgeStyle}">
-        <Border.ToolTip>
-          <ToolTip>
-            <TextBlock Style="{StaticResource HelpTooltipTextStyle}"
-                       Text="No filtering - any watch-list item alerts regardless of label color or quality prefix. This is the default." />
-          </ToolTip>
-        </Border.ToolTip>
-        <TextBlock Style="{StaticResource HelpIconGlyphStyle}" />
-      </Border>
-    </StackPanel>
-
-    <StackPanel Orientation="Horizontal" Margin="0,4,0,4">
-      <RadioButton Content="Detect only unique items"
-                   GroupName="DetectionMode"
-                   IsChecked="{Binding IsDetectUniqueOnlySelected}" />
-      <Border Style="{StaticResource HelpIconBadgeStyle}">
-        <Border.ToolTip>
-          <ToolTip>
-            <TextBlock Style="{StaticResource HelpTooltipTextStyle}"
-                       Text="Only tan/gold (Unique) labels are matched against the watch list. White, gray, blue, green, and yellow labels are ignored even if their name matches." />
-          </ToolTip>
-        </Border.ToolTip>
-        <TextBlock Style="{StaticResource HelpIconGlyphStyle}" />
-      </Border>
-    </StackPanel>
-
-    <StackPanel Orientation="Horizontal" Margin="0,4,0,4">
-      <RadioButton Content="Detect only superior items"
-                   GroupName="DetectionMode"
-                   IsChecked="{Binding IsDetectSuperiorOnlySelected}" />
-      <Border Style="{StaticResource HelpIconBadgeStyle}">
-        <Border.ToolTip>
-          <ToolTip>
-            <TextBlock Style="{StaticResource HelpTooltipTextStyle}"
-                       Text="Only items whose label reads &quot;Superior [item name]&quot; are matched against the watch list. Superior has no distinct label color of its own - it shares white/gray with prefixes - so this checks the recognized text rather than color." />
-          </ToolTip>
-        </Border.ToolTip>
-        <TextBlock Style="{StaticResource HelpIconGlyphStyle}" />
-      </Border>
-    </StackPanel>
 
     <StackPanel Orientation="Horizontal" Margin="0,16,0,4">
       <CheckBox Content="Show overlay on detection"

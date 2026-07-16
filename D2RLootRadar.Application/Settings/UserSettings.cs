@@ -1,4 +1,6 @@
-﻿namespace D2RLootRadar.Application.Settings;
+﻿using D2RLootRadar.Domain.Loot;
+
+namespace D2RLootRadar.Application.Settings;
 
 /// <summary>
 /// Represents persisted user preferences.
@@ -14,9 +16,13 @@ public sealed record UserSettings
   private int _markerDisplaySeconds = 2;
 
   /// <summary>
-  /// Item base names selected by the user. (e.g. "Monarch, "Ber Rune").
+  /// Which rarities the user wants alerts for, per watched item base name (e.g. "Monarch" → Unique).
+  /// An item absent from this map, or present with <see cref="RarityFlags.None"/>, is not wacthed at all -
+  /// there is no separate "is this item selected" flag;
+  /// having at least one rarity selected is what makes an item watched.
   /// </summary>
-  public IReadOnlyCollection<string> SelectedItemBases { get; init; } = [];
+  public IReadOnlyDictionary<string, RarityFlags> ItemRaritySelections { get; init; }
+    = new Dictionary<string, RarityFlags>();
 
   /// <summary>
   /// Minimum fuzzy-match similarity score.
@@ -68,12 +74,6 @@ public sealed record UserSettings
     get => _markerDisplaySeconds;
     init => _markerDisplaySeconds = Math.Clamp(value, 1, 10);
   }
-
-  /// <summary>
-  /// Restricts which detections are matched against the watch list.
-  /// Default: <see cref="DetectionMode.All"/> (no filtering - current behavior).
-  /// </summary>
-  public DetectionMode Mode { get; init; } = DetectionMode.All;
 
   /// <summary>
   /// Whether the on-screen detection overlay is shown after a match.

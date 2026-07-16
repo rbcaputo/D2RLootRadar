@@ -1,32 +1,60 @@
 ﻿namespace D2RLootRadar.Domain.Loot;
 
 /// <summary>
-/// Represents whether a dropped item's label is a Unique (tan/gold) label or not.
+/// The item-quality tier classified from a dropped item's label color.
 /// 
 /// <para>
-/// Deliberately collapsed to three values rather than one per D2R quality tier.
-/// The only decision the app ever needs to make is "does this label count toward the Unique-only filter" -
-/// white, gray, blue, yellow, and green all behave identically (they're simply not Unique),
-/// so giving them separate names would model detail the rest of the pipeline never consumes.
+/// The full six-color breakdown needed to distinguish item rarity.
 /// </para>
 /// </summary>
 public enum LabelRarity
 {
   /// <summary>
-  /// No color could be sampled for the label at all (e.g. the bounding box was empty or degenerate).
-  /// Distinct from <see cref="Other"/> - this means "couldn't tell, not "confirmed not Unique".
-  /// Callers must not treat this as a match.
+  /// No color could be sampled at all (e.g. an empty bounding box),
+  /// or the sampled color didn't fall into any recognized band.
+  /// Callers must not treat this as a match for any <see cref="RarityFlags"/> value.
   /// </summary>
-  Unknowm,
+  Unknown,
 
   /// <summary>
-  /// A color was sampled and it confidently did not martch the Unique tan/gold signature -
-  /// covers white, gray, blue, yellow, and green labels alike.
+  /// White label.
   /// </summary>
-  Other,
+  Normal,
 
   /// <summary>
-  /// Tan/gold label - Unique item.
+  /// Gray label - a Normal-quality item that is Ethereal and/or Socketed.
   /// </summary>
-  Unique
+  EtherealSocketed,
+
+  /// <summary>
+  /// Blue label.
+  /// </summary>
+  Magic,
+
+  /// <summary>
+  /// Yellow label.
+  /// </summary>
+  Rare,
+
+  /// <summary>
+  /// Green label.
+  /// </summary>
+  Set,
+
+  /// <summary>
+  /// Tan/gold label.
+  /// </summary>
+  Unique,
+
+  /// <summary>
+  /// Orange label - Runes, and every Material except shards (Key, Part, Essence, Statue).
+  /// Not a quality tier at all; these bases have no rarity variation,
+  /// this is just the one color they always render in.
+  /// </summary>
+  RuneMaterial,
+
+  /// <summary>
+  /// Red label - Worldstone Shards specifically, distinct from every other Material.
+  /// </summary>
+  Shard
 }

@@ -47,7 +47,7 @@ public class FuzzyMatcherTests
     // full-string edit distance alone would only score 0.875 (7/8).
     // This is the exact scenario the class' XML doc describes -
     // pinned here so a future refactor can't silently regress OCR-truncation tolerance without a test failing.
-    double result = _matcher.Similarity("Monarchi", "Monarch");
+    double result = _matcher.Similarity("Monarchii", "Monarch");
 
     Assert.Equal(1.0, result);
   }
@@ -82,5 +82,48 @@ public class FuzzyMatcherTests
       result >= expectedFloor,
       $"Expected similarity >= {expectedFloor} for '{source}' vs '{target}', got {result}"
     );
+  }
+
+  [Fact]
+  public void IsMatch_IdenticalStrings_ReturnsTrue()
+  {
+    bool result = _matcher.IsMatch("Monarch", "Monarch", threshold: 0.99);
+
+    Assert.True(result);
+  }
+
+  [Fact]
+  public void IsMatch_OcrTruncation_MatchesViaPartialMode()
+  {
+    // Same scenario as Similarity_OcrTruncation_MatchesViaPartialWindow -
+    // pinned separately for IsMatch since it takes a different code path (the length-ratio fast path)
+    // that Similarity() never touches, and that path must not short-circuit this case to false.
+    bool result = _matcher.IsMatch("Monarchii", "Monarch", threshold: 0.99);
+
+    Assert.True(result);
+  }
+
+  [Fact]
+  public void IsMatch_LengthsRuleOutThreshold_ReturnsFalseWithoutFullComputation()
+  {
+    // "a" vs "Colossus Blade":
+    // length ratio is far below the 70% partial-window floor, so IsMatch should reject this from lengths alone.
+    // Correctness here matters more than the "without full computation" part of the name suggests -
+    // that part isn't directly observable from a unit test, but Similarity_CompletelyDifferentStrings_IsLow-style
+    // cases like this are exactly the ones the length-based fast path is meant to shortcut.
+    bool result = _matcher.IsMatch("a", "Colossus Blade", threshold: 0.5);
+
+    Assert.False(result);
+  }
+
+  [Fact]
+  public void IsMatch_AgreesWithSimilarAtThreshold()
+  {
+    // Cross-check against the known-case Theory above, through the other entry point -
+    // gaurds against IsMatch's early-exit bound ever diverging from what Similarity() would say.
+    double similarity = _matcher.Similarity("B3r Rune", "Ber Rune");
+
+    Assert.True(_matcher.IsMatch("B3r Rune", "Ber Rune", similarity));
+    Assert.False(_matcher.IsMatch("B3r Rune", "Ber Rune", similarity + 0.01));
   }
 }

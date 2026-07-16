@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using D2RLootRadar.Domain.Loot;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 
@@ -27,20 +28,27 @@ public sealed partial class CategoryViewModel : ObservableObject
   {
     get
     {
-      int selected = Items.Count(i => i.IsSelected);
-      if (selected == 0) return false;
-      if (selected == Items.Count) return true;
+      int selected = Items.Count(i => i.SelectedRarities != RarityFlags.None);
+      if (selected == 0)
+        return false;
+      if (selected == Items.Count)
+        return true;
+
       return null;
     }
     set
     {
       bool select = value ?? true; // indeterminate click → select all
 
-      // Unsubscribe during bulk update to fire one notification, not N.
       foreach (ItemBaseViewModel item in Items)
       {
+        // Unsubscribe during bulk update to fire one notification, not N.
         item.PropertyChanged -= OnItemPropertyChanged;
-        item.IsSelected = select;
+
+        // "Select all" turns on every rarity each item can actually appear as (ItemBaseViewModel.ApplicableRarities),
+        // not literally every one of the seven flags.
+        item.SetAllRarities(select);
+
         item.PropertyChanged += OnItemPropertyChanged;
       }
 
@@ -48,9 +56,11 @@ public sealed partial class CategoryViewModel : ObservableObject
     }
   }
 
-  public int SelectedCount => Items.Count(i => i.IsSelected);
+  public int SelectedCount
+    => Items.Count(i => i.SelectedRarities != RarityFlags.None);
 
-  public bool HasSelection => SelectedCount > 0;
+  public bool HasSelection
+    => SelectedCount > 0;
 
   public string CountLabel => SelectedCount > 0
     ? $"{SelectedCount} / {Items.Count}"
@@ -71,7 +81,7 @@ public sealed partial class CategoryViewModel : ObservableObject
 
   private void OnItemPropertyChanged(object? sender, PropertyChangedEventArgs ea)
   {
-    if (ea.PropertyName == nameof(ItemBaseViewModel.IsSelected))
+    if (ea.PropertyName == nameof(ItemBaseViewModel.SelectedRarities))
       RaiseSelectionProperties();
   }
 
