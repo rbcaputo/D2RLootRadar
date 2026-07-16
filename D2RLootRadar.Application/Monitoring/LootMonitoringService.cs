@@ -116,7 +116,7 @@ public sealed class LootMonitoringService : IDisposable
     => _keyboardMonitor.Stop();
 
   /// <summary>
-  /// Strips a leading "Superior"/"Cracked"/"Damaged"/"Low Quality" quality prefix from OCR'd text,
+  /// Strips a leading "Cracked"/"Crude"/"Damaged"/"Low Quality"/"Superior" quality prefix from OCR'd text,
   /// since the catalog store bare base names (e.g. "Phase Blade", not "Superior Phase Blade").
   /// 
   /// Internal rather than private specifically so it can be unit-tested directly
@@ -297,22 +297,37 @@ public sealed class LootMonitoringService : IDisposable
       {
         string candidate = StripQualityPrefix(result.NormalizedText);
 
+        // Score every eligible watch-list item and keep the single best match,
+        // rather than taking the first one in watchList.Items order that merely clears the threshold.
+        //
+        // Catalog names that are one edit apart (e.g. "El Rune" / "Eld Rune") can both legally
+        // clear a normalized-similarity threshold for the same OCR text -
+        // "el rune" scores 1.0 against "El Rune" but also ~0.875 against "Eld Rune",
+        // which is well above the default 0.80 threshold.
+        // Taking the first match makes the outcome depend on watch-list order instead of
+        // on which name the OCR text actually resembles more closely;
+        // taking the best match resolves ties in favor of the closer name.
+        WatchedItem? bestItem = null;
+        double bestScore = 0.0;
+
         foreach (WatchedItem item in watchList.Items)
         {
-          if (
-            _fuzzyMatcher.IsMatch(candidate, item.Base.Name, settings.FuzzyMatchThreshold) &&
-            IsRarityMatch(result, item.SelectedRarities)
-          )
-          {
-            if (!markers.ContainsKey(item.Base.Name))
-            {
-              int screenX = capture.WindowBounds.X + result.BoundingBox.CenterX;
-              int screenY = capture.WindowBounds.Y + result.BoundingBox.CenterY;
-              markers[item.Base.Name] = new(item.Base.Name, screenX, screenY);
-            }
+          if (!IsRarityMatch(result, item.SelectedRarities))
+            continue;
 
-            break;
+          double score = _fuzzyMatcher.Similarity(candidate, item.Base.Name);
+          if (score >= settings.FuzzyMatchThreshold && score > bestScore)
+          {
+            bestScore = score;
+            bestItem = item;
           }
+        }
+
+        if (bestItem is not null && !markers.ContainsKey(bestItem.Base.Name))
+        {
+          int screenX = capture.WindowBounds.X + result.BoundingBox.CenterX;
+          int screenY = capture.WindowBounds.Y + result.BoundingBox.CenterY;
+          markers[bestItem.Base.Name] = new(bestItem.Base.Name, screenX, screenY);
         }
       }
 

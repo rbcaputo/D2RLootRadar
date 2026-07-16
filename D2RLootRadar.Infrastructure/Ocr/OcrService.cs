@@ -59,6 +59,14 @@ public sealed class OcrService : IOcrService, IDisposable
   private const double BottomCropFraction = 0.18;
 
   /// <summary>
+  /// Number of members in <see cref="LabelRarity"/> - sized for the per-pixel vote array in <see cref="SampleRarity"/>.
+  /// Kept as a literal (rather than <c>Enum.GetValues</c>) so the vote buffer can live on the stack;
+  /// update this if <see cref="LabelRarity"/> gains a member.
+  /// Unknown, Normal, EtherealSocketed, Magic, Rare, Set, Unique, RuneMaterial, Shard = 9.
+  /// </summary>
+  private const int RarityTierCount = 9;
+
+  /// <summary>
   /// Initializes the Tesseract engine in LSTM-only mode and restricts recognition to
   /// the character set that can legally appear in a D2R item base name,
   /// which meaningfully reduces misreads on stylized in-game fonts.
@@ -313,9 +321,9 @@ public sealed class OcrService : IOcrService, IDisposable
       }
     }
 
-    // 3. Threshold: text if pixel > local mean x Factor
-    // Radius 25 at 2x gives a ~51x51 nighborhood - large enough to
-    // represent background context around each glyph,
+    // 3. Threshold:
+    // text if pixel > local mean x Factor
+    // Radius 25 at 2x gives a ~51x51 nighborhood - large enough to represent background context around each glyph,
     // small enough to follow local lighting changes across the scene.
     const int Radius = 25;
     const float Factor = 1.30f; // 15% brighter than neighborhood
@@ -349,9 +357,9 @@ public sealed class OcrService : IOcrService, IDisposable
                        integral[(y2 + 1) * iw + x1] +
                        integral[y1 * iw + x1];
 
-          float pixelLum = luminance[y * width + x];
+          float pxLuminance = luminance[y * width + x];
           bool isText
-            = pixelLum > MinLum && pixelLum > (sum / area) * Factor;
+            = pxLuminance > MinLum && pxLuminance > (sum / area) * Factor;
           byte value = isText ? (byte)0 : (byte)255;
           int px = x * 4;
 
@@ -371,21 +379,26 @@ public sealed class OcrService : IOcrService, IDisposable
   }
 
   /// <summary>
-  /// Decides whether a detection is a Unique label by averaging the color of every
-  /// foreground (text) pixel inside <paramref name="upscaledBox"/>.
+  /// Classifies a detection's rarity tier by classifying every individual foreground (text) pixel inside
+  /// <paramref name="upscaledBox"/> and taking the majority vote.
   /// 
   /// <para>
   /// Samples from <paramref name="colorSource"/> - the still-colored, pre-mask upscaled frame -
   /// restricted to the pixels <paramref name="mask"/> flagged as text (see <see cref="AdaptiveTextMask"/>).
-  /// This deliberately excludes the label panel's dark background from the average,
+  /// This deliberately excludes the label panel's dark background from the vote,
   /// which a naive whole-box sample would not.
   /// </para>
   /// 
   /// <para>
+  /// Classifying pixel-by-pixel and voting (rather than averaging RGB across the whole glyph and classifying once)
+  /// keeps anti-aliased edge pixels - which blend the glyph color toward the panel background -
+  /// from dragging a single averaged sample across a classification boundary.
+  /// A minority of contaminated edge pixels just gets outvoted instead.
+  /// </para>
+  /// 
+  /// <para>
   /// Returns <see cref="LabelRarity.Unknown"/> for a degenerate box (clipped fully outside the frame)
-  /// or when no foreground pixel is found within it -
-  /// callers must not treat Unknown as equivalent to <see cref="LabelRarity.Unique"/> or
-  /// <see cref="LabelRarity.Other"/>.
+  /// or when no foreground pixel is found within it.
   /// </para>
   /// </summary>
   private static unsafe LabelRarity SampleRarity(
@@ -421,7 +434,16 @@ public sealed class OcrService : IOcrService, IDisposable
       byte* colorPtr = (byte*)colorData.Scan0;
       byte* maskPtr = (byte*)maskData.Scan0;
 
-      long sumR = 0, sumG = 0, sumB = 0;
+      // Classify every foreground pixel individually and vote, rather than
+      // averaging across the whole glyph first and classifying once.
+      //
+      // Anti-aliased edge pixels blend the glyph color toward the label panel's background.
+      // A handful of those blended pixels mixed into a single RGB average can drag the *average*
+      // hue/saturation/value across a classification boundary even though the large majority of pixels are unambiguous -
+      // that's what produces white/gray flips (Value threshold) and gray/blue flips (Saturation threshold).
+      // Classifying each pixel on its own and taking the majority vote makes a minority of contamined edge pixels
+      // get outvoted instead of skewing the one sample that decides the whole label.
+      Span<int> votes = stackalloc int[RarityTierCount];
       int count = 0;
 
       for (int y = 0; y < region.Height; y++)
@@ -435,10 +457,11 @@ public sealed class OcrService : IOcrService, IDisposable
           if (maskRow[x * 4] != 0)
             continue;
 
-          sumB += colorRow[x * 4];
-          sumG += colorRow[x * 4 + 1];
-          sumR += colorRow[x * 4 + 2];
+          byte b = colorRow[x * 4];
+          byte g = colorRow[x * 4 + 1];
+          byte r = colorRow[x * 4 + 2];
 
+          votes[(int)LabelRarityClassifier.Classify(r, g, b)]++;
           count++;
         }
       }
@@ -455,14 +478,29 @@ public sealed class OcrService : IOcrService, IDisposable
         return LabelRarity.Unknown;
       }
 
-      byte avgR = (byte)(sumR / count);
-      byte avgG = (byte)(sumG / count);
-      byte avgB = (byte)(sumB / count);
-      LabelRarity classified = LabelRarityClassifier.Classify(avgR, avgG, avgB);
+      // Majority vote, ignoring Unknown unless every single pixel was Unknown -
+      // a few out-of-band edge pixels shouldn't be able to veto an otherwise clear veredict.
+      LabelRarity classified = LabelRarity.Unknown;
+      int bestVotes = -1;
+
+      for (int tier = 0; tier < RarityTierCount; tier++)
+      {
+        if (tier == (int)LabelRarity.Unknown)
+          continue;
+
+        if (votes[tier] > bestVotes)
+        {
+          bestVotes = votes[tier];
+          classified = (LabelRarity)tier;
+        }
+      }
+
+      if (bestVotes <= 0)
+        classified = LabelRarity.Unknown;
 
 #if DEBUG
       System.Diagnostics.Debug.WriteLine(
-        $"[RarityDebug] \"{debugLabel}\" avgRGB=({avgR},{avgG},{avgB}) n={count} -> {classified}"
+        $"[RarityDebug] \"{debugLabel}\" n={count} votes=[{string.Join(',', votes.ToArray())} -> {classified}"
       );
 #endif
 
