@@ -28,4 +28,8 @@ public sealed class SummaryItemViewModel(string name, RarityFlags selectedRariti
     => selectedRarities.HasFlag(RarityFlags.Unique);
   public bool ShowSuperior
     => selectedRarities.HasFlag(RarityFlags.Superior);
+  public bool ShowRuneMaterial
+    => selectedRarities.HasFlag(RarityFlags.RuneMaterial);
+  public bool ShowShard
+    => selectedRarities.HasFlag(RarityFlags.Shard);
 }

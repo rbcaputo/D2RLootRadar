@@ -289,10 +289,10 @@ public partial class MainViewModel : ObservableObject
 
   private static SummaryCategoryViewModel BuildSummaryEntry(CategoryViewModel category)
   {
-    IReadOnlyList<string> selected = [
+    IReadOnlyList<SummaryItemViewModel> selected = [
       .. category.Items
         .Where(i => i.SelectedRarities != RarityFlags.None)
-        .Select(i => i.Name)
+        .Select(i => new SummaryItemViewModel(i.Name, i.SelectedRarities))
     ];
 
     return new(category.Name, selected);
