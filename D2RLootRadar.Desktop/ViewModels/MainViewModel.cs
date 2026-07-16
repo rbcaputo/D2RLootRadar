@@ -52,6 +52,21 @@ public partial class MainViewModel : ObservableObject
   private int _totalSelectedCount;
 
   /// <summary>
+  /// Current catalog search term, bound to the search box.
+  /// Filtering itself is cheap (plain substring containment over ~600 items),
+  /// so it's applied synchronously on every keystroke via <see cref="OnSearchTextChanged"/> rather than
+  /// debounced the way <see cref="ScheduleSave"/> debounces disk writes.
+  /// </summary>
+  [ObservableProperty]
+  private string _searchText = string.Empty;
+
+  /// <summary>
+  /// Whether a search is currently active - drives the clear ("×") button's visibility.
+  /// </summary>
+  public bool HasSearchText
+    => !string.IsNullOrEmpty(SearchText);
+
+  /// <summary>
   /// All item base categories, in display order, each with its selectable items.
   /// </summary>
   public ObservableCollection<CategoryViewModel> Categories { get; } = [];
@@ -110,6 +125,28 @@ public partial class MainViewModel : ObservableObject
     window.ShowDialog();
   }
 
+  /// <summary>
+  /// Clears the search box, restoring every category's pre-search expand state.
+  /// Backs the search box's clear ("×") button.
+  /// </summary>
+  [RelayCommand]
+  private void ClearSearch()
+    => SearchText = string.Empty;
+
+  // --- CommunityToolkit-generated hooks -----
+
+  /// <summary>
+  /// Re-applies the search filter to every category whenever <see cref="SearchText"/> changes,
+  /// and refreshes <see cref="HasSearchText"/> for the clear button.
+  /// </summary>
+  partial void OnSearchTextChanged(string value)
+  {
+    foreach (CategoryViewModel category in Categories)
+      category.ApplySearch(value);
+
+    OnPropertyChanged(nameof(HasSearchText));
+  }
+
   // --- Auto-Save -----
 
   /// <summary>
@@ -152,7 +189,8 @@ public partial class MainViewModel : ObservableObject
 
   /// <summary>
   /// Builds <see cref="Categories"/> from the full catalog,
-  /// pre-checking whichever items are in the user's saved selection, then populates the initial summary.
+  /// pre-checking whichever items are in the user's saved selection,
+  /// then populates the initial summary.
   /// </summary>
   private void Load()
   {
@@ -163,7 +201,8 @@ public partial class MainViewModel : ObservableObject
       = new(settings.ItemRaritySelections, StringComparer.OrdinalIgnoreCase);
 
     // Group by DisplayGroup (e.g. "Axe", "Sword", "Circlet", "Rune", "Key").
-    // Sort by domain category first so related slots appear together, then alphabetically within each category group.
+    // Sort by domain category first so related slots appear together,
+    // then alphabetically within each category group.
     IOrderedEnumerable<IGrouping<string, ItemBase>> groups = _catalog.GetAll()
       .GroupBy(x => x.DisplayGroup)
       .OrderBy(g => CategoryOrder(g.First().Category))
