@@ -125,6 +125,8 @@ D2RLootRadar.Tests          → xUnit tests for the pure-logic pieces (fuzzy mat
 
 `Domain` and `Application` have no Windows-specific dependencies at all; everything platform-specific (GDI+ capture, Win32 keyboard hook, WPF) is isolated in `Infrastructure` and `Desktop`.
 
+For the reasoning behind that layering, and a record of non-obvious design decisions and bug post-mortems that don't belong in inline comments, see [ARCHITECTURE.md](docs/ARCHITECTURE.md).
+
 ## Running tests
 
 ```bash
