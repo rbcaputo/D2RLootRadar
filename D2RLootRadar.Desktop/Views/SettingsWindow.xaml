@@ -134,7 +134,7 @@
         <Border.ToolTip>
           <ToolTip>
             <TextBlock Style="{StaticResource HelpTooltipTextStyle}"
-                       Text="How closely OCR'd text must resemble a watched item's name to trigger an alert. Higher is stricter - fewer false alerts, but more likely to miss a badly misread label. Lower is more forgiving of OCR misreads, but more prone to false positives." />
+                       Text="How closely a label's text and rarity color must together resemble a watched item to trigger an alert. Higher is stricter - fewer false alerts, but more likely to miss a badly misread label or an ambiguous color read. Lower is more forgiving of OCR misreads or uncertain color reads, but more prone to false positives." />
           </ToolTip>
         </Border.ToolTip>
         <TextBlock Style="{StaticResource HelpIconGlyphStyle}" />
