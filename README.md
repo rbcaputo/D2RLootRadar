@@ -1,4 +1,4 @@
-# D2RLootRadar (v2.0.0)
+# D2RLootRadar (v2.1.0)
 
 [![CI](https://github.com/rbcaputo/D2RLootRadar/actions/workflows/ci.yml/badge.svg)](https://github.com/rbcaputo/D2RLootRadar/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
@@ -30,22 +30,21 @@ Capture the D2R window (PrintWindow / DWM)
   │
 Crop + adaptive threshold + OCR (Tesseract, LSTM)
   │
-Fuzzy match detected text against your watch list
+For each watch-list item: blend fuzzy text similarity with the label's rarity color confidence
   │
-  ├─ no text match → nothing happens
+  ├─ combined score below Match Sensitivity → nothing happens
   │
-  └─ text match → check the label's rarity against your selection for that item
-        │
-        ├─ rarity not selected → nothing happens
-        │
-        └─ rarity selected → beep + on-screen marker over the item
+  └─ combined score at or above Match Sensitivity → beep + on-screen marker over the item
 ```
+
+Text carries most of the wight in that blend — it's the only signal that identifies *which* item a label is; color only narrows down *which variant*. A strong text match can survive an ambiguous color read, but not a confidently wrong one.
 
 Everything is triggered by the ALT key press itself — there's no polling loop running in the background, so it costs nothing while you're just playing.
 
 ## Features
 
 - **600+ item bases** (as of this writing) across all D2R item categories — amulets, armor, belts, boots, charms, gems, gloves, helmets, jewels, materials, rings, runes, shields, and weapons — pick exactly which ones you want alerts for. The catalog may lag behind the newest patches; see [Known limitations](#known-limitations).
+- **Catalog search box** in the main window — type any part of a base's name, ot the name of a Set/Unique item that drops on it (e.g. "Harlequin Crest" for the Shako it drops on), to instantly narrow the list down to matches.
 - **Per-item, per-rarity watch selection.** Instead of a single watched/unwatched toggle, each base gets its own rarity picker listing only the qualities it can actually appear as, and selections stack — watch a base for Set *and* Unique, or Ethereal/Socketed *and* Superior, in any combination. Bases with only one possible quality (Runes, Gems, Materials) skip the picker and get a plain checkbox instead, since there's nothing to choose between.
 - **Info icon (ⓘ)** next to a base's name, shown only when there's something to say: its maximum socket count, and/or the names of any Set and Unique items that share that base.
 - **Accurate detection across all important item type, not just equipment.** Runes and Materials render in a distinct orange label, and Worldstone Shards in red — both colors are calibrated the same way as the six equipment quality tiers, so matching respects rarity uniformly across the whole catalog rather than treating non-equipment as a special case.
