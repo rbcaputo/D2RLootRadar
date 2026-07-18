@@ -41,6 +41,13 @@ public partial class ItemBaseViewModel(
   private bool _isPopupOpen;
 
   /// <summary>
+  /// Whether this row should render under the current catalog search filter.
+  /// Always true when no search is active - see <see cref="MatchesSearch"/>.
+  /// </summary>
+  [ObservableProperty]
+  private bool _isVisible = true;
+
+  /// <summary>
   /// The item base name, matching the catalog and used as the OCR match target.
   /// </summary>
   public string Name { get; } = name;
@@ -176,6 +183,44 @@ public partial class ItemBaseViewModel(
   {
     get => _selectedRarities.HasFlag(RarityFlags.Superior);
     set => SetRarity(RarityFlags.Superior, value);
+  }
+
+  /// <summary>
+  /// Whether this item matches a catalog search term.
+  /// 
+  /// <para>
+  /// Plain case-insensitive substring containment, not the app's OCR <c>IFuzzyMatcher</c> -
+  /// that matcher is tuned for scoring noisy, already-complete OCR tokens against catalog names,
+  /// not for incremental "type-to-find" filtering where the user's input is deliberately partial
+  /// (e.g. "sho" while typing "Shako") and every extra keystroke should only narrow the result set,
+  /// never re-score it.
+  /// Substring matching is also directly predictable to the person typing, which an edit-distance score isn't.
+  /// </para>
+  /// 
+  /// <para>
+  /// Matches against <see cref="Name"/> first, then <see cref="SetVariants"/> and <see cref="UniqueVariants"/> -
+  /// users usually search for the famous Set/Unique name ("Harlequin Crest) rather than the
+  /// underlying base ("Shako"), so limiting the search to <see cref="Name"/> alone would make the
+  /// one case users actually search for the hardest to find.
+  /// </para>
+  /// </summary>
+  public bool MatchesSearch(string searchText)
+  {
+    if (string.IsNullOrWhiteSpace(searchText))
+      return true;
+
+    if (Name.Contains(searchText, StringComparison.OrdinalIgnoreCase))
+      return true;
+
+    foreach (string variant in SetVariants)
+      if (variant.Contains(searchText, StringComparison.OrdinalIgnoreCase))
+        return true;
+
+    foreach (string variant in UniqueVariants)
+      if (variant.Contains(searchText, StringComparison.OrdinalIgnoreCase))
+        return true;
+
+    return false;
   }
 
   /// <summary>

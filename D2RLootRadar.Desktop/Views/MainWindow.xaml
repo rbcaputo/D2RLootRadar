@@ -94,6 +94,7 @@
   <Grid>
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
       <RowDefinition Height="*" />
     </Grid.RowDefinitions>
 
@@ -158,8 +159,43 @@
       </Grid>
     </Border>
 
+    <!-- Search bar -->
+    <Border Grid.Row="1"
+            BorderBrush="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}"
+            BorderThickness="0,0,0,1"
+            Padding="14,8">
+      <Grid>
+        <TextBox x:Name="SearchBox"
+                 Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
+                 Padding="6,4,26,4"
+                 FontSize="12"
+                 VerticalContentAlignment="Center" />
+
+        <!-- Placeholder - overlaid rather than a native watermark (TextBox has none),
+             hidden as soon as there's any text and never intercepts clicks itself,
+             so it can't get in the way of focusing or selecting inside the box below it. -->
+        <TextBlock Text="Search items…"
+                   FontSize="12"
+                   Margin="9,0,0,0"
+                   VerticalAlignment="Center"
+                   IsHitTestVisible="False"
+                   Foreground="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"
+                   Visibility="{Binding HasSearchText, Converter={StaticResource InverseBoolToVisibility}}" />
+
+        <!-- Clear button - only shown once there's something to clear. -->
+        <Button Content="✕"
+                Command="{Binding ClearSearchCommand}"
+                Style="{StaticResource FlatButton}"
+                HorizontalAlignment="Right"
+                Width="22"
+                FontSize="11"
+                Foreground="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"
+                Visibility="{Binding HasSearchText, Converter={StaticResource BoolToVisibility}}" />
+      </Grid>
+    </Border>
+
     <!-- Body -->
-    <Grid Grid.Row="1">
+    <Grid Grid.Row="2">
       <Grid.ColumnDefinitions>
         <ColumnDefinition Width="*" MinWidth="200" />
         <ColumnDefinition Width="6" />
@@ -174,7 +210,8 @@
           <ItemsControl.ItemTemplate>
             <DataTemplate DataType="{x:Type vm:CategoryViewModel}">
               <Border BorderBrush="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}"
-                      BorderThickness="0,0,0,1">
+                      BorderThickness="0,0,0,1"
+                      Visibility="{Binding IsVisible, Converter={StaticResource BoolToVisibility}}">
                 <StackPanel>
 
                   <!-- Category header row -->
@@ -290,7 +327,8 @@
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                       <DataTemplate DataType="{x:Type vm:ItemBaseViewModel}">
-                        <Grid Margin="30,0,12,0" Height="26">
+                        <Grid Margin="30,0,12,0" Height="26"
+                              Visibility="{Binding IsVisible, Converter={StaticResource BoolToVisibility}}">
                           <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />

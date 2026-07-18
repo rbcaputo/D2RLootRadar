@@ -11,12 +11,30 @@ namespace D2RLootRadar.Desktop.ViewModels;
 /// </summary>
 public sealed partial class CategoryViewModel : ObservableObject
 {
-  public string Name { get; }
+  /// <summary>
+  /// <see cref="IsExpanded"/>'s value from just before a search started, captured once on the empty → non-empty transition.
+  /// Restored when the search is cleared, so the user's own manual expand/collapse choices survive a
+  /// search round-trip instead of every category being left auto-expanded (or auto-collapsed) once filtering stops.
+  /// Null whenever no search is currently available.
+  /// </summary>
+  private bool? _expandedBeforeSearch;
 
-  public ObservableCollection<ItemBaseViewModel> Items { get; }
+  /// <summary>
+  /// Whether this category should render at all under the current catalog search filter -
+  /// false once every item in it has been filtered out,
+  /// so a non-matching category disappears entirely instead of showing an always-collapsed,
+  /// permanently empty shell.
+  /// Always true when no search is active.
+  /// </summary>
+  [ObservableProperty]
+  private bool _isVisible = true;
 
   [ObservableProperty]
   private bool _isExpanded = false;
+
+  public string Name { get; }
+
+  public ObservableCollection<ItemBaseViewModel> Items { get; }
 
   /// <summary>
   /// Tri-state selection state for the header checkbox.
@@ -73,6 +91,46 @@ public sealed partial class CategoryViewModel : ObservableObject
 
     foreach (ItemBaseViewModel item in Items)
       item.PropertyChanged += OnItemPropertyChanged;
+  }
+
+  /// <summary>
+  /// Applies a catalog search term:
+  /// updates every item's visibility, hides this whole category if nothing in it matches,
+  /// and auto-expands it if something does.
+  /// 
+  /// <para>
+  /// On the empty → non-empty transition, the category's current <see cref="IsExpanded"/> is
+  /// captured into <see cref="_expandedBeforeSearch"/> before it gets overwritten by the
+  /// search's own auto-expand behavior.
+  /// On the non-empty → empty transition (search cleared),
+  /// that captures value is restored and the field reset to null.
+  /// A blank-to-blank or search-to-search call (most keystrokes) touches neither.
+  /// </para>
+  /// </summary>
+  public void ApplySearch(string searchText)
+  {
+    bool searching = !string.IsNullOrWhiteSpace(searchText);
+    if (searching && _expandedBeforeSearch is null)
+      _expandedBeforeSearch = IsExpanded;
+
+    bool anyVisible = false;
+
+    foreach (ItemBaseViewModel item in Items)
+    {
+      bool matches = item.MatchesSearch(searchText);
+      item.IsVisible = matches;
+      anyVisible |= matches;
+    }
+
+    IsVisible = anyVisible;
+
+    if (searching)
+      IsExpanded = anyVisible; // reveal matches; categories with none are hidden outright anyway
+    else if (_expandedBeforeSearch is not null)
+    {
+      IsExpanded = _expandedBeforeSearch.Value;
+      _expandedBeforeSearch = null;
+    }
   }
 
   [RelayCommand]
