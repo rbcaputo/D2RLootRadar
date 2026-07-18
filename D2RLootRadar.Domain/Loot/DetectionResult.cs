@@ -15,10 +15,18 @@
 /// <see cref="LabelRarity.Unknown"/> when no color could be sampled at all -
 /// never treat Unknown as equivalent to <see cref="LabelRarity.Unique"/> or <see cref="LabelRarity.Other"/>.
 /// </param>
+/// <param name="RarityConfidence">
+/// How lopsided <see cref="Rarity"/>'s per-pixel vote was,
+/// from 0 (evenly split between tiers, or no foreground pixels at all)
+/// to 1 (every pixel agreed).
+/// Lets <c>LootMonitoringService.RarityScore</c> treat a landslide vote and a kinfe's-edge one
+/// differently instead of collapsing both down to the same single winning tier.
+/// </param>
 public sealed record DetectionResult(
   string RawText,
   string NormalizedText,
   float Confidence,
   PixelRect BoundingBox,
-  LabelRarity Rarity
+  LabelRarity Rarity,
+  double RarityConfidence
 );

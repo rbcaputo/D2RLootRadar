@@ -152,9 +152,9 @@ public sealed class OcrService : IOcrService, IDisposable
 
       PixelRect box
         = GetBoundingBox(iterator, PageIteratorLevel.Word, topCropPixels, out Rect upscaledBox);
-      LabelRarity rarity = SampleRarity(upscaled, masked, upscaledBox, raw);
+      (LabelRarity rarity, double rarityConfidence) = SampleRarity(upscaled, masked, upscaledBox, raw);
 
-      results.Add(new(raw, raw.ToLowerInvariant(), confidence / 100f, box, rarity));
+      results.Add(new(raw, raw.ToLowerInvariant(), confidence / 100f, box, rarity, rarityConfidence));
     }
     while (iterator.Next(PageIteratorLevel.Word));
 
@@ -176,9 +176,9 @@ public sealed class OcrService : IOcrService, IDisposable
         = Regex.Replace(raw.ToLowerInvariant().Trim(), @"\s+", " ");
       PixelRect box
         = GetBoundingBox(iterator, PageIteratorLevel.TextLine, topCropPixels, out Rect upscaledBox);
-      LabelRarity rarity = SampleRarity(upscaled, masked, upscaledBox, raw);
+      (LabelRarity rarity, double rarityConfidence) = SampleRarity(upscaled, masked, upscaledBox, raw);
 
-      results.Add(new(raw, normalized, confidence / 100f, box, rarity));
+      results.Add(new(raw, normalized, confidence / 100f, box, rarity, rarityConfidence));
     }
     while (iterator.Next(PageIteratorLevel.TextLine));
 
@@ -397,11 +397,17 @@ public sealed class OcrService : IOcrService, IDisposable
   /// </para>
   /// 
   /// <para>
+  /// The confidence value (winning tier's votes / total votes) lets a caller tell a landslide
+  /// vote apart from a knife's-edge one - two detections that both classify as, say,
+  /// Rare can still carry very different amounts of evidence for that verdict.
+  /// </para>
+  /// 
+  /// <para>
   /// Returns <see cref="LabelRarity.Unknown"/> for a degenerate box (clipped fully outside the frame)
   /// or when no foreground pixel is found within it.
   /// </para>
   /// </summary>
-  private static unsafe LabelRarity SampleRarity(
+  private static unsafe (LabelRarity Rarity, double Confidence) SampleRarity(
     Bitmap colorSource,
     Bitmap mask,
     Rect upscaledBox,
@@ -414,7 +420,7 @@ public sealed class OcrService : IOcrService, IDisposable
     int y2 = Math.Min(colorSource.Height, upscaledBox.Y1 + upscaledBox.Height);
 
     if (x2 <= x1 || y2 <= y1)
-      return LabelRarity.Unknown;
+      return (LabelRarity.Unknown, 0.0);
 
     Rectangle region = new(x1, y1, x2 - x1, y2 - y1);
 
@@ -475,7 +481,7 @@ public sealed class OcrService : IOcrService, IDisposable
         );
 #endif
 
-        return LabelRarity.Unknown;
+        return (LabelRarity.Unknown, 0.0);
       }
 
       // Majority vote, ignoring Unknown unless every single pixel was Unknown -
@@ -495,8 +501,15 @@ public sealed class OcrService : IOcrService, IDisposable
         }
       }
 
+      double confidence;
+
       if (bestVotes <= 0)
+      {
         classified = LabelRarity.Unknown;
+        confidence = 0.0;
+      }
+      else
+        confidence = (double)bestVotes / count;
 
 #if DEBUG
       System.Diagnostics.Debug.WriteLine(
@@ -504,7 +517,7 @@ public sealed class OcrService : IOcrService, IDisposable
       );
 #endif
 
-      return classified;
+      return (classified, confidence);
     }
     finally
     {
