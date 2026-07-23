@@ -63,6 +63,30 @@ public partial class MainViewModel : ObservableObject
   private int _totalSelectedCount;
 
   /// <summary>
+  /// True until <see cref="CompleteWarmup"/> is called once, by <see cref="Views.MainWindow"/> after it
+  /// has forced a real layout pass on every category's vritualized item list.
+  /// 
+  /// <para>
+  /// Categories start collapsed (<see cref="CategoryViewModel.IsExpanded"/> = false),
+  /// so their VrtualizingStackPanel (see the inner ItemsControl under CategoryViewModel's DataTemplate in
+  /// MainWindow.xaml) has never been measured an none of its row containers - each with a Popup-based
+  /// rarity picker and info tooltip - exist yet.
+  /// Any filter change - search text, a Tier/Category checkbox, or a variant toggle - runs through
+  /// <see cref="OnFiltersChanged"/> and expands every matching category at once (<see cref="CategoryViewModel.ApplyFilters"/>),
+  /// which would be the first thing to trigger that container build-out for most categories simultaneously,
+  /// all in one synchronous layout pass - which would cause a stutter on the very first search,
+  /// checkbox toggle, or manual expand.
+  /// 
+  /// <para>
+  /// Drives a simple loading veil over the category list (MainWindow.xaml) so that one-time cost is
+  /// paid visibly and up front as startup, instead of silently during the user's first intercation.
+  /// </para>
+  /// </para>
+  /// </summary>
+  [ObservableProperty]
+  private bool _isWarmingUp = true;
+
+  /// <summary>
   /// Current catalog search term, bound to the search box.
   /// Filtering itself is cheap (plain substring containment over ~600 items),
   /// so it's applied synchronously on every keystroke via <see cref="OnSearchTextChanged"/> rather than
@@ -347,6 +371,15 @@ public partial class MainViewModel : ObservableObject
     _saveTimer.Stop();
     ExecuteSave();
   }
+
+  /// <summary>
+  /// Marks item-container warm-up as finished, hiding the loading veil.
+  /// Called exactly onde, by <see cref="MainWindow"/>'s WarmUpItemContainersAsync,
+  /// after it has forced a real layout pass on every category.
+  /// See <see cref="IsWarmingUp"/>.
+  /// </summary>
+  public void CompleteWarmUp()
+    => IsWarmingUp = false;
 
   // --- Load -----
 
