@@ -95,6 +95,7 @@
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto" />
       <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
       <RowDefinition Height="*" />
     </Grid.RowDefinitions>
 
@@ -165,37 +166,185 @@
             BorderThickness="0,0,0,1"
             Padding="14,8">
       <Grid>
-        <TextBox x:Name="SearchBox"
-                 Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
-                 Padding="6,4,26,4"
-                 FontSize="12"
-                 VerticalContentAlignment="Center" />
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
 
-        <!-- Placeholder - overlaid rather than a native watermark (TextBox has none),
-             hidden as soon as there's any text and never intercepts clicks itself,
-             so it can't get in the way of focusing or selecting inside the box below it. -->
-        <TextBlock Text="Search items…"
+        <!-- Search box -->
+        <Grid Grid.Column="0">
+          <TextBox x:Name="SearchBox"
+                   Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
+                   Padding="6,4,26,4"
                    FontSize="12"
-                   Margin="9,0,0,0"
-                   VerticalAlignment="Center"
-                   IsHitTestVisible="False"
-                   Foreground="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"
-                   Visibility="{Binding HasSearchText, Converter={StaticResource InverseBoolToVisibility}}" />
+                   VerticalContentAlignment="Center" />
 
-        <!-- Clear button - only shown once there's something to clear. -->
-        <Button Content="✕"
-                Command="{Binding ClearSearchCommand}"
-                Style="{StaticResource FlatButton}"
-                HorizontalAlignment="Right"
-                Width="22"
-                FontSize="11"
-                Foreground="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"
-                Visibility="{Binding HasSearchText, Converter={StaticResource BoolToVisibility}}" />
+          <!-- Placeholder - overlaid rather than a native watermark (TextBox has none),
+               hidden as soon as there's any text and never intercepts clicks itself,
+               so it can't get in the way of focusing or selecting inside the box below it. -->
+          <TextBlock Text="Search items…"
+                     FontSize="12"
+                     Margin="9,0,0,0"
+                     VerticalAlignment="Center"
+                     IsHitTestVisible="False"
+                     Foreground="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"
+                     Visibility="{Binding HasSearchText, Converter={StaticResource InverseBoolToVisibility}}" />
+
+          <!-- Clear button - only shown once there's something to clear. -->
+          <Button Content="✕"
+                  Command="{Binding ClearSearchCommand}"
+                  Style="{StaticResource FlatButton}"
+                  HorizontalAlignment="Right"
+                  Width="22"
+                  FontSize="11"
+                  Foreground="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"
+                  Visibility="{Binding HasSearchText, Converter={StaticResource BoolToVisibility}}" />
+        </Grid>
+
+        <!-- Filters: closed-state toggle + popup, same pattern as each row's rarity picker. -->
+        <ToggleButton x:Name="FilterToggle"
+                      Grid.Column="1"
+                      Margin="8,0,0,0"
+                      IsChecked="{Binding IsFilterPopupOpen, Mode=TwoWay}">
+          <ToggleButton.Style>
+            <Style TargetType="ToggleButton" BasedOn="{StaticResource RaritySummaryToggle}">
+              <Style.Triggers>
+                <!-- Active-filter highlight - otherwise there's no way to tell a filter is
+                     narrowing the list once the popup itself is closed. -->
+                <DataTrigger Binding="{Binding HasActiveFilters}" Value="True">
+                  <Setter Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" />
+                </DataTrigger>
+              </Style.Triggers>
+            </Style>
+          </ToggleButton.Style>
+          <StackPanel Orientation="Horizontal">
+            <TextBlock Text="Filters" FontSize="12" VerticalAlignment="Center" />
+            <TextBlock Text="{Binding ActiveFilterCount, StringFormat=' ({0})'}"
+                       FontSize="12"
+                       VerticalAlignment="Center"
+                       Visibility="{Binding HasActiveFilters, Converter={StaticResource BoolToVisibility}}" />
+            <TextBlock Text="▾"
+                       FontSize="9"
+                       Margin="5,0,0,0"
+                       VerticalAlignment="Center"
+                       Foreground="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
+          </StackPanel>
+        </ToggleButton>
+
+        <!-- HorizontalOffset shifts the popup left so it doesn't overflow the window's right
+             edge - the toggle sits at the far right of the search bar with little room to its
+             right. -140 approximates right-edge-aligning the popup (MinWidth 220) under the
+             toggle (roughly 90-110px wide with its "Filters (n) ▾" content) rather than a
+             computed exact alignment; nudge it if it looks off once actually rendered. -->
+        <Popup PlacementTarget="{Binding ElementName=FilterToggle}"
+               Placement="Bottom"
+               HorizontalOffset="-140"
+               StaysOpen="False"
+               AllowsTransparency="True"
+               IsOpen="{Binding IsFilterPopupOpen, Mode=TwoWay}">
+          <Border Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"
+                  BorderBrush="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}"
+                  BorderThickness="1"
+                  CornerRadius="4"
+                  Padding="8"
+                  Margin="0,2,0,0">
+            <StackPanel MinWidth="220">
+
+              <!-- Tier - fixed three options, multi-select (see ItemBaseViewModel.MatchesTier). -->
+              <TextBlock Text="Tier"
+                         FontSize="11"
+                         FontWeight="Medium"
+                         Margin="2,0,0,4"
+                         Foreground="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
+              <ItemsControl ItemsSource="{Binding TierFilterOptions}">
+                <ItemsControl.ItemTemplate>
+                  <DataTemplate>
+                    <CheckBox Content="{Binding Name}"
+                              IsChecked="{Binding IsSelected, Mode=TwoWay}"
+                              Style="{StaticResource RarityOptionRow}" />
+                  </DataTemplate>
+                </ItemsControl.ItemTemplate>
+              </ItemsControl>
+
+              <!-- Variants - each toggle is independent; matching either one is enough
+                   (see ItemBaseViewModel.MatchesVariants). -->
+              <TextBlock Text="Variants"
+                         FontSize="11"
+                         FontWeight="Medium"
+                         Margin="2,10,0,4"
+                         Foreground="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
+              <CheckBox Content="Has Unique"
+                        IsChecked="{Binding RequireUniqueVariant, Mode=TwoWay}"
+                        Style="{StaticResource RarityOptionRow}" />
+              <CheckBox Content="Has Set"
+                        IsChecked="{Binding RequireSetVariant, Mode=TwoWay}"
+                        Style="{StaticResource RarityOptionRow}" />
+
+              <!-- Category - one row per group actually present in the catalog (44 as of the
+                   current data), so this scrolls rather than growing the popup indefinitely. -->
+              <TextBlock Text="Category"
+                         FontSize="11"
+                         FontWeight="Medium"
+                         Margin="2,10,0,4"
+                         Foreground="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
+              <ScrollViewer MaxHeight="220"
+                            VerticalScrollBarVisibility="Auto"
+                            HorizontalScrollBarVisibility="Disabled">
+                <ItemsControl ItemsSource="{Binding CategoryFilterOptions}">
+                  <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                      <CheckBox Content="{Binding Name}"
+                                IsChecked="{Binding IsSelected, Mode=TwoWay}"
+                                Style="{StaticResource RarityOptionRow}" />
+                    </DataTemplate>
+                  </ItemsControl.ItemTemplate>
+                </ItemsControl>
+              </ScrollViewer>
+            </StackPanel>
+          </Border>
+        </Popup>
       </Grid>
     </Border>
 
+    <!-- Active filter tags - collapses entirely when nothing is filtered, rather than showing
+         an empty strip. A WrapPanel rather than a horizontal StackPanel, since enough filters
+         active at once (several categories plus a tier or two) can easily exceed one row's width. -->
+    <Border Grid.Row="2"
+            BorderBrush="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}"
+            BorderThickness="0,0,0,1"
+            Padding="14,6"
+            Visibility="{Binding HasActiveFilterTags, Converter={StaticResource BoolToVisibility}}">
+      <ItemsControl ItemsSource="{Binding ActiveFilters}">
+        <ItemsControl.ItemsPanel>
+          <ItemsPanelTemplate>
+            <WrapPanel Orientation="Horizontal" />
+          </ItemsPanelTemplate>
+        </ItemsControl.ItemsPanel>
+        <ItemsControl.ItemTemplate>
+          <DataTemplate>
+            <Border Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}"
+                    CornerRadius="10"
+                    Padding="8,3"
+                    Margin="0,0,6,4">
+              <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding Label}" FontSize="11" VerticalAlignment="Center" />
+                <Button Content="✕"
+                        Command="{Binding RemoveCommand}"
+                        Style="{StaticResource FlatButton}"
+                        FontSize="9"
+                        Width="16"
+                        Height="16"
+                        Margin="5,0,0,0"
+                        Foreground="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
+              </StackPanel>
+            </Border>
+          </DataTemplate>
+        </ItemsControl.ItemTemplate>
+      </ItemsControl>
+    </Border>
+
     <!-- Body -->
-    <Grid Grid.Row="2">
+    <Grid Grid.Row="3">
       <Grid.ColumnDefinitions>
         <ColumnDefinition Width="*" MinWidth="200" />
         <ColumnDefinition Width="6" />

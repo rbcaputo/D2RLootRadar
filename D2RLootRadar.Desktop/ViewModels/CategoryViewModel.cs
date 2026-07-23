@@ -94,9 +94,27 @@ public sealed partial class CategoryViewModel : ObservableObject
   }
 
   /// <summary>
-  /// Applies a catalog search term:
-  /// updates every item's visibility, hides this whole category if nothing in it matches,
+  /// Applies the main windoe's full set of catalogs filters:
+  /// updates every item's visibility, hides this while category if nothing in it matches
+  /// (or if this category itself isn't one of the selected values in an active Category filter),
   /// and auto-expands it if something does.
+  /// 
+  /// <para>
+  /// An item must satisfy both at once - <see cref="ItemBaseViewModel.MatchesSearch"/> AND
+  /// <see cref="ItemBaseViewModel.MatchesTier"/> - matching the main window's stated behavior:
+  /// "no search term = filters only (if any), a search term = search AND filters (if any)".
+  /// Either one alone already treats "no active constraint" as "every passes"
+  /// (blank search text, null tier filter), so that composition falls out for free -
+  /// no special-casing needed here for "only one of the two is actually active".
+  /// </para>
+  /// 
+  /// <para>
+  /// The Category filter is handled differently from the other three, deliberately - it isn't checker per item at all.
+  /// Every item in this <see cref="CategoryViewModel"/> shares the exact same category construction
+  /// (that's what <see cref="Name"/> already <em>is</em> -
+  /// see <c>MainViewModel.Load</c>'s grouping, so "does this item's category match the filter" is
+  /// always the same answer for every item here - one check per category, not one per item.
+  /// </para>
   /// 
   /// <para>
   /// On the empty → non-empty transition, the category's current <see cref="IsExpanded"/> is
@@ -107,25 +125,28 @@ public sealed partial class CategoryViewModel : ObservableObject
   /// A blank-to-blank or search-to-search call (most keystrokes) touches neither.
   /// </para>
   /// </summary>
-  public void ApplySearch(string searchText)
+  public void ApplyFilters(CatalogFilter filter)
   {
-    bool searching = !string.IsNullOrWhiteSpace(searchText);
-    if (searching && _expandedBeforeSearch is null)
+    if (filter.IsActive && _expandedBeforeSearch is null)
       _expandedBeforeSearch = IsExpanded;
 
     bool anyVisible = false;
 
     foreach (ItemBaseViewModel item in Items)
     {
-      bool matches = item.MatchesSearch(searchText);
+      bool matches = item.MatchesSearch(filter.SearchText) &&
+                     item.MatchesTier(filter.Tiers) &&
+                     item.MatchesVariants(filter.RequireUniqueVariant, filter.RequireSetVariant);
       item.IsVisible = matches;
       anyVisible |= matches;
     }
 
-    IsVisible = anyVisible;
+    bool categoryAllowed = filter.Categories.Count == 0 ||
+                           filter.Categories.Contains(Name);
+    IsVisible = anyVisible && categoryAllowed;
 
-    if (searching)
-      IsExpanded = anyVisible; // reveal matches; categories with none are hidden outright anyway
+    if (filter.IsActive)
+      IsExpanded = IsVisible; // reveal matches; categories with none are hidden outright anyway
     else if (_expandedBeforeSearch is not null)
     {
       IsExpanded = _expandedBeforeSearch.Value;

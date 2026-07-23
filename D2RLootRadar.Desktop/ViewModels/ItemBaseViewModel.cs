@@ -19,6 +19,7 @@ public partial class ItemBaseViewModel(
   string name,
   RarityFlags applicableRarities,
   RarityFlags selectedRarities,
+  string? tier,
   int? maxSockets,
   IReadOnlyList<string> setVariants,
   IReadOnlyList<string> uniqueVariants
@@ -59,6 +60,14 @@ public partial class ItemBaseViewModel(
   public RarityFlags ApplicableRarities { get; } = applicableRarities;
 
   /// <summary>
+  /// This base's power tier - "Normal"/"Exceptional"/"Elite" for weapons and armor,
+  /// a different vocabulary for Rune/Gem, or null for bases with no tier sytem at all.
+  /// See <see cref="ItemBase.Tier"/>'s doc comment for the full picture;
+  /// drives the main window's Tier filter via <see cref="MatchesTier"/>.
+  /// </summary>
+  public string? Tier { get; } = tier;
+
+  /// <summary>
   /// Maximum sockets this base can roll, shown in the info icon's tooltip.
   /// Null when the base can't be socketed at all (e.g. Charms, most jewelry, etc.).
   /// </summary>
@@ -94,6 +103,18 @@ public partial class ItemBaseViewModel(
   /// </summary>
   public bool HasVariants
     => SetVariants.Count > 0 || UniqueVariants.Count > 0;
+
+  /// <summary>
+  /// Whether this base has at least one Unique variant - drives the "Has Unique" filter option.
+  /// </summary>
+  public bool HasUniqueVariants
+    => UniqueVariants.Count > 0;
+
+  /// <summary>
+  /// Whether this base has at least one Set variant - drives the "Has Set" filter option.
+  /// </summary>
+  public bool HasSetVariants
+    => SetVariants.Count > 0;
 
   /// <summary>
   /// Whether the info icon has anything at all to show -
@@ -221,6 +242,54 @@ public partial class ItemBaseViewModel(
         return true;
 
     return false;
+  }
+
+  /// <summary>
+  /// Whether this item matches the main window's Tier filter.
+  /// 
+  /// <para>
+  /// An mepty <paramref name="selectedTiers"/> means "no filter active" - always matches,
+  /// same no-filter-means-everything-passes convention as <see cref="MatchesSearch"/>.
+  /// Otherwise, matches if <see cref="Tier"/> is any of the selected values (multi-select is OR within the group -
+  /// see <see cref="CatalogFilter"/>'s remarks for why that's the only sensible reading for a
+  /// field where an item can only ever hold one value).
+  /// </para>
+  /// 
+  /// <para>
+  /// Deliberately an exact match against <see cref="Tier"/>, not a substring/fuzzy one -
+  /// Tier is a closed, known vocabulary per category, not free text a user is typing.
+  /// A base whose own <see cref="Tier"/> is null (Ring, Amulet, Charm, Jewel) or uses the Rune/Gem-specific
+  /// vocabulary ("Low", "Chipped", etc.) will never equal any of the filter's three options
+  /// (Norma'/Exceptional/Elite) - that's intentional, not a gap:
+  /// those bases genuinely don't have a Normal/Exceptional/Elite tier to filter by,
+  /// so they're correctly excluded whenever any tier is selected.
+  /// </para>
+  /// </summary>
+  public bool MatchesTier(IReadOnlySet<string> selectedTiers)
+    => selectedTiers.Count == 0 ||
+       (Tier is not null && selectedTiers.Contains(Tier));
+
+  /// <summary>
+  /// Whether this item matches the main window's "Has Unique"/"Has Set" variant filters.
+  /// 
+  /// <para>
+  /// Both false means "no filter active" - always matches.
+  /// Otherwise, OR within the group like <see cref="MatchesTier"/> - unlike Tier though,
+  /// a base genuinely can satisfy both at once (have both a Unique and a Set variant),
+  /// so turning on both options widens the result set (anything with either kind of variant) rather than
+  /// narrowing it to only bases with both.
+  /// That's the same OR-within-group rule as every other filter group, it just reads more intuitively
+  /// here since the "OR, not AND" choice has a real behavioral consequence to notice,
+  /// where for Tier it's the only option that could ever match anything at all.
+  /// </para>
+  /// </summary>
+  public bool MatchesVariants(bool requireUniqueVariant, bool requireSetVariant)
+  {
+    if (!requireUniqueVariant && !requireSetVariant)
+      return true;
+
+    return (requireUniqueVariant && HasUniqueVariants) ||
+           (requireSetVariant && HasSetVariants);
   }
 
   /// <summary>

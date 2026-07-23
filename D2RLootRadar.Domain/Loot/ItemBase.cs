@@ -13,6 +13,16 @@
 /// <param name="Category">
 /// Broad domain used for ordering in the UI and any future category-scoped logic.
 /// </param>
+/// <param name="Tier">
+/// The item's power tier within its Type -
+/// "Normal"/"Exceptional"/"Elite" for weapons and armor, a different vocabulary entirely for Rune
+/// ("Low"/"Mid"/"High") and Gem ("Chipped"/"Flaed"/...), and null for bases with no tier system at all
+/// (Ring, Amulet, Charm, Jewel).
+/// Drives the main window's Tier filter - see <c>CategoryViewModel.ApplyFilters</c>.
+/// That filter's three options are deliberately just Normal/Exceptional/Elite, so a base whose tier is null or
+/// one of the Rune/Gem-specific values won't match any of them -
+/// see the filter's own remarks for why that's the intended behavior, not a gap.
+/// </param>
 /// <param name="ApplicableRarities">
 /// Which <see cref="RarityFlags"/> this specific base can actually appear as -
 /// drives which rarity dots the watch-list UI's rarity picker even offers for this item.
@@ -37,6 +47,7 @@ public sealed record ItemBase(
   string Name,
   string DisplayGroup,
   ItemCategory Category,
+  string? Tier,
   RarityFlags ApplicableRarities,
   int? MaxSockets,
   IReadOnlyList<string> SetVariants,
