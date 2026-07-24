@@ -1,4 +1,4 @@
-﻿namespace D2RLootRadar.Desktop.ViewModels;
+﻿namespace D2RLootRadar.Application.Catalog;
 
 /// <summary>
 /// One consistent snapshot of every active catalog filter, passed down from <see cref="MainViewModel"/> to

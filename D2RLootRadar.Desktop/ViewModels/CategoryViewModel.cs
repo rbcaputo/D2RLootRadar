@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using D2RLootRadar.Application.Catalog;
 using D2RLootRadar.Domain.Loot;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -92,9 +93,9 @@ public sealed partial class CategoryViewModel : ObservableObject
     foreach (ItemBaseViewModel item in Items)
       item.PropertyChanged += OnItemPropertyChanged;
   }
-
+   
   /// <summary>
-  /// Applies the main windoe's full set of catalogs filters:
+  /// Applies the main window's full set of catalogs filters:
   /// updates every item's visibility, hides this while category if nothing in it matches
   /// (or if this category itself isn't one of the selected values in an active Category filter),
   /// and auto-expands it if something does.

@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using D2RLootRadar.Application.Catalog;
 using D2RLootRadar.Application.Contracts;
 using D2RLootRadar.Application.Settings;
 using D2RLootRadar.Desktop.Views;

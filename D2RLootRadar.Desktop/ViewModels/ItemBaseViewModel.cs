@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using D2RLootRadar.Application.Catalog;
 using D2RLootRadar.Domain.Loot;
 
 namespace D2RLootRadar.Desktop.ViewModels;
@@ -219,78 +220,39 @@ public partial class ItemBaseViewModel(
   /// </para>
   /// 
   /// <para>
-  /// Matches against <see cref="Name"/> first, then <see cref="SetVariants"/> and <see cref="UniqueVariants"/> -
-  /// users usually search for the famous Set/Unique name ("Harlequin Crest) rather than the
-  /// underlying base ("Shako"), so limiting the search to <see cref="Name"/> alone would make the
-  /// one case users actually search for the hardest to find.
+  /// See <see cref="CatalogFilterMatcher.MatchesSearch"/> for the actual matching rules -
+  /// this just supplies this item's own <see cref="Name"/>/<see cref="SetVariants"/>/<see cref="UniqueVariants"/> to it.
   /// </para>
   /// </summary>
   public bool MatchesSearch(string searchText)
-  {
-    if (string.IsNullOrWhiteSpace(searchText))
-      return true;
-
-    if (Name.Contains(searchText, StringComparison.OrdinalIgnoreCase))
-      return true;
-
-    foreach (string variant in SetVariants)
-      if (variant.Contains(searchText, StringComparison.OrdinalIgnoreCase))
-        return true;
-
-    foreach (string variant in UniqueVariants)
-      if (variant.Contains(searchText, StringComparison.OrdinalIgnoreCase))
-        return true;
-
-    return false;
-  }
+    => CatalogFilterMatcher.MatchesSearch(Name, SetVariants, UniqueVariants, searchText);
 
   /// <summary>
   /// Whether this item matches the main window's Tier filter.
   /// 
   /// <para>
-  /// An mepty <paramref name="selectedTiers"/> means "no filter active" - always matches,
-  /// same no-filter-means-everything-passes convention as <see cref="MatchesSearch"/>.
-  /// Otherwise, matches if <see cref="Tier"/> is any of the selected values (multi-select is OR within the group -
-  /// see <see cref="CatalogFilter"/>'s remarks for why that's the only sensible reading for a
-  /// field where an item can only ever hold one value).
-  /// </para>
-  /// 
-  /// <para>
-  /// Deliberately an exact match against <see cref="Tier"/>, not a substring/fuzzy one -
-  /// Tier is a closed, known vocabulary per category, not free text a user is typing.
-  /// A base whose own <see cref="Tier"/> is null (Ring, Amulet, Charm, Jewel) or uses the Rune/Gem-specific
-  /// vocabulary ("Low", "Chipped", etc.) will never equal any of the filter's three options
-  /// (Norma'/Exceptional/Elite) - that's intentional, not a gap:
-  /// those bases genuinely don't have a Normal/Exceptional/Elite tier to filter by,
-  /// so they're correctly excluded whenever any tier is selected.
+  /// See <see cref="CatalogFilterMatcher.MatchesTier"/> for the actual matching rules -
+  /// this just supplies this item's own <see cref="Tier"/> to it.
   /// </para>
   /// </summary>
   public bool MatchesTier(IReadOnlySet<string> selectedTiers)
-    => selectedTiers.Count == 0 ||
-       (Tier is not null && selectedTiers.Contains(Tier));
+    => CatalogFilterMatcher.MatchesTier(Tier, selectedTiers);
 
   /// <summary>
   /// Whether this item matches the main window's "Has Unique"/"Has Set" variant filters.
   /// 
   /// <para>
-  /// Both false means "no filter active" - always matches.
-  /// Otherwise, OR within the group like <see cref="MatchesTier"/> - unlike Tier though,
-  /// a base genuinely can satisfy both at once (have both a Unique and a Set variant),
-  /// so turning on both options widens the result set (anything with either kind of variant) rather than
-  /// narrowing it to only bases with both.
-  /// That's the same OR-within-group rule as every other filter group, it just reads more intuitively
-  /// here since the "OR, not AND" choice has a real behavioral consequence to notice,
-  /// where for Tier it's the only option that could ever match anything at all.
+  /// See <see cref="CatalogFilterMatcher.MatchesVariants"/> for the actual matching rules -
+  /// this just supplies this item's own <see cref="HasUniqueVariants"/>/<see cref="HasSetVariants"/> to it.
   /// </para>
   /// </summary>
   public bool MatchesVariants(bool requireUniqueVariant, bool requireSetVariant)
-  {
-    if (!requireUniqueVariant && !requireSetVariant)
-      return true;
-
-    return (requireUniqueVariant && HasUniqueVariants) ||
-           (requireSetVariant && HasSetVariants);
-  }
+    => CatalogFilterMatcher.MatchesVariants(
+      HasUniqueVariants,
+      HasSetVariants,
+      requireUniqueVariant,
+      requireSetVariant
+    );
 
   /// <summary>
   /// Tri-state selection for this item's checkbox, mirroring the category header's tri-state pattern at the item level:
