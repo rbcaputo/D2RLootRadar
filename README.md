@@ -1,4 +1,4 @@
-# D2RLootRadar (v2.2.0)
+# D2RLootRadar (v2.2.1)
 
 [![CI](https://github.com/rbcaputo/D2RLootRadar/actions/workflows/ci.yml/badge.svg)](https://github.com/rbcaputo/D2RLootRadar/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
@@ -71,7 +71,7 @@ Everything is triggered by the ALT key press itself — there's no polling loop 
 
 ### Download
 
-Grab the latest build from the [Releases page](https://github.com/rbcaputo/D2RLootRadar/releases/latest) — download `D2RLootRadar-v2.0.0-win-x64.zip` (not the "Source code" zip/tar.gz — those are just the raw source, not a runnable build), extract it, and run `D2RLootRadar.Desktop.exe`.
+Grab the latest build from the [Releases page](https://github.com/rbcaputo/D2RLootRadar/releases/latest) — download `D2RLootRadar-vx.y.z-win-x64.zip` (not the "Source code" zip/tar.gz — those are just the raw source, not a runnable build), extract it, and run `D2RLootRadar.Desktop.exe`.
 
 Building from source is only necessary if you want to modify the code yourself.
 
@@ -118,7 +118,7 @@ The solution follows a layered architecture, from the inside out:
 
 ```text
 D2RLootRadar.Domain         → Plain records/enums with no dependencies (ItemBase, WatchList, PixelRect, ...)
-D2RLootRadar.Application    → Orchestration and contracts (LootMonitoringService, IOcrService, UserSettings, ...)
+D2RLootRadar.Application    → Orchestration and contracts (LootMonitoringService, IOcrService, UserSettings, CatalogFilterMatcher, ...)
 D2RLootRadar.Infrastructure → Concrete implementations (OCR, screen capture, fuzzy matching, JSON persistence, Win32 interop)
 D2RLootRadar.Desktop        → WPF UI (MVVM, CommunityToolkit.Mvvm, Microsoft.Extensions.Hosting for DI)
 D2RLootRadar.Tests          → xUnit tests for the pure-logic pieces (fuzzy matching, settings clamping, watch-list deduplication, ...)
