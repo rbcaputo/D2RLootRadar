@@ -1,4 +1,4 @@
-# Technical Architecture & Design Log (v2.2.0)
+# Technical Architecture & Design Log (v2.2.1)
 
 This document exists for the same reason a codebase's in-line comments aren't enough on their own: comments explain what a piece of code does and, at best, why ir does it *that way* — they don't have room to record what was tried before, why an earlier approach fell short, or the reasoning trail that led from one design to the next. That trail is exactly what gets lost first when nobody wrote it down, and it's the thing a future contributor (including a future version of the person reading this) most needs when touching a piece of logic that already looks "finished".
 
@@ -162,6 +162,16 @@ What actually changed is the *middle-ground*: a knife's-edge vote (confidence ne
 **Why a warm-up pass instead of changing the virtualization or auto-expand behavior itself.** Both of those exist for good reason already documented elsewhere — virtualization avoids building all ~600 row's visual trees (Popup, rarity checkboxes, tooltip) up front regardless of whether the user ever expands a given category, and auto-expand-on-filter is the whole point of filtering (a match the user can't see because its category satyed collapsed isn't useful). Neither behavior was the actual problem; *when* the one-time realization cost got paid was. A warm-up pass changes that timing without touching either mechanism.
 
 **Consequence.** The window takes slightly longer to become interactive at lauch (well under a second for ~600 items across the current category count) in exchange for every filter/expand interaction afterward — including the very first one — being uniformly fast. If the catalog grows enough that the warm-up pass itself becomes noticeable, the per-category `Dispatcher.Yield` already spreads it across frames rather than one block, so the next lever would be shortening that further (e.g. yielding mid-category on very large ones) rather than restructuring the approach.
+
+### DD-10 — Filter matching extracted to `Application/Catalog`, so it's unit-testable without a Desktop reference (2026-07-23)
+
+**Context.** DD-8's filtering logic (`MatchesSearch`/`MatchesTier`/`MatchesVariants`) lived on `ItemBaseViewModel`, and `CatalogFilter` lived alongside it in `Desktop/ViewModels` — both reasonable at the time, but it meant the one place with real, easy-to-get-subtly-wrong boolean composition (empty-selection-means-everything, OR-within-a-group for Tier vs. the same OR-within-a-group for variants having a genuinely different practical effect, search checking three fields not one) had no test coverage, and couldn't get any without `D2RLootRadar.Tests` taking reference to `D2RLootRadar.Desktop` — a `net10.0-windows`/`UseWPF` project. `Tests` deliberately has never referenced `Desktop`, for the same reason DD-1 keeps `Domain`/`Application` free of Windows-specific dependencies in the first place.
+
+**Decision.** `CatalogFilter` and the three matching methods moved to a new `D2RLootRadar.Application/Catalog/ folder` — `CatalogFilter` unchanged, and the matching methods became a static `CatalogFilterMatcher` operating directly on `Domain`'s `ItemBase` record (the same data the catalog is already built from) instead of on the view model wrapper. `ItemBaseViewModel.MatchesSearch/MatchesTier/MatchesVariants` are now one-line callers into `CatalogFilterMatcher`, supplying the item's own fields — `CategoryViewModel.ApplyFilters` didn't need to change at all, since it was already calling those three methods by name rather than reimplementing the logic itself.
+
+**Why `Application` and not `Domain`.** `CatalogFilterMatcher` is pure and stateless, so either would work mechanically, but it's UI-driven policy (what the *main window's* search box and filter popup mean), not a fact about the game data itself the way `ItemBase` or `RarityFlags` are — the same distinction the already keeps `LootMonitoringService` in `Application` rather than `Domain`.
+
+**Consequence.** `D2RLootRadar.Tests/Catalog/CatalogFilterMatcherTests.cs` now exercises every rule referenced above directly, the same way `RarityScoreTests`/`UserSettingsTests` already cover their own layer's pure logic — and any future filter dimension gets the same test coverage for free by construction, since there's no view-model-only code path left for filtering logic to hide in.
 
 ---
 
