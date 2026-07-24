@@ -194,7 +194,7 @@ public class CatalogFilterMatcherTests
   public void Matches_AllDimensionsSatisfied_Matches()
   {
     ItemBase item = Item(name: "Monarch", tier: null, uniqueVariants: ["Stormshield"]);
-    CatalogFilter filter = Filter(searchText: "strom", requireUniqueVariant: true);
+    CatalogFilter filter = Filter(searchText: "storm", requireUniqueVariant: true);
 
     Assert.True(CatalogFilterMatcher.Matches(item, filter));
   }
