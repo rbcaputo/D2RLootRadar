@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using D2RLootRadar.Application.Catalog;
 using D2RLootRadar.Domain.Loot;
 
 namespace D2RLootRadar.Desktop.ViewModels;
@@ -19,6 +20,7 @@ public partial class ItemBaseViewModel(
   string name,
   RarityFlags applicableRarities,
   RarityFlags selectedRarities,
+  string? tier,
   int? maxSockets,
   IReadOnlyList<string> setVariants,
   IReadOnlyList<string> uniqueVariants
@@ -59,6 +61,14 @@ public partial class ItemBaseViewModel(
   public RarityFlags ApplicableRarities { get; } = applicableRarities;
 
   /// <summary>
+  /// This base's power tier - "Normal"/"Exceptional"/"Elite" for weapons and armor,
+  /// a different vocabulary for Rune/Gem, or null for bases with no tier sytem at all.
+  /// See <see cref="ItemBase.Tier"/>'s doc comment for the full picture;
+  /// drives the main window's Tier filter via <see cref="MatchesTier"/>.
+  /// </summary>
+  public string? Tier { get; } = tier;
+
+  /// <summary>
   /// Maximum sockets this base can roll, shown in the info icon's tooltip.
   /// Null when the base can't be socketed at all (e.g. Charms, most jewelry, etc.).
   /// </summary>
@@ -94,6 +104,18 @@ public partial class ItemBaseViewModel(
   /// </summary>
   public bool HasVariants
     => SetVariants.Count > 0 || UniqueVariants.Count > 0;
+
+  /// <summary>
+  /// Whether this base has at least one Unique variant - drives the "Has Unique" filter option.
+  /// </summary>
+  public bool HasUniqueVariants
+    => UniqueVariants.Count > 0;
+
+  /// <summary>
+  /// Whether this base has at least one Set variant - drives the "Has Set" filter option.
+  /// </summary>
+  public bool HasSetVariants
+    => SetVariants.Count > 0;
 
   /// <summary>
   /// Whether the info icon has anything at all to show -
@@ -198,30 +220,39 @@ public partial class ItemBaseViewModel(
   /// </para>
   /// 
   /// <para>
-  /// Matches against <see cref="Name"/> first, then <see cref="SetVariants"/> and <see cref="UniqueVariants"/> -
-  /// users usually search for the famous Set/Unique name ("Harlequin Crest) rather than the
-  /// underlying base ("Shako"), so limiting the search to <see cref="Name"/> alone would make the
-  /// one case users actually search for the hardest to find.
+  /// See <see cref="CatalogFilterMatcher.MatchesSearch"/> for the actual matching rules -
+  /// this just supplies this item's own <see cref="Name"/>/<see cref="SetVariants"/>/<see cref="UniqueVariants"/> to it.
   /// </para>
   /// </summary>
   public bool MatchesSearch(string searchText)
-  {
-    if (string.IsNullOrWhiteSpace(searchText))
-      return true;
+    => CatalogFilterMatcher.MatchesSearch(Name, SetVariants, UniqueVariants, searchText);
 
-    if (Name.Contains(searchText, StringComparison.OrdinalIgnoreCase))
-      return true;
+  /// <summary>
+  /// Whether this item matches the main window's Tier filter.
+  /// 
+  /// <para>
+  /// See <see cref="CatalogFilterMatcher.MatchesTier"/> for the actual matching rules -
+  /// this just supplies this item's own <see cref="Tier"/> to it.
+  /// </para>
+  /// </summary>
+  public bool MatchesTier(IReadOnlySet<string> selectedTiers)
+    => CatalogFilterMatcher.MatchesTier(Tier, selectedTiers);
 
-    foreach (string variant in SetVariants)
-      if (variant.Contains(searchText, StringComparison.OrdinalIgnoreCase))
-        return true;
-
-    foreach (string variant in UniqueVariants)
-      if (variant.Contains(searchText, StringComparison.OrdinalIgnoreCase))
-        return true;
-
-    return false;
-  }
+  /// <summary>
+  /// Whether this item matches the main window's "Has Unique"/"Has Set" variant filters.
+  /// 
+  /// <para>
+  /// See <see cref="CatalogFilterMatcher.MatchesVariants"/> for the actual matching rules -
+  /// this just supplies this item's own <see cref="HasUniqueVariants"/>/<see cref="HasSetVariants"/> to it.
+  /// </para>
+  /// </summary>
+  public bool MatchesVariants(bool requireUniqueVariant, bool requireSetVariant)
+    => CatalogFilterMatcher.MatchesVariants(
+      HasUniqueVariants,
+      HasSetVariants,
+      requireUniqueVariant,
+      requireSetVariant
+    );
 
   /// <summary>
   /// Tri-state selection for this item's checkbox, mirroring the category header's tri-state pattern at the item level:

@@ -1,8 +1,8 @@
-# Technical Architecture & Design Log
+# Technical Architecture & Design Log (v2.2.1)
 
 This document exists for the same reason a codebase's in-line comments aren't enough on their own: comments explain what a piece of code does and, at best, why ir does it *that way* — they don't have room to record what was tried before, why an earlier approach fell short, or the reasoning trail that led from one design to the next. That trail is exactly what gets lost first when nobody wrote it down, and it's the thing a future contributor (including a future version of the person reading this) most needs when touching a piece of logic that already looks "finished".
 
-**Relationship to other docs:** [`README.md`](../README.md) is user-facing — what the app does, how to run it, what its current limitations are. This document is contributor-facing — how it's built, and why it's built that way. If you're deciding whether to change how something works, this is the file to read first and the file to  update afterward.
+**Relationship to other docs:** [`README.md`](../README.md) is user-facing — what the app does, how to run it, what its current limitations are. This document is contributor-facing — how it's built, and why it's built that way. If you're deciding whether to change how something works, this is the file to read first and the file to update afterward.
 
 ---
 
@@ -135,6 +135,43 @@ What actually changed is the *middle-ground*: a knife's-edge vote (confidence ne
 **Why not `ICollectionView`.** Two considerations: it doesn't compose cleanly across the two-level Category → Items hierarchy (a category needs to hide itself when *all* its items are filtered out, which means the category-level view and the item-level view have to stay in sync some other way regardless); and every other piece of view-state in this codebase (`IsExpanded`, selection counts, the summary panel) is already a hand-updated observable property, not a `CollectionView`. Matching that existing pattern keeps onde state-management idiom in the ViewModel layer instead of two.
 
 **A detail worth remembering if this breaks:** a category remembers its `IsExpanded` value from just before a search starts (`_expandedBeforeSearch`) and restores it when the search is cleared, so the user's own manual expand/collapse choices survive a search round-trip instead of every category coming back auto-expanded (or auto-collapsed) once filtering stops.
+
+**Superseded/extended by DD-8.** `ApplySearch` was renamed `ApplyFilters` and now takes a `CatalogFilter` covering Tier, Category, and Set/Unique variant constraints alongside search text — the `IsVisible`/explicit-flag mechanism and the `_expandedBeforeSearch` round-trip described above carried forward unchanged; only the number of constraints being checked grew.
+
+### DD-8 — Filtering generalized via a single `CatalogFilter`, not one method per dimension (2026-07-22)
+
+**Context.** Search text alone (DD-7) wasn't enough to narrow ~600 items in practice — user's wanted to filter by item Tier (Normal/Exeptional/Elite), by Category, and to isolate bases with a Set ot Unique variant at all, on top of the existing search.
+
+**Decision.** Rather than adding a parallel method per new filter dimension (`ApplySearch` `ApplyTierFilter`, `ApplyCategoryFilter`, ...) all four constraints — search text, Tiers, Categories, and the two variant toggles — collapse into one `CatalogFilter` record, and `CategoryViewModel.ApplySearch` became `ApplyFilters(CatalogFilter filter)`, evaluating all of them per item in a single pass. `MainViewModel.OnFiltersChanged` is the one funnel every filter control (search box, Tier checkboxes, Category checkboxes, either variant toggle) routes through before fanning `ApplyFilters` out to every category.
+
+**Three smaller decisions worth recording alongside the main one:**
+- **Tier and Category share one `FilterOptionViewModel` shape** (a name plus `IsSelected`) instead of Tier getting hand-written named bool properties (`IsNormalTierSelected`, etc.) — see its own remarks. The tradeoff is a small amount of indirection (`MainViewModel` has to listen for `PropertyChanged` on each option and keep `_selectedTiers`/`_selectedProperties` in sync itself, rather than binding straight to dedicated properties) for one shared `ItemsControl` binding pattern in the popup instead of two.
+- **Category is checked once per category, not once per item**, in `ApplyFilters` — every item in a `CategoryViewModel` already shares the same `Name` by construction (`MainViewModel.Load`'s grouping), so re-testing it per item would be ~40x redundant work for no behavioral difference.
+- **`ActiveFilters` (the removable-tag row) is rebuilt from scratch on every filter change** rather than incrementally diffed against its previous contents — see `ActiveFilterTag`'s remarks. At most a few dozen short-lived records, so the simpler rebuild-outright approach was judged cheap enough to not be worth the bookkeeping a diff would add.
+
+**Consequence.** Adding a fifth filter dimension in the future means adding one field to `CatalogFilter`, one clause to the `matches` expression in `ApplyFilters`, and one contribution each to `HasActiveFilters`/`ActiveFilterCount`/`RefreshActiveFilters` — not a new parallel method or a new per-category pass over `Items`.
+
+### DD-9 — Warm up virtualized item containers at startup, behind a loading veil (2026-07-23)
+
+**Context.** The first search, filter-popup checkbox, or manual category expand of a session caused a noticeable stutter that eevry later one didn't.
+
+**Root cause.** Each category's row `ItemsControl` (the DataTemplate for `CategoryViewModel` in MainWindow.xaml) uses `VirtualizingPanel.IsVirtualizing="True"` gated by `Visibility="{Binding IsExapanded}"`, and categories start collapses — so their `VirtualizingStackPanel` had never been measured, and none of its row containers (each carrying a Popup-based rarity picker and info tooltip) existed yet. `CategoryViewModel.ApplyFilters` (DD-7/DD-8) auto-expands every matching category at once as soon as any filter is active, so whichever filter interaction happened first was also the first thing to force *every* matching category's containers to realize simultaneously, in one synchronous layout pass on the UI thread.
+
+**Decision.** `MainWindow` runs a `WarmUpItemContainerAsync` pass from its `Loaded` event, once, before the user can interact with anything: for each category, expand it, force a real layout pass with `UpdateLayout()` (which is what actually realizes the containers), collapse it back, the `await Dispatcher.Yield(DispatcherPriority.Background)` before the next one — so the pass pays the same total cost up front instead of on whichever interaction happens to touch each category first, and doesn't freeze the window for one long stretch doing it. `MainViewModel.IsWarmingUp` (true until `CompleteWarmup()` is called at the end of the pass) drives a "Loading watch list..." veil over the category list in the meantime, so the cost is visible and explained rather than silent.
+
+**Why a warm-up pass instead of changing the virtualization or auto-expand behavior itself.** Both of those exist for good reason already documented elsewhere — virtualization avoids building all ~600 row's visual trees (Popup, rarity checkboxes, tooltip) up front regardless of whether the user ever expands a given category, and auto-expand-on-filter is the whole point of filtering (a match the user can't see because its category satyed collapsed isn't useful). Neither behavior was the actual problem; *when* the one-time realization cost got paid was. A warm-up pass changes that timing without touching either mechanism.
+
+**Consequence.** The window takes slightly longer to become interactive at lauch (well under a second for ~600 items across the current category count) in exchange for every filter/expand interaction afterward — including the very first one — being uniformly fast. If the catalog grows enough that the warm-up pass itself becomes noticeable, the per-category `Dispatcher.Yield` already spreads it across frames rather than one block, so the next lever would be shortening that further (e.g. yielding mid-category on very large ones) rather than restructuring the approach.
+
+### DD-10 — Filter matching extracted to `Application/Catalog`, so it's unit-testable without a Desktop reference (2026-07-23)
+
+**Context.** DD-8's filtering logic (`MatchesSearch`/`MatchesTier`/`MatchesVariants`) lived on `ItemBaseViewModel`, and `CatalogFilter` lived alongside it in `Desktop/ViewModels` — both reasonable at the time, but it meant the one place with real, easy-to-get-subtly-wrong boolean composition (empty-selection-means-everything, OR-within-a-group for Tier vs. the same OR-within-a-group for variants having a genuinely different practical effect, search checking three fields not one) had no test coverage, and couldn't get any without `D2RLootRadar.Tests` taking reference to `D2RLootRadar.Desktop` — a `net10.0-windows`/`UseWPF` project. `Tests` deliberately has never referenced `Desktop`, for the same reason DD-1 keeps `Domain`/`Application` free of Windows-specific dependencies in the first place.
+
+**Decision.** `CatalogFilter` and the three matching methods moved to a new `D2RLootRadar.Application/Catalog/ folder` — `CatalogFilter` unchanged, and the matching methods became a static `CatalogFilterMatcher` operating directly on `Domain`'s `ItemBase` record (the same data the catalog is already built from) instead of on the view model wrapper. `ItemBaseViewModel.MatchesSearch/MatchesTier/MatchesVariants` are now one-line callers into `CatalogFilterMatcher`, supplying the item's own fields — `CategoryViewModel.ApplyFilters` didn't need to change at all, since it was already calling those three methods by name rather than reimplementing the logic itself.
+
+**Why `Application` and not `Domain`.** `CatalogFilterMatcher` is pure and stateless, so either would work mechanically, but it's UI-driven policy (what the *main window's* search box and filter popup mean), not a fact about the game data itself the way `ItemBase` or `RarityFlags` are — the same distinction the already keeps `LootMonitoringService` in `Application` rather than `Domain`.
+
+**Consequence.** `D2RLootRadar.Tests/Catalog/CatalogFilterMatcherTests.cs` now exercises every rule referenced above directly, the same way `RarityScoreTests`/`UserSettingsTests` already cover their own layer's pure logic — and any future filter dimension gets the same test coverage for free by construction, since there's no view-model-only code path left for filtering logic to hide in.
 
 ---
 

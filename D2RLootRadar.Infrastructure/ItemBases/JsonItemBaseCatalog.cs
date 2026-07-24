@@ -97,6 +97,7 @@ public sealed class JsonItemBaseCatalog : IItemBaseCatalog
       dto.Base,
       displayGroup,
       category,
+      dto.Tier,
       applicableRarities,
       dto.MaxSockets,
       dto.Sets ?? [],

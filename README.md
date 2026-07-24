@@ -1,4 +1,4 @@
-# D2RLootRadar (v2.1.0)
+# D2RLootRadar (v2.2.1)
 
 [![CI](https://github.com/rbcaputo/D2RLootRadar/actions/workflows/ci.yml/badge.svg)](https://github.com/rbcaputo/D2RLootRadar/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
@@ -44,7 +44,7 @@ Everything is triggered by the ALT key press itself — there's no polling loop 
 ## Features
 
 - **600+ item bases** (as of this writing) across all D2R item categories — amulets, armor, belts, boots, charms, gems, gloves, helmets, jewels, materials, rings, runes, shields, and weapons — pick exactly which ones you want alerts for. The catalog may lag behind the newest patches; see [Known limitations](#known-limitations).
-- **Catalog search box** in the main window — type any part of a base's name, ot the name of a Set/Unique item that drops on it (e.g. "Harlequin Crest" for the Shako it drops on), to instantly narrow the list down to matches.
+- **Catalog search and filters** in the main window — type any part of a base's name, or the name of a Set/Unique item that drops on it (e.g. "Harlequin Crest" for the Shako it drops on), to instantly narrow the list down to matches. The filter popup (button next to the search box) adds Tier (Normal/Exceptional/Elite), Category, and "Has Unique"/"Has Set" toggles on top of that — search and filters combine (AND), and every active one shows as a removable tag in a row below the search box.
 - **Per-item, per-rarity watch selection.** Instead of a single watched/unwatched toggle, each base gets its own rarity picker listing only the qualities it can actually appear as, and selections stack — watch a base for Set *and* Unique, or Ethereal/Socketed *and* Superior, in any combination. Bases with only one possible quality (Runes, Gems, Materials) skip the picker and get a plain checkbox instead, since there's nothing to choose between.
 - **Info icon (ⓘ)** next to a base's name, shown only when there's something to say: its maximum socket count, and/or the names of any Set and Unique items that share that base.
 - **Accurate detection across all important item type, not just equipment.** Runes and Materials render in a distinct orange label, and Worldstone Shards in red — both colors are calibrated the same way as the six equipment quality tiers, so matching respects rarity uniformly across the whole catalog rather than treating non-equipment as a special case.
@@ -71,7 +71,7 @@ Everything is triggered by the ALT key press itself — there's no polling loop 
 
 ### Download
 
-Grab the latest build from the [Releases page](https://github.com/rbcaputo/D2RLootRadar/releases/latest) — download `D2RLootRadar-v2.0.0-win-x64.zip` (not the "Source code" zip/tar.gz — those are just the raw source, not a runnable build), extract it, and run `D2RLootRadar.Desktop.exe`.
+Grab the latest build from the [Releases page](https://github.com/rbcaputo/D2RLootRadar/releases/latest) — download `D2RLootRadar-vx.y.z-win-x64.zip` (not the "Source code" zip/tar.gz — those are just the raw source, not a runnable build), extract it, and run `D2RLootRadar.Desktop.exe`.
 
 Building from source is only necessary if you want to modify the code yourself.
 
@@ -89,10 +89,11 @@ Or open `D2RLootRadar.slnx` in Visual Studio 2022+ and run the `D2RLootRadar.Des
 ### Using the app
 
 1. **Launch D2RLootRadar** and D2R (in either order — the app polls for the game process every few seconds).
-2. In the **main window**, expand a category and pick your rarities for each base you care about. Most bases open a small picker listing only the qualities they can actually appear as — selections stack, so you can watch a base for Set *and* Unique at once. Bases with only one possible quality (Runes, Gems, Materials) get a plain checkbox instead. An ⓘ icon next to a name means there's more to see — hover it for max sockets and/or the Set/Unique item names for that base.
-3. Check the **summary panel** on the right any time for a running list of everything you're currently watching, grouped by category with a dot per selected rarity. Drag the divider between the two panels to resize either one.
-4. Open **Settings** to configure the alert tone's frequency and volume, preview it with **Test Sound**, and toggle the on-screen overlay marker.
-5. Play normally. When loot drops, tap **ALT** the same way you already do to read item labels — if anything on your watch list is on the ground, in a rarity you selected for it, you'll hear the alert and see a marker over it.
+2. Narrow the catalog if you don't want to scroll all 600+ bases: type in the **seach box** (matches base names and Set/Unique variant names), and/or open the **filter popup** (button) for Tier, Category, and "Has Unique"/"Has Set" toggles — they all combine together. Active filters appear as removable tags below the search box; clear one by clicking its tag, or clear everything with the search box's own "×".
+3. In the **main window**, expand a category and pick your rarities for each base you care about. Most bases open a small picker listing only the qualities they can actually appear as — selections stack, so you can watch a base for Set *and* Unique at once. Bases with only one possible quality (Runes, Gems, Materials) get a plain checkbox instead. An ⓘ icon next to a name means there's more to see — hover it for max sockets and/or the Set/Unique item names for that base.
+4. Check the **summary panel** on the right any time for a running list of everything you're currently watching, grouped by category with a dot per selected rarity. Drag the divider between the two panels to resize either one.
+5. Open **Settings** to configure the alert tone's frequency and volume, preview it with **Test Sound**, and toggle the on-screen overlay marker.
+6. Play normally. When loot drops, tap **ALT** the same way you already do to read item labels — if anything on your watch list is on the ground, in a rarity you selected for it, you'll hear the alert and see a marker over it.
 
 Your selection and settings are saved automatically (debounced ~400ms after your last change) to `settings.json`, next to the executable.
 
@@ -117,7 +118,7 @@ The solution follows a layered architecture, from the inside out:
 
 ```text
 D2RLootRadar.Domain         → Plain records/enums with no dependencies (ItemBase, WatchList, PixelRect, ...)
-D2RLootRadar.Application    → Orchestration and contracts (LootMonitoringService, IOcrService, UserSettings, ...)
+D2RLootRadar.Application    → Orchestration and contracts (LootMonitoringService, IOcrService, UserSettings, CatalogFilterMatcher, ...)
 D2RLootRadar.Infrastructure → Concrete implementations (OCR, screen capture, fuzzy matching, JSON persistence, Win32 interop)
 D2RLootRadar.Desktop        → WPF UI (MVVM, CommunityToolkit.Mvvm, Microsoft.Extensions.Hosting for DI)
 D2RLootRadar.Tests          → xUnit tests for the pure-logic pieces (fuzzy matching, settings clamping, watch-list deduplication, ...)

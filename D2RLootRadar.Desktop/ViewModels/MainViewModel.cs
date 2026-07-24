@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using D2RLootRadar.Application.Catalog;
 using D2RLootRadar.Application.Contracts;
 using D2RLootRadar.Application.Settings;
 using D2RLootRadar.Desktop.Views;
@@ -40,6 +41,17 @@ public partial class MainViewModel : ObservableObject
   private readonly Dictionary<string, int> _categoryOrder = [];
 
   /// <summary>
+  /// Backing sets for the Tier/Category filter groups -
+  /// <see cref="TierFilterOptions"/>/<see cref="CategoryFilterOptions"/> for the checkable rows that stay in sync with these,
+  /// and <see cref="OnFilterOptionChanged"/> for how a checkbox toggle updtaes them.
+  /// Plain <see cref="HashSet{T}"/>, not an observable collection -
+  /// nothing binds to these <see cref="ActiveFilters"/>, both of which are refreshed explicitly on
+  /// every change rather than relying on collection-change notifications from these sets themselves.
+  /// </summary>
+  private readonly HashSet<string> _selectedTiers = [];
+  private readonly HashSet<string> _selectedCategories = [];
+
+  /// <summary>
   /// Whether D2R is currently running, polled every 3 seconds via <see cref="_processTimer"/>.
   /// </summary>
   [ObservableProperty]
@@ -52,6 +64,30 @@ public partial class MainViewModel : ObservableObject
   private int _totalSelectedCount;
 
   /// <summary>
+  /// True until <see cref="CompleteWarmup"/> is called once, by <see cref="Views.MainWindow"/> after it
+  /// has forced a real layout pass on every category's vritualized item list.
+  /// 
+  /// <para>
+  /// Categories start collapsed (<see cref="CategoryViewModel.IsExpanded"/> = false),
+  /// so their VrtualizingStackPanel (see the inner ItemsControl under CategoryViewModel's DataTemplate in
+  /// MainWindow.xaml) has never been measured an none of its row containers - each with a Popup-based
+  /// rarity picker and info tooltip - exist yet.
+  /// Any filter change - search text, a Tier/Category checkbox, or a variant toggle - runs through
+  /// <see cref="OnFiltersChanged"/> and expands every matching category at once (<see cref="CategoryViewModel.ApplyFilters"/>),
+  /// which would be the first thing to trigger that container build-out for most categories simultaneously,
+  /// all in one synchronous layout pass - which would cause a stutter on the very first search,
+  /// checkbox toggle, or manual expand.
+  /// 
+  /// <para>
+  /// Drives a simple loading veil over the category list (MainWindow.xaml) so that one-time cost is
+  /// paid visibly and up front as startup, instead of silently during the user's first intercation.
+  /// </para>
+  /// </para>
+  /// </summary>
+  [ObservableProperty]
+  private bool _isWarmingUp = true;
+
+  /// <summary>
   /// Current catalog search term, bound to the search box.
   /// Filtering itself is cheap (plain substring containment over ~600 items),
   /// so it's applied synchronously on every keystroke via <see cref="OnSearchTextChanged"/> rather than
@@ -61,10 +97,24 @@ public partial class MainViewModel : ObservableObject
   private string _searchText = string.Empty;
 
   /// <summary>
-  /// Whether a search is currently active - drives the clear ("×") button's visibility.
+  /// Whether the catalog should be narrowed to bases with at least one Unique variant.
+  /// See <see cref="ItemBaseViewModel.MatchesVariants"/> when both are on at once.
   /// </summary>
-  public bool HasSearchText
-    => !string.IsNullOrEmpty(SearchText);
+  [ObservableProperty]
+  private bool _requireUniqueVariant;
+
+  /// <summary>
+  /// Whether the catalog should be narrowed to bases with at least one Set variant.
+  /// </summary>
+  [ObservableProperty]
+  private bool _requireSetVariant;
+
+  /// <summary>
+  /// Whether the Tier/Category/Variant filter popup is currently open.
+  /// Pure UI state - never persisted, same treatment as <see cref="ItemBaseViewModel.IsPopupOpen"/>.
+  /// </summary>
+  [ObservableProperty]
+  private bool _isFilterPopupOpen;
 
   /// <summary>
   /// All item base categories, in display order, each with its selectable items.
@@ -75,6 +125,69 @@ public partial class MainViewModel : ObservableObject
   /// The non-empty subset of <see cref="Categories"/>, used to render the "currently watching" summary pannel.
   /// </summary>
   public ObservableCollection<SummaryCategoryViewModel> Summary { get; } = [];
+
+  /// <summary>
+  /// The three Tier checkboxes in the filter popup - <see cref="FilterOptionViewModel"/>'s remarks for
+  /// why Tier uses the same mechanism as <see cref="CategoryFilterOptions"/> rather than
+  /// named per-value properties.
+  /// </summary>
+  public ObservableCollection<FilterOptionViewModel> TierFilterOptions { get; } = [];
+
+  /// <summary>
+  /// One checkbox per distinct category (e.g. "Axe", "Orb", "Grimoire") in the filter popup -
+  /// built from <see cref="Categories"/> in <see cref="Load"/>,
+  /// so it's always exactly the set of category groups actually present in the catalog,
+  /// with no separate list to keep in sync by hand.
+  /// </summary>
+  public ObservableCollection<FilterOptionViewModel> CategoryFilterOptions { get; } = [];
+
+  /// <summary>
+  /// Onde removable chip per currently-active filter value (search text included),
+  /// shown in a row below the search bar.
+  /// Rebuilt from scratch on every filter change by <see cref="RefreshActiveFilters"/> - 
+  /// see <see cref="ActiveFilterTag"/>'s remarks for why that's simples than incrementally
+  /// patching this collection to match.
+  /// </summary>
+  public ObservableCollection<ActiveFilterTag> ActiveFilters { get; } = [];
+
+  /// <summary>
+  /// Whether a search is currently active - drives the clear ("×") button's visibility.
+  /// </summary>
+  public bool HasSearchText
+    => !string.IsNullOrEmpty(SearchText);
+
+  /// <summary>
+  /// Whether any popup-driven filter (Tier, Category, or either variant toggle) is currently active -
+  /// drives the filter button's highlighted state.
+  /// Deliberately doesn't include <see cref="SearchText"/>, which already has its own visible state
+  /// (text in the box, plus its own clear button) - folding it in here too would juest be a second,
+  /// redundant signal for the same thing.
+  /// </summary>
+  public bool HasActiveFilters
+    => _selectedTiers.Count > 0 ||
+       _selectedCategories.Count > 0 ||
+       RequireUniqueVariant ||
+       RequireSetVariant;
+
+  /// <summary>
+  /// How many popup-driven filter values are currently selected, across Tier/Category/variant toggles -
+  /// shown as a badge count on the filters button.
+  /// Deliberately excludes <see cref="SearchText"/>, for the same reason <see cref="HasActiveFilters"/> does.
+  /// </summary>
+  public int ActiveFilterCount
+    => _selectedTiers.Count +
+       _selectedCategories.Count +
+       (RequireUniqueVariant ? 1 : 0) +
+       (RequireSetVariant ? 1 : 0);
+
+  /// <summary>
+  /// Whether <see cref="ActiveFilters"/> has anything in it -
+  /// collapses the tags row entirely rather then showing an empty strip when nothing is filtered.
+  /// Manually raised wherever <see cref="ActiveFilters"/> is rebuilt, same as every other computed
+  /// property in this class that depends on a collection rather than a single backing field.
+  /// </summary>
+  public bool HasActiveFilterTags
+    => ActiveFilters.Count > 0;
 
   /// <summary>
   /// Loads the catalog and the user's saved selection, then starts the game-status poll timer.
@@ -133,18 +246,93 @@ public partial class MainViewModel : ObservableObject
   private void ClearSearch()
     => SearchText = string.Empty;
 
-  // --- CommunityToolkit-generated hooks -----
+  // --- Filtering -----
 
   /// <summary>
-  /// Re-applies the search filter to every category whenever <see cref="SearchText"/> changes,
+  /// Re-applies the catalog filters to every category whenever <see cref="SearchText"/> changes,
   /// and refreshes <see cref="HasSearchText"/> for the clear button.
   /// </summary>
   partial void OnSearchTextChanged(string value)
   {
-    foreach (CategoryViewModel category in Categories)
-      category.ApplySearch(value);
-
+    OnFiltersChanged();
     OnPropertyChanged(nameof(HasSearchText));
+  }
+
+  /// <summary>
+  /// Re-applies every filter whenever <see cref="RequireUniqueVariant"/> changes.
+  /// </summary>
+  partial void OnRequireUniqueVariantChanged(bool value)
+    => OnFiltersChanged();
+
+  /// <summary>
+  /// Re-applies every filter whenever <see cref="RequireSetVariant"/> changes.
+  /// </summary>
+  partial void OnRequireSetVariantChanged(bool value)
+    => OnFiltersChanged();
+
+  /// <summary>
+  /// Reacts to any Tier or Category checkbox toggling by updating the matching backing set
+  /// (<see cref="_selectedTiers"/> or <see cref="_selectedCategories"/>) and re-applying filters.
+  /// One shared handler for both groups - <see cref="TierFilterOptions"/> and <see cref="CategoryFilterOptions"/>
+  /// are both wired to it in <see cref="Load"/>, and <paramref name="targetSet"/> says which set a
+  /// given row's group actually belongs to.
+  /// </summary>
+  private void OnFilterOptionChanged(
+    object? sender,
+    PropertyChangedEventArgs ea,
+    HashSet<string> targetSet
+  )
+  {
+    if (
+      ea.PropertyName != nameof(FilterOptionViewModel.IsSelected) ||
+      sender is not FilterOptionViewModel option
+    ) return;
+
+    if (option.IsSelected)
+      targetSet.Add(option.Name);
+    else
+      targetSet.Remove(option.Name);
+
+    OnFiltersChanged();
+  }
+
+  /// <summary>
+  /// Fans the current filter state out to every category as one combined pass, refreshes <see cref="HasActiveFilters"/>,
+  /// and rebuilds <see cref="ActiveFilters"/> to match -
+  /// the one method every filter-changing hook above funnels through,
+  /// so nothing has to separately remember to do all three.
+  /// </summary>
+  private void OnFiltersChanged()
+  {
+    CatalogFilter filter
+      = new(SearchText, _selectedTiers, _selectedCategories, RequireUniqueVariant, RequireSetVariant);
+
+    foreach (CategoryViewModel category in Categories)
+      category.ApplyFilters(filter);
+
+    OnPropertyChanged(nameof(HasActiveFilters));
+    OnPropertyChanged(nameof(ActiveFilterCount));
+    RefreshActiveFilters(filter);
+  }
+
+  private void RefreshActiveFilters(CatalogFilter filter)
+  {
+    ActiveFilters.Clear();
+
+    if (!string.IsNullOrWhiteSpace(filter.SearchText))
+      ActiveFilters.Add(new($"Search: {filter.SearchText}", ClearSearchCommand));
+
+    foreach (FilterOptionViewModel option in TierFilterOptions.Where(o => o.IsSelected))
+      ActiveFilters.Add(new(option.Name, new RelayCommand(() => option.IsSelected = false)));
+    foreach (FilterOptionViewModel option in CategoryFilterOptions.Where(o => o.IsSelected))
+      ActiveFilters.Add(new(option.Name, new RelayCommand(() => option.IsSelected = false)));
+
+    if (RequireUniqueVariant)
+      ActiveFilters.Add(new("Has Unique", new RelayCommand(() => RequireUniqueVariant = false)));
+    if (RequireSetVariant)
+      ActiveFilters.Add(new("Has Set", new RelayCommand(() => RequireSetVariant = false)));
+
+    OnPropertyChanged(nameof(HasActiveFilterTags));
   }
 
   // --- Auto-Save -----
@@ -185,6 +373,15 @@ public partial class MainViewModel : ObservableObject
     ExecuteSave();
   }
 
+  /// <summary>
+  /// Marks item-container warm-up as finished, hiding the loading veil.
+  /// Called exactly onde, by <see cref="MainWindow"/>'s WarmUpItemContainersAsync,
+  /// after it has forced a real layout pass on every category.
+  /// See <see cref="IsWarmingUp"/>.
+  /// </summary>
+  public void CompleteWarmUp()
+    => IsWarmingUp = false;
+
   // --- Load -----
 
   /// <summary>
@@ -216,6 +413,7 @@ public partial class MainViewModel : ObservableObject
           x.Name,
           x.ApplicableRarities,
           selections.GetValueOrDefault(x.Name, RarityFlags.None),
+          x.Tier,
           x.MaxSockets,
           x.SetVariants,
           x.UniqueVariants
@@ -227,6 +425,31 @@ public partial class MainViewModel : ObservableObject
       _categoryOrder[category.Name] = Categories.Count;
 
       Categories.Add(category);
+    }
+
+    // Fixed three values - see ItemBaseViewModel.MatchesTier's remarks for why exactly these three.
+    string[] tiers = [
+      "Normal",
+      "Exceptional",
+      "Elite"
+    ];
+
+    foreach (string tier in tiers)
+    {
+      FilterOptionViewModel option = new(tier);
+      option.PropertyChanged += (sender, ea)
+        => OnFilterOptionChanged(sender, ea, _selectedTiers);
+      TierFilterOptions.Add(option);
+    }
+
+    // One row per category actually present in the loaded catalog, in the same display order as Categories itself -
+    // no separate list of category names to keep in sync by hand.
+    foreach (CategoryViewModel category in Categories)
+    {
+      FilterOptionViewModel option = new(category.Name);
+      option.PropertyChanged += (sender, ea)
+        => OnFilterOptionChanged(sender, ea, _selectedCategories);
+      CategoryFilterOptions.Add(option);
     }
 
     RefreshFullSummary();

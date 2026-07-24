@@ -95,6 +95,7 @@
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto" />
       <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
       <RowDefinition Height="*" />
     </Grid.RowDefinitions>
 
@@ -165,37 +166,185 @@
             BorderThickness="0,0,0,1"
             Padding="14,8">
       <Grid>
-        <TextBox x:Name="SearchBox"
-                 Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
-                 Padding="6,4,26,4"
-                 FontSize="12"
-                 VerticalContentAlignment="Center" />
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
 
-        <!-- Placeholder - overlaid rather than a native watermark (TextBox has none),
-             hidden as soon as there's any text and never intercepts clicks itself,
-             so it can't get in the way of focusing or selecting inside the box below it. -->
-        <TextBlock Text="Search items…"
+        <!-- Search box -->
+        <Grid Grid.Column="0">
+          <TextBox x:Name="SearchBox"
+                   Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
+                   Padding="6,4,26,4"
                    FontSize="12"
-                   Margin="9,0,0,0"
-                   VerticalAlignment="Center"
-                   IsHitTestVisible="False"
-                   Foreground="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"
-                   Visibility="{Binding HasSearchText, Converter={StaticResource InverseBoolToVisibility}}" />
+                   VerticalContentAlignment="Center" />
 
-        <!-- Clear button - only shown once there's something to clear. -->
-        <Button Content="✕"
-                Command="{Binding ClearSearchCommand}"
-                Style="{StaticResource FlatButton}"
-                HorizontalAlignment="Right"
-                Width="22"
-                FontSize="11"
-                Foreground="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"
-                Visibility="{Binding HasSearchText, Converter={StaticResource BoolToVisibility}}" />
+          <!-- Placeholder - overlaid rather than a native watermark (TextBox has none),
+               hidden as soon as there's any text and never intercepts clicks itself,
+               so it can't get in the way of focusing or selecting inside the box below it. -->
+          <TextBlock Text="Search items…"
+                     FontSize="12"
+                     Margin="9,0,0,0"
+                     VerticalAlignment="Center"
+                     IsHitTestVisible="False"
+                     Foreground="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"
+                     Visibility="{Binding HasSearchText, Converter={StaticResource InverseBoolToVisibility}}" />
+
+          <!-- Clear button - only shown once there's something to clear. -->
+          <Button Content="✕"
+                  Command="{Binding ClearSearchCommand}"
+                  Style="{StaticResource FlatButton}"
+                  HorizontalAlignment="Right"
+                  Width="22"
+                  FontSize="11"
+                  Foreground="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"
+                  Visibility="{Binding HasSearchText, Converter={StaticResource BoolToVisibility}}" />
+        </Grid>
+
+        <!-- Filters: closed-state toggle + popup, same pattern as each row's rarity picker. -->
+        <ToggleButton x:Name="FilterToggle"
+                      Grid.Column="1"
+                      Margin="8,0,0,0"
+                      IsChecked="{Binding IsFilterPopupOpen, Mode=TwoWay}">
+          <ToggleButton.Style>
+            <Style TargetType="ToggleButton" BasedOn="{StaticResource RaritySummaryToggle}">
+              <Style.Triggers>
+                <!-- Active-filter highlight - otherwise there's no way to tell a filter is
+                     narrowing the list once the popup itself is closed. -->
+                <DataTrigger Binding="{Binding HasActiveFilters}" Value="True">
+                  <Setter Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" />
+                </DataTrigger>
+              </Style.Triggers>
+            </Style>
+          </ToggleButton.Style>
+          <StackPanel Orientation="Horizontal">
+            <TextBlock Text="Filters" FontSize="12" VerticalAlignment="Center" />
+            <TextBlock Text="{Binding ActiveFilterCount, StringFormat=' ({0})'}"
+                       FontSize="12"
+                       VerticalAlignment="Center"
+                       Visibility="{Binding HasActiveFilters, Converter={StaticResource BoolToVisibility}}" />
+            <TextBlock Text="▾"
+                       FontSize="9"
+                       Margin="5,0,0,0"
+                       VerticalAlignment="Center"
+                       Foreground="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
+          </StackPanel>
+        </ToggleButton>
+
+        <!-- HorizontalOffset shifts the popup left so it doesn't overflow the window's right
+             edge - the toggle sits at the far right of the search bar with little room to its
+             right. -140 approximates right-edge-aligning the popup (MinWidth 220) under the
+             toggle (roughly 90-110px wide with its "Filters (n) ▾" content) rather than a
+             computed exact alignment; nudge it if it looks off once actually rendered. -->
+        <Popup PlacementTarget="{Binding ElementName=FilterToggle}"
+               Placement="Bottom"
+               HorizontalOffset="-140"
+               StaysOpen="False"
+               AllowsTransparency="True"
+               IsOpen="{Binding IsFilterPopupOpen, Mode=TwoWay}">
+          <Border Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"
+                  BorderBrush="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}"
+                  BorderThickness="1"
+                  CornerRadius="4"
+                  Padding="8"
+                  Margin="0,2,0,0">
+            <StackPanel MinWidth="220">
+
+              <!-- Tier - fixed three options, multi-select (see ItemBaseViewModel.MatchesTier). -->
+              <TextBlock Text="Tier"
+                         FontSize="11"
+                         FontWeight="Medium"
+                         Margin="2,0,0,4"
+                         Foreground="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
+              <ItemsControl ItemsSource="{Binding TierFilterOptions}">
+                <ItemsControl.ItemTemplate>
+                  <DataTemplate>
+                    <CheckBox Content="{Binding Name}"
+                              IsChecked="{Binding IsSelected, Mode=TwoWay}"
+                              Style="{StaticResource RarityOptionRow}" />
+                  </DataTemplate>
+                </ItemsControl.ItemTemplate>
+              </ItemsControl>
+
+              <!-- Variants - each toggle is independent; matching either one is enough
+                   (see ItemBaseViewModel.MatchesVariants). -->
+              <TextBlock Text="Variants"
+                         FontSize="11"
+                         FontWeight="Medium"
+                         Margin="2,10,0,4"
+                         Foreground="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
+              <CheckBox Content="Has Unique"
+                        IsChecked="{Binding RequireUniqueVariant, Mode=TwoWay}"
+                        Style="{StaticResource RarityOptionRow}" />
+              <CheckBox Content="Has Set"
+                        IsChecked="{Binding RequireSetVariant, Mode=TwoWay}"
+                        Style="{StaticResource RarityOptionRow}" />
+
+              <!-- Category - one row per group actually present in the catalog (44 as of the
+                   current data), so this scrolls rather than growing the popup indefinitely. -->
+              <TextBlock Text="Category"
+                         FontSize="11"
+                         FontWeight="Medium"
+                         Margin="2,10,0,4"
+                         Foreground="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
+              <ScrollViewer MaxHeight="220"
+                            VerticalScrollBarVisibility="Auto"
+                            HorizontalScrollBarVisibility="Disabled">
+                <ItemsControl ItemsSource="{Binding CategoryFilterOptions}">
+                  <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                      <CheckBox Content="{Binding Name}"
+                                IsChecked="{Binding IsSelected, Mode=TwoWay}"
+                                Style="{StaticResource RarityOptionRow}" />
+                    </DataTemplate>
+                  </ItemsControl.ItemTemplate>
+                </ItemsControl>
+              </ScrollViewer>
+            </StackPanel>
+          </Border>
+        </Popup>
       </Grid>
     </Border>
 
+    <!-- Active filter tags - collapses entirely when nothing is filtered, rather than showing
+         an empty strip. A WrapPanel rather than a horizontal StackPanel, since enough filters
+         active at once (several categories plus a tier or two) can easily exceed one row's width. -->
+    <Border Grid.Row="2"
+            BorderBrush="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}"
+            BorderThickness="0,0,0,1"
+            Padding="14,6"
+            Visibility="{Binding HasActiveFilterTags, Converter={StaticResource BoolToVisibility}}">
+      <ItemsControl ItemsSource="{Binding ActiveFilters}">
+        <ItemsControl.ItemsPanel>
+          <ItemsPanelTemplate>
+            <WrapPanel Orientation="Horizontal" />
+          </ItemsPanelTemplate>
+        </ItemsControl.ItemsPanel>
+        <ItemsControl.ItemTemplate>
+          <DataTemplate>
+            <Border Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}"
+                    CornerRadius="10"
+                    Padding="8,3"
+                    Margin="0,0,6,4">
+              <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding Label}" FontSize="11" VerticalAlignment="Center" />
+                <Button Content="✕"
+                        Command="{Binding RemoveCommand}"
+                        Style="{StaticResource FlatButton}"
+                        FontSize="9"
+                        Width="16"
+                        Height="16"
+                        Margin="5,0,0,0"
+                        Foreground="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
+              </StackPanel>
+            </Border>
+          </DataTemplate>
+        </ItemsControl.ItemTemplate>
+      </ItemsControl>
+    </Border>
+
     <!-- Body -->
-    <Grid Grid.Row="2">
+    <Grid Grid.Row="3">
       <Grid.ColumnDefinitions>
         <ColumnDefinition Width="*" MinWidth="200" />
         <ColumnDefinition Width="6" />
@@ -203,105 +352,105 @@
       </Grid.ColumnDefinitions>
 
       <!-- Left: category list -->
-      <ScrollViewer Grid.Column="0"
-                    VerticalScrollBarVisibility="Auto"
-                    HorizontalScrollBarVisibility="Disabled">
-        <ItemsControl ItemsSource="{Binding Categories}">
-          <ItemsControl.ItemTemplate>
-            <DataTemplate DataType="{x:Type vm:CategoryViewModel}">
-              <Border BorderBrush="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}"
+      <Grid Grid.Column="0">
+        <ScrollViewer VerticalScrollBarVisibility="Auto"
+                      HorizontalScrollBarVisibility="Disabled">
+          <ItemsControl ItemsSource="{Binding Categories}">
+            <ItemsControl.ItemTemplate>
+              <DataTemplate DataType="{x:Type vm:CategoryViewModel}">
+                <Border BorderBrush="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}"
                       BorderThickness="0,0,0,1"
                       Visibility="{Binding IsVisible, Converter={StaticResource BoolToVisibility}}">
-                <StackPanel>
+                  <StackPanel>
 
-                  <!-- Category header row -->
-                  <Grid Height="34">
-                    <Grid.ColumnDefinitions>
-                      <ColumnDefinition Width="Auto" />
-                      <ColumnDefinition Width="*" />
-                      <ColumnDefinition Width="32" />
-                    </Grid.ColumnDefinitions>
+                    <!-- Category header row -->
+                    <Grid Height="34">
+                      <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="32" />
+                      </Grid.ColumnDefinitions>
 
-                    <!-- Select / deselect all -->
-                    <CheckBox Grid.Column="0"
+                      <!-- Select / deselect all -->
+                      <CheckBox Grid.Column="0"
                               IsChecked="{Binding AllSelected}"
                               IsThreeState="False"
                               VerticalAlignment="Center"
                               Margin="10,0,6,0" />
 
-                    <!-- Expand toggle: name + count badge -->
-                    <Button Grid.Column="1"
+                      <!-- Expand toggle: name + count badge -->
+                      <Button Grid.Column="1"
                             Command="{Binding ToggleExpandedCommand}"
                             Style="{StaticResource FlatButton}"
                             HorizontalContentAlignment="Left"
                             Height="34">
-                      <StackPanel Orientation="Horizontal"
+                        <StackPanel Orientation="Horizontal"
                                   VerticalAlignment="Center"
                                   Margin="2,0,0,0">
-                        <TextBlock Text="{Binding Name}"
+                          <TextBlock Text="{Binding Name}"
                                    FontSize="11"
                                    FontWeight="Medium"
                                    Foreground="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"
                                    VerticalAlignment="Center" />
 
-                        <!-- Count badge -->
-                        <Border Margin="7,0,0,0"
+                          <!-- Count badge -->
+                          <Border Margin="7,0,0,0"
                                 CornerRadius="10"
                                 Padding="7,1"
                                 BorderThickness="1"
                                 VerticalAlignment="Center">
-                          <Border.Style>
-                            <Style TargetType="Border">
-                              <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}" />
-                              <Setter Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}" />
-                              <Style.Triggers>
-                                <DataTrigger Binding="{Binding HasSelection}" Value="True">
-                                  <Setter Property="Background"  Value="#E6F1FB" />
-                                  <Setter Property="BorderBrush" Value="#B5D4F4" />
-                                </DataTrigger>
-                              </Style.Triggers>
-                            </Style>
-                          </Border.Style>
-                          <TextBlock Text="{Binding CountLabel}" FontSize="11">
-                            <TextBlock.Style>
-                              <Style TargetType="TextBlock">
-                                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
+                            <Border.Style>
+                              <Style TargetType="Border">
+                                <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}" />
+                                <Setter Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}" />
                                 <Style.Triggers>
                                   <DataTrigger Binding="{Binding HasSelection}" Value="True">
-                                    <Setter Property="Foreground" Value="#185FA5" />
+                                    <Setter Property="Background"  Value="#E6F1FB" />
+                                    <Setter Property="BorderBrush" Value="#B5D4F4" />
                                   </DataTrigger>
                                 </Style.Triggers>
                               </Style>
-                            </TextBlock.Style>
-                          </TextBlock>
-                        </Border>
-                      </StackPanel>
-                    </Button>
+                            </Border.Style>
+                            <TextBlock Text="{Binding CountLabel}" FontSize="11">
+                              <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                  <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
+                                  <Style.Triggers>
+                                    <DataTrigger Binding="{Binding HasSelection}" Value="True">
+                                      <Setter Property="Foreground" Value="#185FA5" />
+                                    </DataTrigger>
+                                  </Style.Triggers>
+                                </Style>
+                              </TextBlock.Style>
+                            </TextBlock>
+                          </Border>
+                        </StackPanel>
+                      </Button>
 
-                    <!-- Chevron -->
-                    <Button Grid.Column="2"
+                      <!-- Chevron -->
+                      <Button Grid.Column="2"
                             Command="{Binding ToggleExpandedCommand}"
                             Style="{StaticResource FlatButton}"
                             Height="34">
-                      <TextBlock FontSize="11"
+                        <TextBlock FontSize="11"
                                  HorizontalAlignment="Center"
                                  VerticalAlignment="Center"
                                  Foreground="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}">
-                        <TextBlock.Style>
-                          <Style TargetType="TextBlock">
-                            <Setter Property="Text" Value="▾" />
-                            <Style.Triggers>
-                              <DataTrigger Binding="{Binding IsExpanded}" Value="True">
-                                <Setter Property="Text" Value="▴" />
-                              </DataTrigger>
-                            </Style.Triggers>
-                          </Style>
-                        </TextBlock.Style>
-                      </TextBlock>
-                    </Button>
-                  </Grid>
+                          <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                              <Setter Property="Text" Value="▾" />
+                              <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsExpanded}" Value="True">
+                                  <Setter Property="Text" Value="▴" />
+                                </DataTrigger>
+                              </Style.Triggers>
+                            </Style>
+                          </TextBlock.Style>
+                        </TextBlock>
+                      </Button>
+                    </Grid>
 
-                  <!-- Item rows (shown when expanded).
+                    <!-- Item rows (shown when expanded).
                        VirtualizingStackPanel + IsVirtualizing="True" instead of the default StackPanel:
                        a plain ItemsControl generates every item's container as soon as ItemsSource is
                        bound, regardless of Visibility - so with ~600 items total across all categories,
@@ -315,247 +464,261 @@
                        (ItemBaseViewModel.IsPopupOpen); recycling containers across different
                        ItemBaseViewModels risks that state bleeding from one item's row into another's
                        after a scroll, which isn't worth the extra container-reuse savings here. -->
-                  <ItemsControl ItemsSource="{Binding Items}"
+                    <ItemsControl ItemsSource="{Binding Items}"
                                 Visibility="{Binding IsExpanded, Converter={StaticResource BoolToVisibility}}"
                                 VirtualizingPanel.IsVirtualizing="True"
                                 VirtualizingPanel.VirtualizationMode="Standard"
                                 VirtualizingPanel.ScrollUnit="Item">
-                    <ItemsControl.ItemsPanel>
-                      <ItemsPanelTemplate>
-                        <VirtualizingStackPanel />
-                      </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                    <ItemsControl.ItemTemplate>
-                      <DataTemplate DataType="{x:Type vm:ItemBaseViewModel}">
-                        <Grid Margin="30,0,12,0" Height="26"
+                      <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                          <VirtualizingStackPanel />
+                        </ItemsPanelTemplate>
+                      </ItemsControl.ItemsPanel>
+                      <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="{x:Type vm:ItemBaseViewModel}">
+                          <Grid Margin="30,0,12,0" Height="26"
                               Visibility="{Binding IsVisible, Converter={StaticResource BoolToVisibility}}">
-                          <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                          </Grid.ColumnDefinitions>
+                            <Grid.ColumnDefinitions>
+                              <ColumnDefinition Width="*" />
+                              <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
 
-                          <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
-                            <TextBlock Text="{Binding Name}"
+                            <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                              <TextBlock Text="{Binding Name}"
                                        FontSize="13"
                                        VerticalAlignment="Center" />
 
-                            <!-- Info icon: only rendered when there's actually something to show -
+                              <!-- Info icon: only rendered when there's actually something to show -
                                  a plain, unsocketable base with no Set/Unique version gets no icon at all. -->
-                            <TextBlock Text="&#9432;"
+                              <TextBlock Text="&#9432;"
                                        FontSize="13"
                                        Margin="6,0,0,0"
                                        VerticalAlignment="Center"
                                        Cursor="Help"
                                        Foreground="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"
                                        Visibility="{Binding HasInfo, Converter={StaticResource BoolToVisibility}}">
-                              <TextBlock.ToolTip>
-                                <ToolTip Background="#1E1B18">
-                                  <StackPanel>
-                                    <TextBlock FontSize="12"
+                                <TextBlock.ToolTip>
+                                  <ToolTip Background="#1E1B18">
+                                    <StackPanel>
+                                      <TextBlock FontSize="12"
                                                Foreground="White"
                                                Visibility="{Binding HasMaxSockets, Converter={StaticResource BoolToVisibility}}">
                                       <Run Text="Max Sockets: " />
                                       <Run Text="{Binding MaxSockets, Mode=OneWay}" />
-                                    </TextBlock>
-                                    <ItemsControl ItemsSource="{Binding SetVariants}">
-                                      <ItemsControl.ItemTemplate>
-                                        <DataTemplate>
-                                          <TextBlock Text="{Binding}"
+                                      </TextBlock>
+                                      <ItemsControl ItemsSource="{Binding SetVariants}">
+                                        <ItemsControl.ItemTemplate>
+                                          <DataTemplate>
+                                            <TextBlock Text="{Binding}"
                                                    FontSize="12"
                                                    Foreground="#31DE2F" />
-                                        </DataTemplate>
-                                      </ItemsControl.ItemTemplate>
-                                    </ItemsControl>
-                                    <ItemsControl ItemsSource="{Binding UniqueVariants}">
-                                      <ItemsControl.ItemTemplate>
-                                        <DataTemplate>
-                                          <TextBlock Text="{Binding}"
+                                          </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                      </ItemsControl>
+                                      <ItemsControl ItemsSource="{Binding UniqueVariants}">
+                                        <ItemsControl.ItemTemplate>
+                                          <DataTemplate>
+                                            <TextBlock Text="{Binding}"
                                                    FontSize="12"
                                                    Foreground="#C7BB95" />
-                                        </DataTemplate>
-                                      </ItemsControl.ItemTemplate>
-                                    </ItemsControl>
-                                  </StackPanel>
-                                </ToolTip>
-                              </TextBlock.ToolTip>
+                                          </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                      </ItemsControl>
+                                    </StackPanel>
+                                  </ToolTip>
+                                </TextBlock.ToolTip>
                             </TextBlock>
-                          </StackPanel>
+                            </StackPanel>
 
-                          <!-- Single-rarity bases (Rune/Gem/Material): plain watched/not-watched checkbox -
+                            <!-- Single-rarity bases (Rune/Gem/Material): plain watched/not-watched checkbox -
                                there's only one rarity they can ever appear as, so a picker would be pointless ceremony. -->
-                          <CheckBox Grid.Column="1"
+                            <CheckBox Grid.Column="1"
                                     IsChecked="{Binding AllRaritiesSelected}"
                                     IsThreeState="False"
                                     VerticalAlignment="Center">
-                            <CheckBox.Style>
-                              <Style TargetType="CheckBox">
-                                <Setter Property="Visibility" Value="Collapsed" />
-                                <Style.Triggers>
-                                  <DataTrigger Binding="{Binding IsSingleRarity}" Value="True">
-                                    <Setter Property="Visibility" Value="Visible" />
-                                  </DataTrigger>
-                                </Style.Triggers>
-                              </Style>
-                            </CheckBox.Style>
-                          </CheckBox>
+                              <CheckBox.Style>
+                                <Style TargetType="CheckBox">
+                                  <Setter Property="Visibility" Value="Collapsed" />
+                                  <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsSingleRarity}" Value="True">
+                                      <Setter Property="Visibility" Value="Visible" />
+                                    </DataTrigger>
+                                  </Style.Triggers>
+                                </Style>
+                              </CheckBox.Style>
+                            </CheckBox>
 
-                          <!-- Multi-rarity bases: popup rarity picker, one checkbox per applicable rarity, stackable. -->
-                          <Grid Grid.Column="1" VerticalAlignment="Center">
-                            <Grid.Style>
-                              <Style TargetType="Grid">
-                                <Setter Property="Visibility" Value="Visible" />
-                                <Style.Triggers>
-                                  <DataTrigger Binding="{Binding IsSingleRarity}" Value="True">
-                                    <Setter Property="Visibility" Value="Collapsed" />
-                                  </DataTrigger>
-                                </Style.Triggers>
-                              </Style>
-                            </Grid.Style>
+                            <!-- Multi-rarity bases: popup rarity picker, one checkbox per applicable rarity, stackable. -->
+                            <Grid Grid.Column="1" VerticalAlignment="Center">
+                              <Grid.Style>
+                                <Style TargetType="Grid">
+                                  <Setter Property="Visibility" Value="Visible" />
+                                  <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsSingleRarity}" Value="True">
+                                      <Setter Property="Visibility" Value="Collapsed" />
+                                    </DataTrigger>
+                                  </Style.Triggers>
+                                </Style>
+                              </Grid.Style>
 
-                            <ToggleButton x:Name="RarityToggle"
+                              <ToggleButton x:Name="RarityToggle"
                                           IsChecked="{Binding IsPopupOpen, Mode=TwoWay}"
                                           Style="{StaticResource RaritySummaryToggle}">
-                              <StackPanel Orientation="Horizontal">
-                                <!-- Summary dots: one per currently-selected rarity, same colors used inside the popup. -->
-                                <Ellipse Width="7" Height="7" Margin="1,0" VerticalAlignment="Center"
+                                <StackPanel Orientation="Horizontal">
+                                  <!-- Summary dots: one per currently-selected rarity, same colors used inside the popup. -->
+                                  <Ellipse Width="7" Height="7" Margin="1,0" VerticalAlignment="Center"
                                          Fill="{StaticResource RarityNormalBrush}"
                                          Stroke="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}"
                                          StrokeThickness="1"
                                          Visibility="{Binding IsNormalSelected, Converter={StaticResource BoolToVisibility}}" />
-                                <Ellipse Width="7" Height="7" Margin="1,0" VerticalAlignment="Center"
+                                  <Ellipse Width="7" Height="7" Margin="1,0" VerticalAlignment="Center"
                                          Fill="{StaticResource RarityEtherealSocketedBrush}"
                                          Visibility="{Binding IsEtherealSocketedSelected, Converter={StaticResource BoolToVisibility}}" />
-                                <Ellipse Width="7" Height="7" Margin="1,0" VerticalAlignment="Center"
+                                  <Ellipse Width="7" Height="7" Margin="1,0" VerticalAlignment="Center"
                                          Fill="{StaticResource RarityMagicBrush}"
                                          Visibility="{Binding IsMagicSelected, Converter={StaticResource BoolToVisibility}}" />
-                                <Ellipse Width="7" Height="7" Margin="1,0" VerticalAlignment="Center"
+                                  <Ellipse Width="7" Height="7" Margin="1,0" VerticalAlignment="Center"
                                          Fill="{StaticResource RarityRareBrush}"
                                          Visibility="{Binding IsRareSelected, Converter={StaticResource BoolToVisibility}}" />
-                                <Ellipse Width="7" Height="7" Margin="1,0" VerticalAlignment="Center"
+                                  <Ellipse Width="7" Height="7" Margin="1,0" VerticalAlignment="Center"
                                          Fill="{StaticResource RaritySetBrush}"
                                          Visibility="{Binding IsSetSelected, Converter={StaticResource BoolToVisibility}}" />
-                                <Ellipse Width="7" Height="7" Margin="1,0" VerticalAlignment="Center"
+                                  <Ellipse Width="7" Height="7" Margin="1,0" VerticalAlignment="Center"
                                          Fill="{StaticResource RarityUniqueBrush}"
                                          Visibility="{Binding IsUniqueSelected, Converter={StaticResource BoolToVisibility}}" />
-                                <Rectangle Width="7" Height="7" Margin="1,0" VerticalAlignment="Center"
+                                  <Rectangle Width="7" Height="7" Margin="1,0" VerticalAlignment="Center"
                                            Fill="{StaticResource RaritySuperiorBrush}"
                                            Visibility="{Binding IsSuperiorSelected, Converter={StaticResource BoolToVisibility}}" />
 
-                                <TextBlock Text="None"
+                                  <TextBlock Text="None"
                                            FontSize="11"
                                            Margin="2,0,0,0"
                                            VerticalAlignment="Center"
                                            Foreground="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"
                                            Visibility="{Binding HasAnySelection, Converter={StaticResource InverseBoolToVisibility}}" />
 
-                                <TextBlock Text="▾"
+                                  <TextBlock Text="▾"
                                            FontSize="9"
                                            Margin="5,0,0,0"
                                            VerticalAlignment="Center"
                                            Foreground="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
-                              </StackPanel>
-                            </ToggleButton>
+                                </StackPanel>
+                              </ToggleButton>
 
-                            <Popup PlacementTarget="{Binding ElementName=RarityToggle}"
+                              <Popup PlacementTarget="{Binding ElementName=RarityToggle}"
                                    Placement="Bottom"
                                    StaysOpen="False"
                                    AllowsTransparency="True"
                                    IsOpen="{Binding IsPopupOpen, Mode=TwoWay}">
-                              <Border Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"
+                                <Border Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"
                                       BorderBrush="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}"
                                       BorderThickness="1"
                                       CornerRadius="4"
                                       Padding="4"
                                       Margin="0,2,0,0">
-                                <StackPanel MinWidth="150">
+                                  <StackPanel MinWidth="150">
 
-                                  <CheckBox Style="{StaticResource RarityOptionRow}"
+                                    <CheckBox Style="{StaticResource RarityOptionRow}"
                                             IsChecked="{Binding IsNormalSelected}"
                                             Visibility="{Binding ShowNormal, Converter={StaticResource BoolToVisibility}}">
-                                    <StackPanel Orientation="Horizontal">
-                                      <Ellipse Width="8" Height="8" Fill="{StaticResource RarityNormalBrush}"
+                                      <StackPanel Orientation="Horizontal">
+                                        <Ellipse Width="8" Height="8" Fill="{StaticResource RarityNormalBrush}"
                                                Stroke="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}"
                                                StrokeThickness="1" VerticalAlignment="Center" />
-                                      <TextBlock Text="Normal" FontSize="12" Margin="6,0,0,0" VerticalAlignment="Center" />
-                                    </StackPanel>
-                                  </CheckBox>
+                                        <TextBlock Text="Normal" FontSize="12" Margin="6,0,0,0" VerticalAlignment="Center" />
+                                      </StackPanel>
+                                    </CheckBox>
 
-                                  <CheckBox Style="{StaticResource RarityOptionRow}"
+                                    <CheckBox Style="{StaticResource RarityOptionRow}"
                                             IsChecked="{Binding IsEtherealSocketedSelected}"
                                             Visibility="{Binding ShowEtheralSocketed, Converter={StaticResource BoolToVisibility}}">
-                                    <StackPanel Orientation="Horizontal">
-                                      <Ellipse Width="8" Height="8" Fill="{StaticResource RarityEtherealSocketedBrush}" VerticalAlignment="Center" />
-                                      <TextBlock Text="Ethereal / Socketed" FontSize="12" Margin="6,0,0,0" VerticalAlignment="Center" />
-                                    </StackPanel>
-                                  </CheckBox>
+                                      <StackPanel Orientation="Horizontal">
+                                        <Ellipse Width="8" Height="8" Fill="{StaticResource RarityEtherealSocketedBrush}" VerticalAlignment="Center" />
+                                        <TextBlock Text="Ethereal / Socketed" FontSize="12" Margin="6,0,0,0" VerticalAlignment="Center" />
+                                      </StackPanel>
+                                    </CheckBox>
 
-                                  <CheckBox Style="{StaticResource RarityOptionRow}"
+                                    <CheckBox Style="{StaticResource RarityOptionRow}"
                                             IsChecked="{Binding IsMagicSelected}"
                                             Visibility="{Binding ShowMagic, Converter={StaticResource BoolToVisibility}}">
-                                    <StackPanel Orientation="Horizontal">
-                                      <Ellipse Width="8" Height="8" Fill="{StaticResource RarityMagicBrush}" VerticalAlignment="Center" />
-                                      <TextBlock Text="Magic" FontSize="12" Margin="6,0,0,0" VerticalAlignment="Center" />
-                                    </StackPanel>
-                                  </CheckBox>
+                                      <StackPanel Orientation="Horizontal">
+                                        <Ellipse Width="8" Height="8" Fill="{StaticResource RarityMagicBrush}" VerticalAlignment="Center" />
+                                        <TextBlock Text="Magic" FontSize="12" Margin="6,0,0,0" VerticalAlignment="Center" />
+                                      </StackPanel>
+                                    </CheckBox>
 
-                                  <CheckBox Style="{StaticResource RarityOptionRow}"
+                                    <CheckBox Style="{StaticResource RarityOptionRow}"
                                             IsChecked="{Binding IsRareSelected}"
                                             Visibility="{Binding ShowRare, Converter={StaticResource BoolToVisibility}}">
-                                    <StackPanel Orientation="Horizontal">
-                                      <Ellipse Width="8" Height="8" Fill="{StaticResource RarityRareBrush}" VerticalAlignment="Center" />
-                                      <TextBlock Text="Rare" FontSize="12" Margin="6,0,0,0" VerticalAlignment="Center" />
-                                    </StackPanel>
-                                  </CheckBox>
+                                      <StackPanel Orientation="Horizontal">
+                                        <Ellipse Width="8" Height="8" Fill="{StaticResource RarityRareBrush}" VerticalAlignment="Center" />
+                                        <TextBlock Text="Rare" FontSize="12" Margin="6,0,0,0" VerticalAlignment="Center" />
+                                      </StackPanel>
+                                    </CheckBox>
 
-                                  <CheckBox Style="{StaticResource RarityOptionRow}"
+                                    <CheckBox Style="{StaticResource RarityOptionRow}"
                                             IsChecked="{Binding IsSetSelected}"
                                             Visibility="{Binding ShowSet, Converter={StaticResource BoolToVisibility}}">
-                                    <StackPanel Orientation="Horizontal">
-                                      <Ellipse Width="8" Height="8" Fill="{StaticResource RaritySetBrush}" VerticalAlignment="Center" />
-                                      <TextBlock Text="Set" FontSize="12" Margin="6,0,0,0" VerticalAlignment="Center" />
-                                    </StackPanel>
-                                  </CheckBox>
+                                      <StackPanel Orientation="Horizontal">
+                                        <Ellipse Width="8" Height="8" Fill="{StaticResource RaritySetBrush}" VerticalAlignment="Center" />
+                                        <TextBlock Text="Set" FontSize="12" Margin="6,0,0,0" VerticalAlignment="Center" />
+                                      </StackPanel>
+                                    </CheckBox>
 
-                                  <CheckBox Style="{StaticResource RarityOptionRow}"
+                                    <CheckBox Style="{StaticResource RarityOptionRow}"
                                             IsChecked="{Binding IsUniqueSelected}"
                                             Visibility="{Binding ShowUnique, Converter={StaticResource BoolToVisibility}}">
-                                    <StackPanel Orientation="Horizontal">
-                                      <Ellipse Width="8" Height="8" Fill="{StaticResource RarityUniqueBrush}" VerticalAlignment="Center" />
-                                      <TextBlock Text="Unique" FontSize="12" Margin="6,0,0,0" VerticalAlignment="Center" />
-                                    </StackPanel>
-                                  </CheckBox>
+                                      <StackPanel Orientation="Horizontal">
+                                        <Ellipse Width="8" Height="8" Fill="{StaticResource RarityUniqueBrush}" VerticalAlignment="Center" />
+                                        <TextBlock Text="Unique" FontSize="12" Margin="6,0,0,0" VerticalAlignment="Center" />
+                                      </StackPanel>
+                                    </CheckBox>
 
-                                  <CheckBox Style="{StaticResource RarityOptionRow}"
+                                    <CheckBox Style="{StaticResource RarityOptionRow}"
                                             IsChecked="{Binding IsSuperiorSelected}"
                                             Visibility="{Binding ShowSuperior, Converter={StaticResource BoolToVisibility}}">
-                                    <StackPanel Orientation="Horizontal">
-                                      <Rectangle Width="8" Height="8" Fill="{StaticResource RaritySuperiorBrush}" VerticalAlignment="Center" />
-                                      <TextBlock Text="Superior" FontSize="12" Margin="6,0,0,0" VerticalAlignment="Center" />
-                                    </StackPanel>
-                                  </CheckBox>
+                                      <StackPanel Orientation="Horizontal">
+                                        <Rectangle Width="8" Height="8" Fill="{StaticResource RaritySuperiorBrush}" VerticalAlignment="Center" />
+                                        <TextBlock Text="Superior" FontSize="12" Margin="6,0,0,0" VerticalAlignment="Center" />
+                                      </StackPanel>
+                                    </CheckBox>
 
-                                  <Separator Margin="0,4" />
+                                    <Separator Margin="0,4" />
 
-                                  <CheckBox Style="{StaticResource RarityOptionRow}"
+                                    <CheckBox Style="{StaticResource RarityOptionRow}"
                                             IsChecked="{Binding AllRaritiesSelected}"
                                             IsThreeState="False"
                                             Content="Select all" FontSize="12" FontWeight="Medium" />
 
-                                </StackPanel>
-                              </Border>
-                            </Popup>
+                                  </StackPanel>
+                                </Border>
+                              </Popup>
+                            </Grid>
                           </Grid>
-                        </Grid>
-                      </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                  </ItemsControl>
+                        </DataTemplate>
+                      </ItemsControl.ItemTemplate>
+                    </ItemsControl>
 
-                </StackPanel>
-              </Border>
-            </DataTemplate>
-          </ItemsControl.ItemTemplate>
-        </ItemsControl>
-      </ScrollViewer>
+                  </StackPanel>
+                </Border>
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+        </ScrollViewer>
+
+        <!-- Warm-up veil: hides the one-time virtualized-container realization pass
+             (see MainWindow.WarmUpItemContainersAsync) behind a loading message instead of
+             leaving it to surface as a jank freeze the first time the user searches, toggles a
+             filter checkbox, or expands a category. -->
+        <Border Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"
+                Visibility="{Binding IsWarmingUp, Converter={StaticResource BoolToVisibility}}">
+          <TextBlock Text="Loading watch list…"
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Center"
+                     FontSize="12"
+                     Foreground="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
+        </Border>
+      </Grid>
 
       <!-- Column divider - draggable to resize the left/right split.
            ResizeBehavior="PreviousAndNext" grows one side exactly as much as it shrinks the other,
