@@ -169,6 +169,7 @@
         <Grid.ColumnDefinitions>
           <ColumnDefinition Width="*" />
           <ColumnDefinition Width="Auto" />
+          <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
 
         <!-- Search box -->
@@ -300,6 +301,58 @@
                   </ItemsControl.ItemTemplate>
                 </ItemsControl>
               </ScrollViewer>
+            </StackPanel>
+          </Border>
+        </Popup>
+
+        <!-- Bulk select: closed-state toggle + popup, same pattern as the Filters toggle right
+             next to it - but this one changes the watch list itself (Unique/Set everywhere in the
+             catalog), it doesn't narrow what's shown, so it's deliberately a separate control
+             rather than folded into the Filters popup where it'd be easy to confuse with
+             "Has Unique"/"Has Set" (which only filter visibility). -->
+        <ToggleButton x:Name="BulkSelectToggle"
+                      Grid.Column="2"
+                      Margin="8,0,0,0"
+                      IsChecked="{Binding IsBulkSelectPopupOpen, Mode=TwoWay}"
+                      Style="{StaticResource RaritySummaryToggle}">
+          <StackPanel Orientation="Horizontal">
+            <TextBlock Text="Select" FontSize="12" VerticalAlignment="Center" />
+            <TextBlock Text="▾"
+                       FontSize="9"
+                       Margin="5,0,0,0"
+                       VerticalAlignment="Center"
+                       Foreground="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
+          </StackPanel>
+        </ToggleButton>
+
+        <Popup PlacementTarget="{Binding ElementName=BulkSelectToggle}"
+               Placement="Bottom"
+               HorizontalOffset="-100"
+               StaysOpen="False"
+               AllowsTransparency="True"
+               IsOpen="{Binding IsBulkSelectPopupOpen, Mode=TwoWay}">
+          <Border Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"
+                  BorderBrush="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}"
+                  BorderThickness="1"
+                  CornerRadius="4"
+                  Padding="8"
+                  Margin="0,2,0,0">
+            <StackPanel MinWidth="200">
+              <TextBlock Text="Watch every base that can be…"
+                         FontSize="11"
+                         FontWeight="Medium"
+                         Margin="2,0,0,4"
+                         Foreground="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
+              <CheckBox Content="Unique"
+                        IsChecked="{Binding AllUniqueSelected, Mode=TwoWay}"
+                        IsThreeState="False"
+                        Style="{StaticResource RarityOptionRow}"
+                        ToolTip="Turns Unique on for every base that can drop as one, everywhere in the catalog - keeps whatever else you've already selected for those bases." />
+              <CheckBox Content="Set"
+                        IsChecked="{Binding AllSetSelected, Mode=TwoWay}"
+                        IsThreeState="False"
+                        Style="{StaticResource RarityOptionRow}"
+                        ToolTip="Turns Set on for every base that can drop as one, everywhere in the catalog - keeps whatever else you've already selected for those bases." />
             </StackPanel>
           </Border>
         </Popup>

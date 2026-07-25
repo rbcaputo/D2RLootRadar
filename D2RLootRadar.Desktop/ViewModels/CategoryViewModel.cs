@@ -93,7 +93,23 @@ public sealed partial class CategoryViewModel : ObservableObject
     foreach (ItemBaseViewModel item in Items)
       item.PropertyChanged += OnItemPropertyChanged;
   }
-   
+
+  /// <summary>
+  /// Bulk-toggles just the Unique bit across every item in this category that can actually show it (<see cref="ItemBaseViewModel.ShowUnique"/>),
+  /// leaving every other rarity each item already has selected untouched -
+  /// backs the main window's catalog-wide "select every Unique" toggle (<c>MainViewModel.AllUniqueSelected</c>).
+  /// </summary>
+  public void SetAllUnique(bool selected)
+    => SetEligibleItems(i => i.ShowUnique, (i, s) => i.IsUniqueSelected = s, selected);
+
+  /// <summary>
+  /// Bulk-toggles just the Set bit across every item in this category that can actually show it (<see cref="ItemBaseViewModel.ShowSet"/>),
+  /// leaving every other rarity each item already has selected untouched -
+  /// backs the main window's catalog-wide "select every Set" toggle (<c>MainViewModel.AllSetSelected</c>).
+  /// </summary>
+  public void SetAllSet(bool selected)
+    => SetEligibleItems(i => i.ShowSet, (i, s) => i.IsSetSelected = s, selected);
+
   /// <summary>
   /// Applies the main window's full set of catalogs filters:
   /// updates every item's visibility, hides this while category if nothing in it matches
@@ -158,6 +174,41 @@ public sealed partial class CategoryViewModel : ObservableObject
   [RelayCommand]
   private void ToggleExpanded()
     => IsExpanded = !IsExpanded;
+
+  /// <summary>
+  /// Shared batching helper behind <see cref="SetAllUnique"/>/<see cref="SetAllSet"/> -
+  /// same unsubscribe/reapply/notify-once shape as <see cref="AllSelected"/>'s setter,
+  /// generalized to "only some items qualify, and only one specific rarity bit is being touched" rather than
+  /// "every item, every applicable bit".
+  /// A category with no <paramref name="isEligible"/> item at all (e.g. a category with no Unique-capable base) raises nothing,
+  /// since nothing changed.
+  /// </summary>
+  private void SetEligibleItems(
+    Func<ItemBaseViewModel, bool> isEligible,
+    Action<ItemBaseViewModel, bool> apply,
+    bool selected
+  )
+  {
+    bool anyEligible = false;
+
+    foreach (ItemBaseViewModel item in Items)
+    {
+      if (!isEligible(item))
+        continue;
+
+      anyEligible = true;
+
+      // Unsubscribe during bulk update to fire one notification, not N.
+      item.PropertyChanged -= OnItemPropertyChanged;
+
+      apply(item, selected);
+
+      item.PropertyChanged += OnItemPropertyChanged;
+    }
+
+    if (anyEligible)
+      RaiseSelectionProperties();
+  }
 
   private void OnItemPropertyChanged(object? sender, PropertyChangedEventArgs ea)
   {

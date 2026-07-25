@@ -1,4 +1,5 @@
 ﻿using D2RLootRadar.Application.Contracts;
+using D2RLootRadar.Application.Ocr;
 using D2RLootRadar.Domain.Loot;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -9,8 +10,7 @@ using Tesseract;
 namespace D2RLootRadar.Infrastructure.Ocr;
 
 /// <summary>
-/// Runs Tesseract OCR over a captured game frame and returns all
-/// detected text tokens as <see cref="DetectionResult"/> values.
+/// Runs Tesseract OCR over a captured game frame and returns all detected text tokens as <see cref="DetectionResult"/> values.
 /// 
 /// <para>
 /// <strong>Preprocessing:</strong>
@@ -57,14 +57,6 @@ public sealed class OcrService : IOcrService, IDisposable
   /// Fraction of frame height cropped from the bottom (HUD) before OCR.
   /// </summary>
   private const double BottomCropFraction = 0.18;
-
-  /// <summary>
-  /// Number of members in <see cref="LabelRarity"/> - sized for the per-pixel vote array in <see cref="SampleRarity"/>.
-  /// Kept as a literal (rather than <c>Enum.GetValues</c>) so the vote buffer can live on the stack;
-  /// update this if <see cref="LabelRarity"/> gains a member.
-  /// Unknown, Normal, EtherealSocketed, Magic, Rare, Set, Unique, RuneMaterial, Shard = 9.
-  /// </summary>
-  private const int RarityTierCount = 9;
 
   /// <summary>
   /// Initializes the Tesseract engine in LSTM-only mode and restricts recognition to
@@ -193,8 +185,7 @@ public sealed class OcrService : IOcrService, IDisposable
   /// <param name="upscaledBox">
   /// The raw, unmapped box in upscaled pixel scene -
   /// the same coordinate space as the upscaled color frame and its text mask -
-  /// so callers can sample label color from the exact region Tesseract recognized text in,
-  /// without re-deriving it.
+  /// so callers can sample label color from the exact region Tesseract recognized text in, without re-deriving it.
   /// </param>
   private static PixelRect GetBoundingBox(
     ResultIterator iterator,
@@ -259,12 +250,10 @@ public sealed class OcrService : IOcrService, IDisposable
 
   /// <summary>
   /// Produces a binary mask via adaptive local thresholding.
-  /// A pixel is classified as text (black) if its luminance exceeds its
-  /// local neighborhood mean by at least <see cref="Factor"/>.
+  /// A pixel is classified as text (black) if its luminance exceeds its local neighborhood mean by at least <see cref="Factor"/>.
   /// 
-  /// This correctly captures both white labels (very bright on dark dungeon) and
-  /// tan unique-item labels (warm-bright on warm-dim stone floor) without
-  /// requiring per-rarity color calibration.
+  /// This correctly captures both white labels (very bright on dark dungeon) and tan unique-item labels
+  /// (warm-bright on warm-dim stone floor) without requiring per-rarity color calibration.
   /// 
   /// Uses an integral image for O(1) neighborhood sums -
   /// the full pass over a 2x 1080p frame costs well under 1 ms.
@@ -385,8 +374,7 @@ public sealed class OcrService : IOcrService, IDisposable
   /// <para>
   /// Samples from <paramref name="colorSource"/> - the still-colored, pre-mask upscaled frame -
   /// restricted to the pixels <paramref name="mask"/> flagged as text (see <see cref="AdaptiveTextMask"/>).
-  /// This deliberately excludes the label panel's dark background from the vote,
-  /// which a naive whole-box sample would not.
+  /// This deliberately excludes the label panel's dark background from the vote, which a naive whole-box sample would not.
   /// </para>
   /// 
   /// <para>
@@ -440,8 +428,7 @@ public sealed class OcrService : IOcrService, IDisposable
       byte* colorPtr = (byte*)colorData.Scan0;
       byte* maskPtr = (byte*)maskData.Scan0;
 
-      // Classify every foreground pixel individually and vote, rather than
-      // averaging across the whole glyph first and classifying once.
+      // Classify every foreground pixel individually and vote, rather than averaging across the whole glyph first and classifying once.
       //
       // Anti-aliased edge pixels blend the glyph color toward the label panel's background.
       // A handful of those blended pixels mixed into a single RGB average can drag the *average*
@@ -449,7 +436,7 @@ public sealed class OcrService : IOcrService, IDisposable
       // that's what produces white/gray flips (Value threshold) and gray/blue flips (Saturation threshold).
       // Classifying each pixel on its own and taking the majority vote makes a minority of contamined edge pixels
       // get outvoted instead of skewing the one sample that decides the whole label.
-      Span<int> votes = stackalloc int[RarityTierCount];
+      Span<int> votes = stackalloc int[RarityVoteTally.TierCount];
       int count = 0;
 
       for (int y = 0; y < region.Height; y++)
@@ -473,49 +460,12 @@ public sealed class OcrService : IOcrService, IDisposable
       }
 
       if (count == 0)
-      {
-#if DEBUG
-        System.Diagnostics.Debug.WriteLine(
-          $"[RarityDebug] \"{debugLabel}\" box=({x1},{y1},{x2 - x1}x{y2 - y1}) " +
-          "no foreground pixels found -> Unknown"
-        );
-#endif
-
         return (LabelRarity.Unknown, 0.0);
-      }
 
-      // Majority vote, ignoring Unknown unless every single pixel was Unknown -
-      // a few out-of-band edge pixels shouldn't be able to veto an otherwise clear veredict.
-      LabelRarity classified = LabelRarity.Unknown;
-      int bestVotes = -1;
-
-      for (int tier = 0; tier < RarityTierCount; tier++)
-      {
-        if (tier == (int)LabelRarity.Unknown)
-          continue;
-
-        if (votes[tier] > bestVotes)
-        {
-          bestVotes = votes[tier];
-          classified = (LabelRarity)tier;
-        }
-      }
-
-      double confidence;
-
-      if (bestVotes <= 0)
-      {
-        classified = LabelRarity.Unknown;
-        confidence = 0.0;
-      }
-      else
-        confidence = (double)bestVotes / count;
-
-#if DEBUG
-      System.Diagnostics.Debug.WriteLine(
-        $"[RarityDebug] \"{debugLabel}\" n={count} votes=[{string.Join(',', votes.ToArray())} -> {classified}"
-      );
-#endif
+      // See RarityVoteTally for the majority-vote/confidence math itself -
+      // pulled out into its own pure method specifically so it's unit-testable against a plain vote array,
+      // without needing real pixel data to exercise it.
+      (LabelRarity classified, double confidence) = RarityVoteTally.Resolve(votes);
 
       return (classified, confidence);
     }
