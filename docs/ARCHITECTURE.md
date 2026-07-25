@@ -1,4 +1,4 @@
-# Technical Architecture & Design Log (v2.2.1)
+# Technical Architecture & Design Log (v2.2.2)
 
 This document exists for the same reason a codebase's in-line comments aren't enough on their own: comments explain what a piece of code does and, at best, why ir does it *that way* — they don't have room to record what was tried before, why an earlier approach fell short, or the reasoning trail that led from one design to the next. That trail is exactly what gets lost first when nobody wrote it down, and it's the thing a future contributor (including a future version of the person reading this) most needs when touching a piece of logic that already looks "finished".
 
@@ -61,7 +61,7 @@ Two things worth calling out because they're easy to miss just from reading the 
 
 Entries are in roughly chronological order. Each one records the "problem", not just the *change* — the goal is that a future entry can be added the same way, and a reader can trace the reasoning without having to reconstruct it from a diff.
 
-### DD=1 — Layered architecture with `Application`-owned contracts (project inception)
+### DD-1 — Layered architecture with `Application`-owned contracts (project inception)
 
 **Context.** A WPF desktop app that does OCR, screen capture, and Win32 interop is easy to write as one big project where the ViewModel directly instantiates `TesseractEngine` and `Bitmap`. That's fast to write once and expensive to test or extend afterward — anything touching OCR or capture becomes untestable without a real D2R window on screen.
 
@@ -69,7 +69,7 @@ Entries are in roughly chronological order. Each one records the "problem", not 
 
 **Consequence.** `D2RLootRadar.Tests` runs on any platform, no D2R instance or Windows box required, and covers exactly the parts of the pipeline where correctness actually matters most to get right by hand (fuzzy matching, rarity scoring, settings clamping) — see [Running tests](../README.md#running-tests) in the README.
 
-### DD=2 — Settings persistence: load-fresh-then-save, not a cached in-memory snapshot (2026-07-03, `a3fd66c`)
+### DD-2 — Settings persistence: load-fresh-then-save, not a cached in-memory snapshot (2026-07-03, `a3fd66c`)
 
 **Context.** `MainViewModel` held a `UserSettings _settings` field, loaded once and mutated/saved from that same field on every change. In practice, saves from the main window could silently discard changes made elsewhere (e.g. the Settings window, saved through a separate path) — each side's cached snapshot only knew about its own edits, and whichever side saved last won, overwriting the other's changes on disk even though neither side did anything wrong in isolation.
 
@@ -79,7 +79,7 @@ Entries are in roughly chronological order. Each one records the "problem", not 
 
 **Lesson generalized.** Any piece of mutable state that can be read-modified-written from more than one place should either be owned by exactly one place, or always be re-read immediately before every write. A cached snapshot is a promised that nothing else changed the underlying state in the meantime — true right up until it isn't.
 
-### DD=3 — Rarity classified by sampled label color, not a separate detection mode (2026-07-14, `0014fad`)
+### DD-3 — Rarity classified by sampled label color, not a separate detection mode (2026-07-14, `0014fad`)
 
 **Context.** Item quality (Normal, Magic, Rare, Set, Unique, ...) needed to factor into matching, since a user watching "Ring" for Uniques only shouldn't get alerted for eevry magic Magic ring on the ground.
 
@@ -87,7 +87,7 @@ Entries are in roughly chronological order. Each one records the "problem", not 
 
 **Consequence.** This tied item matching to color sampling accuracy from day one — which made the sampling-quality work later in this log (DD-5 onward) a correctness issue for the *matching logic*, not just a cosmetic one for a rarity-dot UI indicator.
 
-## DD-4 — Rarity color sampling: per-pixel vote instead of a single RGB average
+### DD-4 — Rarity color sampling: per-pixel vote instead of a single RGB average
 
 **Context.** Field testing surfaced misclassifications in both directions: white read as gray and vice versa, gray read as blue and vice versa. The original `SampleRarity` averaged raw RGB across every foreground (mask-flagged) pixel in a label's box, then classified that one averaged color.
 
@@ -167,11 +167,39 @@ What actually changed is the *middle-ground*: a knife's-edge vote (confidence ne
 
 **Context.** DD-8's filtering logic (`MatchesSearch`/`MatchesTier`/`MatchesVariants`) lived on `ItemBaseViewModel`, and `CatalogFilter` lived alongside it in `Desktop/ViewModels` — both reasonable at the time, but it meant the one place with real, easy-to-get-subtly-wrong boolean composition (empty-selection-means-everything, OR-within-a-group for Tier vs. the same OR-within-a-group for variants having a genuinely different practical effect, search checking three fields not one) had no test coverage, and couldn't get any without `D2RLootRadar.Tests` taking reference to `D2RLootRadar.Desktop` — a `net10.0-windows`/`UseWPF` project. `Tests` deliberately has never referenced `Desktop`, for the same reason DD-1 keeps `Domain`/`Application` free of Windows-specific dependencies in the first place.
 
-**Decision.** `CatalogFilter` and the three matching methods moved to a new `D2RLootRadar.Application/Catalog/ folder` — `CatalogFilter` unchanged, and the matching methods became a static `CatalogFilterMatcher` operating directly on `Domain`'s `ItemBase` record (the same data the catalog is already built from) instead of on the view model wrapper. `ItemBaseViewModel.MatchesSearch/MatchesTier/MatchesVariants` are now one-line callers into `CatalogFilterMatcher`, supplying the item's own fields — `CategoryViewModel.ApplyFilters` didn't need to change at all, since it was already calling those three methods by name rather than reimplementing the logic itself.
+**Decision.** `CatalogFilter` and the three matching methods moved to a new `D2RLootRadar.Application/Catalog/` folder — `CatalogFilter` unchanged, and the matching methods became a static `CatalogFilterMatcher` operating directly on `Domain`'s `ItemBase` record (the same data the catalog is already built from) instead of on the view model wrapper. `ItemBaseViewModel.MatchesSearch/MatchesTier/MatchesVariants` are now one-line callers into `CatalogFilterMatcher`, supplying the item's own fields — `CategoryViewModel.ApplyFilters` didn't need to change at all, since it was already calling those three methods by name rather than reimplementing the logic itself.
 
 **Why `Application` and not `Domain`.** `CatalogFilterMatcher` is pure and stateless, so either would work mechanically, but it's UI-driven policy (what the *main window's* search box and filter popup mean), not a fact about the game data itself the way `ItemBase` or `RarityFlags` are — the same distinction the already keeps `LootMonitoringService` in `Application` rather than `Domain`.
 
 **Consequence.** `D2RLootRadar.Tests/Catalog/CatalogFilterMatcherTests.cs` now exercises every rule referenced above directly, the same way `RarityScoreTests`/`UserSettingsTests` already cover their own layer's pure logic — and any future filter dimension gets the same test coverage for free by construction, since there's no view-model-only code path left for filtering logic to hide in.
+
+### DD-11 — Fixed a confidence-dillution bug in `SampleRarity`, and extracted the vote math to `Application/Ocr` (2026-07-24)
+
+**Context.** Reported symptom: label color seemed to have no effect on matching at all — a white-labeled item would still trigger a match when only Unique/Set was selected for that base, and a Superior-prefixed detection behaved the same way regardless of what was actually selected.
+
+**Root cause.** `OcrService.SampleRarity` tallies a vote per foreground pixel (`LabelRarityClassifier.Classify`) and computed `confidence = bestVotes / count`, where `count` was *every* sampled foregrounf pixel — including ones that classified as `LabelRarity.Unknown` (anti-aliased edhe pixels, upscaling artifacts; this method's own remarks already described that noise as routine, just hadn't accounted for what it does to the denominator). An `Unknown` pixel didn't vote against the winning tier, it didn't vote at all, but dividing by every samples pixel treated it as if it had — chronically deflating `RarityConfidence` on real captures. Fed into DD-6's blended score (`TextWeight = 0.7`/`ColorWeight = 0.3`, default `FuzzyMatchThreshold = 0.80`), a deflated confidence meant a wrong color needed roughly ≥ 67% *confident-wrong* votes before it could drag a strong text match below threshold — a bar real noisy capture rarely cleared, so in practice color barely gated anything.
+
+**Decision.** Confidence is now `bestVotes / (count - unknownVotes)` — the winning tier's share of pixels that voted for *some* color, excluding `Unknown` from the denominator entirely. The vote-tallying and confidence math were also pulled out of `SampleRarity` into a new static `D2RLootRadar.Application/Ocr/RarityVoteTally.Resolve(ReadOnlySpan<int> votes)`, with `RarityVoteTally.TierCount` as the single source of truth for the vote array's size (removing a constant that used to be duplicated as `OcrService.RarityTierCount`).
+
+**Why extracted, given `D2RLootRadar.Tests` already references `Infrastructure` (unlike the Desktop boundary DD-10 exists for).** `Infrastructure` targets plain `net10.0`, not `net10.0-windows`, so there's no hard TFM/workload wall here the way there is for `Desktop`. The real obstacle was narrower: `SampleRarity` is `private` and its vote math is entangled with iterating a real `System.Drawing.Bitmap`'s pixel data — exercising the exact scenario that caused this bug (a majority color vote diluted by a chunk of `Unknown` votes) would otherwise mean constructing real bitmaps and masks just to test a formula over an `int` array. Pulling the math out into something that takes a plain vote tally sidesteps that entirely.
+
+**Consequence.** `D2RLootRadar.Tests/Ocr/RarityVoteTallyTests.cs` covers the exact regression (a landslide real-color vote diluted by a large minority of `Unknown` votes must still score full confidence), plus the surrounding edge cases (all-zero, all-`Unknown`, minority-wrong-tier-plues-`Unknown`, a genuine close split between two real tiers, and the deterministic tie-break). The 0.7/0.3 weighting itself (DD-6) wasn't touched — the working theory is that correcting the dilution bug alone restores enough real-world confidence separation for DD-6's existing math to gate correctly, but that's a claim only real gameplay testing can confirm; see the open question on that weighting below if it turns out no to be enough on its own.
+
+### DD-12 — Catalog-wide Unique/Set bulk-select is a separate popup, and touches one bit at a time (2026-07-24)
+
+**Context.** Selecting Unique (or Set) for every eligible base one row at a time was the only way to build a "watch everything Unique" list, across ~150+ Unique capable bases spread over a dozen-plus categories.
+
+**Decision.** `MainViewModel.AllUniqueSelected`/`AllSetSelected` are tri-state properties (`false`/`true`/`null`, same three-value shape as `CategoryViewModel.AllSelected`) scoped to the whole catalog rather than one category, and to a single rarity bit rather than every applicable one. Setting either one calls a new `CategoryViewModel.SetAllUnique`/`SetAllSet` on every category, which only touches items where `ItemBaseViewModel.ShowUnique`/`ShowSet` is true, and only flips that one bit (`IsUniqueSelected`/`IsSetSelected`) — an item that already has, say, Magic selected keeps it; bulk-select adds to a selection, it doesn't replace one. That's the same stacking rule every other selection control in the app already follows (DD before this one didn't need to state it explicitly because nothing else touched more than one item's full selection at once until now).
+
+**Why a separate "Select" popup instead of folding this into the existing Filters popup.** The filters popup already has "Has Unique"/"Has Set" checkboxes sitting right there — reusing that same popup for "select every Unique" would put a control that changes the watch list directly next to two that only narrow what's currently *shown*, with near-identical labels. That's a much easier mix-up than the cost of one more `ToggleButton`+`Popup` pair (same pattern as Filters, just scoped to selection instead of visibility).
+
+**Why this ignores the current search/filter state.** Like `CategoryViewModel.AllSelected` before it, `AllUniqueSelected`/`AllSetSelected` reach every item in the catalog, not just what's currently visible under an active search or filter. The alternative — scoping the bulk toggle to only the currently-filtered-subset — would make the tri-state's own meaning depend on transient UI state that has nothing to do with the watch list itself; clearing a search could then make an already-"true" tri-state suddenly read as "mixed" purely because more items became visible, with no change to any actual selection.
+
+**Notification plumbing, without adding a new signal.** `CategoryViewModel.SelectedCount`'s `PropertyChanged` notification already fires on every single rarity toggle in that category (see DD-8's remarks — it's not value-diffed, so a toggle that doesn't change the numeric count still raises it), and `MainViewModel.OnCategoryPropertyChanged` already listens for exactly that. Re-raising `AllUniqueSelected`/`AllSetSelected` from inside that same handler means the two new tri-states stay correct after *any* rarity change anywhere — a single item's popup toggle, a category's own "select all", or the new catalog-wide toggles — without a second notification path to keep in sync with the first.
+
+**Batching.** `CategoryViewModel.SetAllUnique`/`SetAllSet` share a private `SetEligibleItems` helper that unsubscribes/reapplies/notifies-once per category, the same shape `AllSelected`'s setter already used — so toggling "all Unique" across ~150 item fires one `PropertyChanged` per category touched (a dozen-plus), not one per item.
+
+**Consequence.** No new test coverage was added for this one — `ComputeBulkTriState`'s logic (count eligible, count selected, three-way compara) is a smaller, three-way version of the same shape `CategoryViewModel.AllSelected`'s getter already has un-tested, and both remain untestable in isolation for the same structural reason DD-10 existed to fix (they live on Desktop-layer view models, which `D2RLootRadar.Tests` deliberately doesn't reference). Unlike DD-8/DD-10's filter-matching logic, there's no genuinely tricky boolean composition here to guard against regressing — it's a threshold count, not multiple independently-toggleable constraints being AND'd/OR'd together — so it wasn't judged worth its own `Application`-layer extraction the way `CatalogFilterMatcher`/`RarityVoteTally` were. If a fourth or fifth "select all X" toggle gets added later and this three-way tri-state math ends up duplicated a third or fourth time, that's the point worth revisiting it.
 
 ---
 

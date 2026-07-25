@@ -117,6 +117,13 @@ public partial class MainViewModel : ObservableObject
   private bool _isFilterPopupOpen;
 
   /// <summary>
+  /// Whether the catalog-wide bulk-select popup (<see cref="AllUniqueSelected"/>/<see cref="AllSetSelected"/>) is currently open.
+  /// Pure UI state, same treatment as <see cref="IsFilterPopupOpen"/>.
+  /// </summary>
+  [ObservableProperty]
+  private bool _isBulkSelectPopupOpen;
+
+  /// <summary>
   /// All item base categories, in display order, each with its selectable items.
   /// </summary>
   public ObservableCollection<CategoryViewModel> Categories { get; } = [];
@@ -149,6 +156,55 @@ public partial class MainViewModel : ObservableObject
   /// patching this collection to match.
   /// </summary>
   public ObservableCollection<ActiveFilterTag> ActiveFilters { get; } = [];
+
+  /// <summary>
+  /// Tri-state bulk toggle for "watch every base that can drop as Unique, everywhere in the catalog" -
+  /// same tri-state pattern as <see cref="CategoryViewModel.AllSelected"/>,
+  /// just scoped to the whole catalog and to a single rarity bit rather than every applicable one on each item.
+  /// 
+  /// <para>
+  /// false = no eligible item currently has Unique selected, true = every eligible item does,
+  /// null = some but not all.
+  /// Only items that can actually appear as Unique at all (<see cref="ItemBaseViewModel.ShowUnique"/>)
+  /// count toward either number - a base with no Unique variant isn't "missing" a selection it could never have,
+  /// and its absence shouldn't be able to keep this permanentely stuck at "mixed".
+  /// </para>
+  /// 
+  /// <para>
+  /// Setting this toggles just the Unique bit on each eligible item, leaving every other rarity that item
+  /// already has untouched - stacking, not replacing, the same rule every other selection control in the app already follows.
+  /// Deliberately ignores the current search/filter state and reaches every item in the catalog, not just what's currenlty visible -
+  /// the same choice <see cref="CategoryViewModel.AllSelected"/> already makes,
+  /// so a filtered-out item's selection doesn't silently diverge from what this tri-state claims about it.
+  /// </para>
+  /// </summary>
+  public bool? AllUniqueSelected
+  {
+    get => ComputeBulkTriState(i => i.ShowUnique, i => i.IsUniqueSelected);
+    set
+    {
+      bool select = value ?? true; // indeterminate click → select all
+
+      foreach (CategoryViewModel category in Categories)
+        category.SetAllUnique(select);
+    }
+  }
+
+  /// <summary>
+  /// Tri-state bulk toggle for "watch every base that can drop as Set, everywhere in the catalog" -
+  /// see <see cref="AllUniqueSelected"/>'s remarks, which apply here identically with Set in place of Unique.
+  /// </summary>
+  public bool? AllSetSelected
+  {
+    get => ComputeBulkTriState(i => i.ShowSet, i => i.IsSetSelected);
+    set
+    {
+      bool selected = value ?? true;
+
+      foreach (CategoryViewModel category in Categories)
+        category.SetAllSet(selected);
+    }
+  }
 
   /// <summary>
   /// Whether a search is currently active - drives the clear ("×") button's visibility.
@@ -482,8 +538,11 @@ public partial class MainViewModel : ObservableObject
     };
 
   /// <summary>
-  /// Reacts to any category's selection count changing by incrementally updating just that
-  /// category's summary entry and scheduling a debounced save.
+  /// Reacts to any category's selection count changing by incrementally updating just that category's summary entry,
+  /// scheduling a debounced save, and refreshing the two catalog-wide bulk-select tri-states -
+  /// <see cref="CategoryViewModel.SelectedCount"/> is raised on every single rarity toggle anywhere in that category
+  /// (not just ones that change its numeric value), so this fires precisely when any of the
+  /// three could have changed, no more and no less.
   /// </summary>
   private void OnCategoryPropertyChanged(object? sender, PropertyChangedEventArgs ea)
   {
@@ -494,7 +553,38 @@ public partial class MainViewModel : ObservableObject
     {
       RefreshSummary(category);
       ScheduleSave();
+
+      OnPropertyChanged(nameof(AllUniqueSelected));
+      OnPropertyChanged(nameof(AllSetSelected));
     }
+  }
+
+  private bool? ComputeBulkTriState(
+    Func<ItemBaseViewModel, bool> isEligible,
+    Func<ItemBaseViewModel, bool> isSelected
+  )
+  {
+    int eligible = 0;
+    int selected = 0;
+
+    foreach (CategoryViewModel category in Categories)
+      foreach (ItemBaseViewModel item in category.Items)
+      {
+        if (!isEligible(item))
+          continue;
+
+        eligible++;
+
+        if (isSelected(item))
+          selected++;
+      }
+
+    if (eligible == 0 || selected == 0)
+      return false;
+    if (selected == eligible)
+      return true;
+
+    return null;
   }
 
   /// <summary>
