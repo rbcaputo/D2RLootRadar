@@ -61,7 +61,7 @@ Two things worth calling out because they're easy to miss just from reading the 
 
 Entries are in roughly chronological order. Each one records the "problem", not just the *change* — the goal is that a future entry can be added the same way, and a reader can trace the reasoning without having to reconstruct it from a diff.
 
-### DD=1 — Layered architecture with `Application`-owned contracts (project inception)
+### DD-1 — Layered architecture with `Application`-owned contracts (project inception)
 
 **Context.** A WPF desktop app that does OCR, screen capture, and Win32 interop is easy to write as one big project where the ViewModel directly instantiates `TesseractEngine` and `Bitmap`. That's fast to write once and expensive to test or extend afterward — anything touching OCR or capture becomes untestable without a real D2R window on screen.
 
@@ -69,7 +69,7 @@ Entries are in roughly chronological order. Each one records the "problem", not 
 
 **Consequence.** `D2RLootRadar.Tests` runs on any platform, no D2R instance or Windows box required, and covers exactly the parts of the pipeline where correctness actually matters most to get right by hand (fuzzy matching, rarity scoring, settings clamping) — see [Running tests](../README.md#running-tests) in the README.
 
-### DD=2 — Settings persistence: load-fresh-then-save, not a cached in-memory snapshot (2026-07-03, `a3fd66c`)
+### DD-2 — Settings persistence: load-fresh-then-save, not a cached in-memory snapshot (2026-07-03, `a3fd66c`)
 
 **Context.** `MainViewModel` held a `UserSettings _settings` field, loaded once and mutated/saved from that same field on every change. In practice, saves from the main window could silently discard changes made elsewhere (e.g. the Settings window, saved through a separate path) — each side's cached snapshot only knew about its own edits, and whichever side saved last won, overwriting the other's changes on disk even though neither side did anything wrong in isolation.
 
@@ -79,7 +79,7 @@ Entries are in roughly chronological order. Each one records the "problem", not 
 
 **Lesson generalized.** Any piece of mutable state that can be read-modified-written from more than one place should either be owned by exactly one place, or always be re-read immediately before every write. A cached snapshot is a promised that nothing else changed the underlying state in the meantime — true right up until it isn't.
 
-### DD=3 — Rarity classified by sampled label color, not a separate detection mode (2026-07-14, `0014fad`)
+### DD-3 — Rarity classified by sampled label color, not a separate detection mode (2026-07-14, `0014fad`)
 
 **Context.** Item quality (Normal, Magic, Rare, Set, Unique, ...) needed to factor into matching, since a user watching "Ring" for Uniques only shouldn't get alerted for eevry magic Magic ring on the ground.
 
@@ -87,7 +87,7 @@ Entries are in roughly chronological order. Each one records the "problem", not 
 
 **Consequence.** This tied item matching to color sampling accuracy from day one — which made the sampling-quality work later in this log (DD-5 onward) a correctness issue for the *matching logic*, not just a cosmetic one for a rarity-dot UI indicator.
 
-## DD-4 — Rarity color sampling: per-pixel vote instead of a single RGB average
+### DD-4 — Rarity color sampling: per-pixel vote instead of a single RGB average
 
 **Context.** Field testing surfaced misclassifications in both directions: white read as gray and vice versa, gray read as blue and vice versa. The original `SampleRarity` averaged raw RGB across every foreground (mask-flagged) pixel in a label's box, then classified that one averaged color.
 
